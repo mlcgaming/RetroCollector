@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RetroCollector.Models {
-    public class GameCompany : IndexItem {
+    public class Company : IndexItem {
         private string name;
         private Country country;
 
@@ -16,7 +16,7 @@ namespace RetroCollector.Models {
             get { return country; }
         }
 
-        public GameCompany(int id, string name, Country country) {
+        public Company(int id, string name, Country country) {
             this.id = id;
             this.name = name;
             this.country = country;

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace RetroCollector.Models {
     public class VideoGame : Product {
         private string title;
-        private GameCompany developer;
-        private GameCompany publisher;
+        private Company developer;
+        private Company publisher;
         private DateTime releaseDate;
         private ProductQuality quality;
         private ProductCompleteness completion;
@@ -17,10 +17,10 @@ namespace RetroCollector.Models {
         public string Title {
             get { return title; }
         }
-        public GameCompany Developer {
+        public Company Developer {
             get { return developer; }
         }
-        public GameCompany Publisher {
+        public Company Publisher {
             get { return publisher; }
         }
         public DateTime Released {
@@ -37,7 +37,7 @@ namespace RetroCollector.Models {
         }
 
         public VideoGame(int id, string title, decimal cost, decimal price, ProductQuality quality, ProductCompleteness completion, ProductRegion region,
-            string description = "", GameCompany developer = null, GameCompany publisher = null, DateTime releaseDate = default) {
+            string description = "", Company developer = null, Company publisher = null, DateTime releaseDate = default) {
 
             this.id = id;
             this.description = description;

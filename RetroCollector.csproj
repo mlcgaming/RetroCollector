@@ -60,7 +60,7 @@
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\CustomerAccount.cs" />
     <Compile Include="Models\CustomUserRole.cs" />
-    <Compile Include="Models\GameCompany.cs" />
+    <Compile Include="Models\Company.cs" />
     <Compile Include="Models\GameMerchandise.cs" />
     <Compile Include="Models\IndexItem.cs" />
     <Compile Include="Models\IProduct.cs" />
