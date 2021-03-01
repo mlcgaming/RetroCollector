@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RetroCollector.Data {
-    class Settings {
+    public class Settings {
+
     }
 }

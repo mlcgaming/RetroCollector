@@ -49,6 +49,7 @@
     <Compile Include="Data\Management\DatabaseManager.cs" />
     <Compile Include="Data\Management\FileManager.cs" />
     <Compile Include="Data\Settings.cs" />
+    <Compile Include="Exceptions\InvalidPurchaseReturnAmountException.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

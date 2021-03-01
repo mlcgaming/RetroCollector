@@ -49,7 +49,19 @@ namespace RetroCollector.Models {
             this.price = price;
         }
         public decimal Purchase(decimal amountPaid) {
-            return (price - amountPaid);
+            try {
+                decimal change = (amountPaid - price);
+
+                if(change < 0M) {
+                    throw new InvalidPurchaseReturnAmountException();
+                }
+                else {
+                    return change;
+                }
+            }
+            catch (InvalidPurchaseReturnAmountException) {
+                return default;
+            }
         }
         public decimal GetTotalWithTax() {
             return (decimal)((float)price * 1.0815f);

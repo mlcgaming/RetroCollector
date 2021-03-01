@@ -21,18 +21,22 @@ namespace RetroCollector.Models {
             AllowAdminControls
         }
 
-        private string description;
-        private Dictionary<Permission, bool> permissions;
+        protected string name;
+        protected string description;
+        protected Dictionary<Permission, bool> permissions;
 
+        public string Name {
+            get => name;
+        }
         public string Description {
-            get { return description; }
+            get => description;
         }
         public Dictionary<Permission, bool> Permissions {
-            get { return permissions; }
+            get => permissions;
         }
 
-        public static Dictionary<Permission, bool> GetDefaultPermissions() {
-            return new Dictionary<Permission, bool>() {
+        protected virtual void CreateDefaultPermissions() {
+            permissions = new Dictionary<Permission, bool>() {
                 { Permission.AllowAdminControls, false },
                 { Permission.AllowCreateProducts, false },
                 { Permission.AllowCreateRoles, false },
