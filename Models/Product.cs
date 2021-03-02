@@ -27,19 +27,31 @@ namespace RetroCollector.Models {
             OTHER
         }
 
+        protected string name;
         protected string description;
         protected decimal cost;
         protected decimal price;
+        protected Company company;
+        protected int onHand;
 
+        public string Name {
+            get => name;
+        }
         public string Description {
-            get { return description; }
-            set { description = value; }
+            get => description;
+            set => description = value;
         }
         public decimal Cost {
-            get { return cost; }
+            get => cost;
         }
         public decimal Price {
-            get { return price; }
+            get => price;
+        }
+        public Company Company {
+            get => company;
+        }
+        public int OnHand {
+            get => onHand;
         }
 
         public void UpdateCost(decimal cost) {
@@ -68,6 +80,9 @@ namespace RetroCollector.Models {
         }
         public decimal GetTotalWithTax(float taxRate) {
             return (decimal)((float)price * taxRate);
+        }
+        public override string ToString() {
+            return ($"{id} PRODUCT DESCRIPTION: {description}");
         }
     }
 }

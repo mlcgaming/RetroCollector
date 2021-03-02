@@ -6,16 +6,13 @@ using System.Threading.Tasks;
 
 namespace RetroCollector.Models {
     public class VideoGameConsole : Product {
-        private string name;
         private Company developer;
         private DateTime released;
         private ProductQuality quality;
         private ProductCompleteness completion;
         private ProductRegion region;
+        private List<string> aliases;
 
-        public string Name {
-            get => name;
-        }
         public Company Developer {
             get => developer;
         }
@@ -31,9 +28,13 @@ namespace RetroCollector.Models {
         public ProductRegion Region {
             get => region;
         }
+        public List<string> Aliases {
+            get => aliases;
+        }
 
         public VideoGameConsole(int id, string name, decimal cost, decimal price, Company developer, ProductQuality quality, ProductCompleteness completion,
-            ProductRegion region, string description = "", DateTime released = default, DateTime dateCreated = default, DateTime dateLastUpdated = default, UserAccount createdBy = null, UserAccount lastUpdatedBy = null) {
+            ProductRegion region, string description = "", DateTime released = default, DateTime dateCreated = default, DateTime dateLastUpdated = default, 
+            UserAccount createdBy = null, UserAccount lastUpdatedBy = null, List<string> aliases = null) {
 
             this.id = id;
             this.name = name;
@@ -49,6 +50,14 @@ namespace RetroCollector.Models {
             this.dateLastUpdated = dateLastUpdated;
             this.createdBy = createdBy;
             this.lastUpdatedBy = lastUpdatedBy;
+
+            if(aliases != null) {
+                this.aliases = new List<string>(aliases);
+            }
+            else {
+                this.aliases = new List<string>();
+            }
+            
         }
     }
 }
