@@ -50,11 +50,23 @@
     <Compile Include="Data\Management\FileManager.cs" />
     <Compile Include="Data\Settings.cs" />
     <Compile Include="Exceptions\InvalidPurchaseReturnAmountException.cs" />
+    <Compile Include="Forms\DBSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DBSetupForm.Designer.cs">
+      <DependentUpon>DBSetupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminUserRole.cs" />
     <Compile Include="Models\Country.cs" />
@@ -78,6 +90,12 @@
     <Compile Include="Models\VideoGameConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\DBSetupForm.resx">
+      <DependentUpon>DBSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

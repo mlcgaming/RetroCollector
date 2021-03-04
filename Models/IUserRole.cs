@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace RetroCollector.Models {
     public interface IUserRole {
-
+        void CreateDefaultPermissions();
     }
 }
