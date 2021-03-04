@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 
 namespace RetroCollector.Models {
     public class GameMerchandise : Product {
-        private string name;
         private Company developer;
         private DateTime released;
         private ProductQuality quality;
         private ProductCompleteness completion;
         private ProductRegion region;
 
-        public string Name {
-            get => name;
-        }
         public Company Developer {
             get => developer;
         }

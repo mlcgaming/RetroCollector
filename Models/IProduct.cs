@@ -5,5 +5,6 @@
         decimal Purchase(decimal amountPaid);
         decimal GetTotalWithTax();
         decimal GetTotalWithTax(float taxRate);
+        string ToString();
     }
 }
