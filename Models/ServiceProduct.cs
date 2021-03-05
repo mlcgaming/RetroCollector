@@ -8,7 +8,7 @@ namespace RetroCollector.Models {
     public class ServiceProduct : Product {
 
         public ServiceProduct(int id, string name, string description, decimal cost, decimal price,
-            DateTime dateCreated = default, DateTime dateLastUpdated = default, UserAccount createdBy = null, UserAccount lastUpdatedBy = null) {
+            DateTime dateCreated = default, DateTime dateLastUpdated = default, string createdBy = null, string lastUpdatedBy = null) {
 
             this.id = id;
             this.name = name;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RetroCollector.Models {
-    public abstract class UserRole : IndexItem, IUserRole {
+    public class UserRole : IndexItem, IUserRole {
         public enum Permission {
             AllowCreateProducts,
             AllowEditProducts,
@@ -35,7 +35,19 @@ namespace RetroCollector.Models {
             get => permissions;
         }
 
-        protected virtual void CreateDefaultPermissions() {
+        public UserRole(int id, string name, string description = "", Dictionary<Permission, bool> permissions = null, DateTime dateCreated = default, DateTime dateLastUpdated = default, string createdBy = "", string lastUpdatedBy = "") {
+            this.id = id;
+            this.name = name;
+            this.description = description;
+            this.dateCreated = dateCreated;
+            this.dateLastUpdated = dateLastUpdated;
+            this.createdBy = createdBy;
+            this.lastUpdatedBy = lastUpdatedBy;
+
+
+        }
+
+        public virtual void CreateDefaultPermissions() {
             permissions = new Dictionary<Permission, bool>() {
                 { Permission.AllowAdminControls, false },
                 { Permission.AllowCreateProducts, false },

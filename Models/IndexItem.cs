@@ -9,8 +9,8 @@ namespace RetroCollector.Models {
         protected int id;
         protected DateTime dateCreated;
         protected DateTime dateLastUpdated;
-        protected UserAccount createdBy;
-        protected UserAccount lastUpdatedBy;
+        protected string createdBy;
+        protected string lastUpdatedBy;
 
         public int ID {
             get { return id; }
@@ -21,10 +21,10 @@ namespace RetroCollector.Models {
         public DateTime LastUpdated {
             get { return dateLastUpdated; }
         }
-        public UserAccount CreatedBy {
+        public string CreatedBy {
             get { return createdBy; }
         }
-        public UserAccount LastUpdatedBy {
+        public string LastUpdatedBy {
             get { return lastUpdatedBy; }
         }
     }

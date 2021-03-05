@@ -29,7 +29,7 @@ namespace RetroCollector.Models {
         }
 
         public GameMerchandise(int id, string name, decimal cost, decimal price, Company developer, ProductQuality quality, ProductCompleteness completion,
-            ProductRegion region, string description = "", DateTime released = default, DateTime dateCreated = default, DateTime dateLastUpdated = default, UserAccount createdBy = null, UserAccount lastUpdatedBy = null) {
+            ProductRegion region, string description = "", DateTime released = default, DateTime dateCreated = default, DateTime dateLastUpdated = default, string createdBy = "", string lastUpdatedBy = "") {
 
             this.id = id;
             this.name = name;
