@@ -60,6 +60,32 @@ namespace RetroCollector.Data.Management {
             // Set Connection Details
             MySqlConnection dbConn = new MySqlConnection(GetConnectionString());
 
+            // Load All User Roles
+            GetAllUserRoles(dbConn);
+
+            // Load All Users
+            GetAllUsers(dbConn);
+
+            // Load All Customers
+            GetAllCustomers(dbConn);
+
+            // Load all Companies
+            GetAllCompanies(dbConn);
+
+            // Load all Product Types
+            GetAllProductTypes(dbConn);
+
+            // Load all Products
+            GetAllProducts(dbConn);
+
+            // Load all Transaction Line Items
+            GetAllTransactionItems(dbConn);
+
+            // Load all Transactions
+            GetAllTransactions(dbConn);
+        }
+
+        private static void GetAllUserRoles(MySqlConnection dbConn) {
             // Load User Roles
             try {
                 dbConn.Open();
@@ -87,11 +113,13 @@ namespace RetroCollector.Data.Management {
                 }
             }
             catch(MySqlException ex) {
-                
+                MessageBox.Show(ex.Message);
             }
             finally {
                 dbConn.Close();
             }
+        }
+        private static void GetAllUsers(MySqlConnection dbConn) {
 
             // Load Users
             try {
@@ -105,6 +133,126 @@ namespace RetroCollector.Data.Management {
                         reader.GetString(5), reader.GetInt32(10), reader.GetDateTime(6), reader.GetDateTime(7), reader.GetString(8), reader.GetString(9));
 
                     Users.Add(newUser);
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
+            }
+        }
+        private static void GetAllCustomers(MySqlConnection dbConn) {
+
+            // Load Customers
+            try {
+                dbConn.Open();
+
+                MySqlCommand getUsersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.customers", dbConn);
+                MySqlDataReader reader = getUsersCommand.ExecuteReader();
+
+                while(reader.Read()) {
+                    
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
+            }
+        }
+        private static void GetAllCompanies(MySqlConnection dbConn) {
+
+            // Load Companies
+            try {
+                dbConn.Open();
+
+                MySqlCommand getUsersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.companies", dbConn);
+                MySqlDataReader reader = getUsersCommand.ExecuteReader();
+
+                while(reader.Read()) {
+
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
+            }
+        }
+        private static void GetAllProductTypes(MySqlConnection dbConn) {
+
+            // Load Product Types
+            try {
+                dbConn.Open();
+
+                MySqlCommand getUsersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.producttypes", dbConn);
+                MySqlDataReader reader = getUsersCommand.ExecuteReader();
+
+                while(reader.Read()) {
+
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
+            }
+        }
+        private static void GetAllProducts(MySqlConnection dbConn) {
+
+            // Load Products
+            try {
+                dbConn.Open();
+
+                MySqlCommand getUsersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.products", dbConn);
+                MySqlDataReader reader = getUsersCommand.ExecuteReader();
+
+                while(reader.Read()) {
+
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
+            }
+        }
+        private static void GetAllTransactionItems(MySqlConnection dbConn) {
+
+            // Load Transaction Items
+            try {
+                dbConn.Open();
+
+                MySqlCommand getUsersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.transactionitems", dbConn);
+                MySqlDataReader reader = getUsersCommand.ExecuteReader();
+
+                while(reader.Read()) {
+
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
+            }
+        }
+        private static void GetAllTransactions(MySqlConnection dbConn) {
+
+            // Load Transactions
+            try {
+                dbConn.Open();
+
+                MySqlCommand getUsersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.transactions", dbConn);
+                MySqlDataReader reader = getUsersCommand.ExecuteReader();
+
+                while(reader.Read()) {
+
                 }
             }
             catch(MySqlException ex) {
