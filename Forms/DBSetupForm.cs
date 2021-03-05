@@ -7,18 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RetroCollector.Models;
 using RetroCollector.Data.Management;
+using RetroCollector.Models;
 
 namespace RetroCollector {
-    public partial class MainForm : Form {
-        public MainForm() {
+    public partial class DBSetupForm : Form {
+        public DBSetupForm() {
             InitializeComponent();
-
-            DatabaseManager.Initialize();
-
-            LoginForm loginForm = new LoginForm();
-
         }
     }
 }
