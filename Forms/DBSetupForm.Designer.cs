@@ -119,6 +119,7 @@ namespace RetroCollector {
             // 
             this.tboxPassword.Location = new System.Drawing.Point(108, 219);
             this.tboxPassword.Name = "tboxPassword";
+            this.tboxPassword.PasswordChar = '*';
             this.tboxPassword.Size = new System.Drawing.Size(236, 20);
             this.tboxPassword.TabIndex = 10;
             // 

@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.23.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Management\DatabaseManager.cs" />
+    <Compile Include="Data\Management\PasswordManager.cs" />
     <Compile Include="Data\Management\ProductManager.cs" />
     <Compile Include="Data\Settings.cs" />
     <Compile Include="Exceptions\InvalidPurchaseReturnAmountException.cs" />
@@ -62,16 +64,11 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\LoginForm.cs" />
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdminUserRole.cs" />
-    <Compile Include="Models\Country.cs" />
-    <Compile Include="Models\CustomerAccount.cs" />
-    <Compile Include="Models\CustomUserRole.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\GameMerchandise.cs" />
     <Compile Include="Models\IndexItem.cs" />
@@ -80,9 +77,8 @@
     <Compile Include="Models\IUserRole.cs" />
     <Compile Include="Models\Peripheral.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductManager.cs" />
     <Compile Include="Models\ServiceProduct.cs" />
-    <Compile Include="Models\StandardUserRole.cs" />
-    <Compile Include="Models\SystemAccount.cs" />
     <Compile Include="Models\TransactionSale.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Models\UserRole.cs" />

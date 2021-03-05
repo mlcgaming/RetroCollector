@@ -12,13 +12,32 @@ using RetroCollector.Data.Management;
 
 namespace RetroCollector {
     public partial class MainForm : Form {
+        private UserAccount activeUser = null;
+        
+        public UserAccount ActiveUser {
+            get => activeUser;
+        }
+
         public MainForm() {
             InitializeComponent();
 
             DatabaseManager.Initialize();
 
-            LoginForm loginForm = new LoginForm();
+            LoginForm userLogin = new LoginForm();
+            userLogin.UserLoggedIn += OnUserLoggedIn;
+            userLogin.FormClosed += OnLoginFormClosing;
+            userLogin.ShowDialog();
+        }
 
+        // Event Handlers
+        private void OnUserLoggedIn(object sender, UserLoggedInEventArgs e) {
+            activeUser = e.User;
+        }
+        private void OnLoginFormClosing(object sender, EventArgs e) {
+            if(activeUser == null) {
+                MessageBox.Show("No User Logged In. Closing.");
+                Application.Exit();
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RetroCollector.Models {
-    public class SystemAccount : UserAccount {
+    public class Customer  {
 
     }
 }
