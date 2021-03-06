@@ -38,6 +38,9 @@ namespace RetroCollector {
                 MessageBox.Show("No User Logged In. Closing.");
                 Application.Exit();
             }
+            else {
+                listAllProducts.DataSource = ProductManager.Products;
+            }
         }
     }
 }

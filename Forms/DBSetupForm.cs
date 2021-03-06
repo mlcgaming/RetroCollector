@@ -108,11 +108,10 @@ namespace RetroCollector {
         private void OnTestConnectionPressed(object sender, EventArgs e) {
             string dbAddress = tboxServerName.Text;
             int dbPort = int.Parse(tboxPort.Text);
-            string dbName = tboxDatabase.Text;
             string dbUser = tboxUsername.Text;
             string dbPass = tboxPassword.Text;
 
-            string dbConnString = $"Server={dbAddress};Port={dbPort};Database={dbName};Uid={dbUser};Pwd={dbPass};";
+            string dbConnString = $"Server={dbAddress};Port={dbPort};Uid={dbUser};Pwd={dbPass};";
             MySqlConnection dbConn = new MySqlConnection(dbConnString);
 
             try {

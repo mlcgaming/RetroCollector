@@ -113,6 +113,7 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConsoleCategory.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\GameMerchandise.cs" />
@@ -122,8 +123,9 @@
     <Compile Include="Models\IUserRole.cs" />
     <Compile Include="Models\Peripheral.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductManager.cs" />
+    <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\ServiceProduct.cs" />
+    <Compile Include="Models\TransactionLineItem.cs" />
     <Compile Include="Models\TransactionSale.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Models\UserRole.cs" />

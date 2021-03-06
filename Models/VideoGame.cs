@@ -6,55 +6,29 @@ using System.Threading.Tasks;
 
 namespace RetroCollector.Models {
     public class VideoGame : Product {
-        private string title;
-        private VideoGameConsole console;
-        private Company developer;
-        private Company publisher;
+        private ConsoleCategory console;
         private DateTime releaseDate;
-        private ProductQuality quality;
-        private ProductCompleteness completion;
-        private ProductRegion region;
 
         public string Title {
-            get { return title; }
+            get { return base.name; }
         }
-        public VideoGameConsole Console {
+        public ConsoleCategory Console {
             get => console;
-        }
-        public Company Developer {
-            get { return developer; }
-        }
-        public Company Publisher {
-            get { return publisher; }
         }
         public DateTime Released {
             get { return releaseDate; }
         }
-        public ProductQuality Quality {
-            get { return quality; }
-        }
-        public ProductCompleteness Completion {
-            get { return completion; }
-        }
-        public ProductRegion Region {
-            get { return region; }
-        }
 
-        public VideoGame(int id, string title, decimal cost, decimal price, ProductQuality quality, ProductCompleteness completion, ProductRegion region,
-            VideoGameConsole console = null, string description = "", Company developer = null, Company publisher = null, DateTime releaseDate = default) {
+        public VideoGame(int id, string title, decimal cost, decimal price, int onHand, ProductQuality quality, ProductCompleteness completion, ProductRegion region, int productTypeId,
+            ConsoleCategory console = null, string description = "", Company developer = null, DateTime releaseDate = default, DateTime dateCreated = default, DateTime dateLastUpdated = default,
+            string createdBy = "", string lastUpdatedBy = "") : base(id, title, description, cost, price, onHand, developer, quality, completion, region, productTypeId, dateCreated, dateLastUpdated, createdBy, lastUpdatedBy) {
 
-            this.id = id;
-            this.description = description;
-            this.title = title;
             this.console = console;
-            this.cost = cost;
-            this.price = price;
-            this.quality = quality;
-            this.completion = completion;
-            this.region = region;
-            this.developer = developer;
-            this.publisher = publisher;
             this.releaseDate = releaseDate;
+        }
+
+        public override string ToString() {
+            return $"[Game] {Title} ({Developer}) {Price}";
         }
     }
 }

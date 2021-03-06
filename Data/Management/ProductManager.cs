@@ -4,10 +4,14 @@ using RetroCollector.Models;
 
 namespace RetroCollector.Data.Management {
     public static class ProductManager {
-        private static List<IProduct> products;
+        private static List<IProduct> products = new List<IProduct>();
+        private static List<ProductType> productTypes = new List<ProductType>();
 
         public static List<IProduct> Products {
             get => products;
+        }
+        public static List<ProductType> ProductTypes {
+            get => productTypes;
         }
 
         public static List<VideoGame> GetVideoGames() {
@@ -51,7 +55,7 @@ namespace RetroCollector.Data.Management {
             return filteredProducts.ToList();
         }
 
-        public static List<VideoGame> GetGamesByConsole(VideoGameConsole console) {
+        public static List<VideoGame> GetGamesByConsole(ConsoleCategory console) {
             IEnumerable<VideoGame> videoGames =
                 from vg in products
                 where vg.GetType() == typeof(VideoGame)
@@ -74,15 +78,6 @@ namespace RetroCollector.Data.Management {
                 if(c.Name.Contains(name)) {
                     return c;
                 }
-                else {
-                    if(c.Aliases.Count > 0) {
-                        foreach(var alias in c.Aliases) {
-                            if(alias.Contains(name)) {
-                                return c;
-                            }
-                        }
-                    }
-                }
             }
 
             return null;
@@ -94,7 +89,7 @@ namespace RetroCollector.Data.Management {
 
             IEnumerable<Product> filteredProducts =
                 from p in allProducts
-                where p.Company == company
+                where p.Developer == company
                 select p;
 
             return filteredProducts.ToList();

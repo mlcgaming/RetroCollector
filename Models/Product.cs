@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RetroCollector.Models {
-    public abstract class Product : IndexItem, IProduct {
+    public class Product : IndexItem, IProduct {
         public enum ProductCompleteness {
             Loose,
             Complete,
@@ -31,8 +31,12 @@ namespace RetroCollector.Models {
         protected string description;
         protected decimal cost;
         protected decimal price;
-        protected Company company;
         protected int onHand;
+        protected Company developer;
+        protected ProductQuality quality;
+        protected ProductCompleteness completion;
+        protected ProductRegion region;
+        protected int productTypeId;
 
         public string Name {
             get => name;
@@ -47,11 +51,41 @@ namespace RetroCollector.Models {
         public decimal Price {
             get => price;
         }
-        public Company Company {
-            get => company;
-        }
         public int OnHand {
             get => onHand;
+        }
+        public Company Developer {
+            get => developer;
+        }
+        public ProductQuality Quality {
+            get { return quality; }
+        }
+        public ProductCompleteness Completion {
+            get { return completion; }
+        }
+        public ProductRegion Region {
+            get { return region; }
+        }
+        public int ProductTypeID {
+            get => productTypeId;
+        }
+
+        public Product(int id, string name, string description, decimal cost, decimal price, int onHand, Company developer, ProductQuality quality, ProductCompleteness completion, ProductRegion region, int productTypeId, DateTime dateCreated, DateTime dateLastUpdated, string createdBy, string lastUpdatedBy) {
+            this.id = id;
+            this.name = name;
+            this.description = description;
+            this.cost = cost;
+            this.price = price;
+            this.onHand = onHand;
+            this.developer = developer;
+            this.quality = quality;
+            this.completion = completion;
+            this.region = region;
+            this.productTypeId = productTypeId;
+            this.dateCreated = dateCreated;
+            this.dateLastUpdated = dateLastUpdated;
+            this.createdBy = createdBy;
+            this.lastUpdatedBy = lastUpdatedBy;
         }
 
         public void UpdateCost(decimal cost) {

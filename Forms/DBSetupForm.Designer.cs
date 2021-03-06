@@ -85,7 +85,6 @@ namespace RetroCollector {
             // 
             this.tboxDatabase.Location = new System.Drawing.Point(211, 149);
             this.tboxDatabase.Name = "tboxDatabase";
-            this.tboxDatabase.ReadOnly = true;
             this.tboxDatabase.Size = new System.Drawing.Size(133, 20);
             this.tboxDatabase.TabIndex = 5;
             this.tboxDatabase.Text = "retrocollector";
