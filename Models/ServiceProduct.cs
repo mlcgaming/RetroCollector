@@ -11,9 +11,5 @@ namespace RetroCollector.Models {
             DateTime dateCreated = default, DateTime dateLastUpdated = default, string createdBy = null, string lastUpdatedBy = null) :
             base(id, name, description, cost, price, 9999, null, ProductQuality.New, ProductCompleteness.New, ProductRegion.OTHER, productTypeId, dateCreated, dateLastUpdated, createdBy, lastUpdatedBy) {
         }
-
-        public override string ToString() {
-            return $"[Service] {Name} {Price}";
-        }
     }
 }

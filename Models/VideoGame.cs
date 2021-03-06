@@ -28,7 +28,7 @@ namespace RetroCollector.Models {
         }
 
         public override string ToString() {
-            return $"[Game] {Title} ({Developer}) {Price}";
+            return $"[Game] {Title} ({Developer}) ${Price}";
         }
     }
 }

@@ -20,5 +20,9 @@ namespace RetroCollector.Models {
             this.createdBy = createdBy;
             this.lastUpdatedBy = lastUpdatedBy;
         }
+
+        public override string ToString() {
+            return $"{name}";
+        }
     }
 }

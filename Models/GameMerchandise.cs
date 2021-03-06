@@ -20,7 +20,7 @@ namespace RetroCollector.Models {
         }
 
         public override string ToString() {
-            return $"[Merch] {Name} ({Developer}) {Price}";
+            return $"[Merch] {Name} ({Developer}) ${Price}";
         }
     }
 }

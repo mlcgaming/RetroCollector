@@ -47,5 +47,9 @@ namespace RetroCollector.Models {
             this.createdBy = createdBy;
             this.lastUpdatedBy = lastUpdatedBy;
         }
+
+        public bool IsAllowed(UserRole.Permission permission) {
+            return role.Permissions[permission];
+        }
     }
 }

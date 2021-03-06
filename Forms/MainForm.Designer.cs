@@ -25,63 +25,121 @@ namespace RetroCollector {
         /// </summary>
         private void InitializeComponent() {
             this.grpProducts = new System.Windows.Forms.GroupBox();
+            this.btnProductEdit = new System.Windows.Forms.Button();
+            this.btnProductAdd = new System.Windows.Forms.Button();
+            this.btnProductDelete = new System.Windows.Forms.Button();
+            this.listProducts = new System.Windows.Forms.ListBox();
+            this.lblSearchItems = new System.Windows.Forms.Label();
+            this.tboxSearchItems = new System.Windows.Forms.TextBox();
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.productToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.programSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salesByDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salesByRepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.productsByCompanyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventoryReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addNewProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editExistingProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addNewUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editExistingUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.addNewUserRoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editExistingUserRoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewCurrentSalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editExistingTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.lblProductSearch = new System.Windows.Forms.Label();
-            this.listAllProducts = new System.Windows.Forms.ListBox();
-            this.btnProductDelete = new System.Windows.Forms.Button();
-            this.btnProductAdd = new System.Windows.Forms.Button();
-            this.btnProductEdit = new System.Windows.Forms.Button();
-            this.grpProcessSale = new System.Windows.Forms.GroupBox();
+            this.grpStats = new System.Windows.Forms.GroupBox();
+            this.cboxProductType = new System.Windows.Forms.ComboBox();
+            this.lblGamesTotal = new System.Windows.Forms.Label();
+            this.lblConsoleValue = new System.Windows.Forms.Label();
+            this.tboxTotalConsoleValue = new System.Windows.Forms.TextBox();
+            this.tboxTotalGameValue = new System.Windows.Forms.TextBox();
+            this.tboxTotalPeripheralValue = new System.Windows.Forms.TextBox();
+            this.tboxTotalMerchValue = new System.Windows.Forms.TextBox();
+            this.lblTotalMerchValue = new System.Windows.Forms.Label();
+            this.lblTotalPeripheralValue = new System.Windows.Forms.Label();
+            this.tboxTotalInventoryValue = new System.Windows.Forms.TextBox();
+            this.lblTotalInventoryValue = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.grpControls = new System.Windows.Forms.GroupBox();
+            this.btnControlProduct = new System.Windows.Forms.Button();
+            this.btnControlUser = new System.Windows.Forms.Button();
+            this.btnControlCustomers = new System.Windows.Forms.Button();
+            this.btnControlCompanies = new System.Windows.Forms.Button();
+            this.btnControlConsoles = new System.Windows.Forms.Button();
+            this.btnControlSales = new System.Windows.Forms.Button();
             this.grpProducts.SuspendLayout();
             this.menuMain.SuspendLayout();
+            this.grpStats.SuspendLayout();
+            this.grpControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpProducts
             // 
+            this.grpProducts.Controls.Add(this.cboxProductType);
             this.grpProducts.Controls.Add(this.btnProductEdit);
             this.grpProducts.Controls.Add(this.btnProductAdd);
             this.grpProducts.Controls.Add(this.btnProductDelete);
-            this.grpProducts.Controls.Add(this.listAllProducts);
-            this.grpProducts.Controls.Add(this.lblProductSearch);
-            this.grpProducts.Controls.Add(this.textBox1);
-            this.grpProducts.Location = new System.Drawing.Point(287, 36);
+            this.grpProducts.Controls.Add(this.listProducts);
+            this.grpProducts.Controls.Add(this.lblSearchItems);
+            this.grpProducts.Controls.Add(this.tboxSearchItems);
+            this.grpProducts.Location = new System.Drawing.Point(12, 34);
             this.grpProducts.Name = "grpProducts";
             this.grpProducts.Size = new System.Drawing.Size(321, 331);
             this.grpProducts.TabIndex = 0;
             this.grpProducts.TabStop = false;
-            this.grpProducts.Text = "Global Product List";
+            // 
+            // btnProductEdit
+            // 
+            this.btnProductEdit.Location = new System.Drawing.Point(128, 302);
+            this.btnProductEdit.Name = "btnProductEdit";
+            this.btnProductEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnProductEdit.TabIndex = 5;
+            this.btnProductEdit.Text = "Edit";
+            this.btnProductEdit.UseVisualStyleBackColor = true;
+            // 
+            // btnProductAdd
+            // 
+            this.btnProductAdd.Location = new System.Drawing.Point(6, 302);
+            this.btnProductAdd.Name = "btnProductAdd";
+            this.btnProductAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnProductAdd.TabIndex = 4;
+            this.btnProductAdd.Text = "New";
+            this.btnProductAdd.UseVisualStyleBackColor = true;
+            // 
+            // btnProductDelete
+            // 
+            this.btnProductDelete.Location = new System.Drawing.Point(240, 302);
+            this.btnProductDelete.Name = "btnProductDelete";
+            this.btnProductDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnProductDelete.TabIndex = 3;
+            this.btnProductDelete.Text = "Delete";
+            this.btnProductDelete.UseVisualStyleBackColor = true;
+            // 
+            // listProducts
+            // 
+            this.listProducts.FormattingEnabled = true;
+            this.listProducts.Location = new System.Drawing.Point(6, 45);
+            this.listProducts.Name = "listProducts";
+            this.listProducts.Size = new System.Drawing.Size(309, 251);
+            this.listProducts.TabIndex = 2;
+            // 
+            // lblSearchItems
+            // 
+            this.lblSearchItems.AutoSize = true;
+            this.lblSearchItems.Location = new System.Drawing.Point(112, 22);
+            this.lblSearchItems.Name = "lblSearchItems";
+            this.lblSearchItems.Size = new System.Drawing.Size(44, 13);
+            this.lblSearchItems.TabIndex = 1;
+            this.lblSearchItems.Text = "Search:";
+            // 
+            // tboxSearchItems
+            // 
+            this.tboxSearchItems.Location = new System.Drawing.Point(162, 19);
+            this.tboxSearchItems.Name = "tboxSearchItems";
+            this.tboxSearchItems.Size = new System.Drawing.Size(153, 20);
+            this.tboxSearchItems.TabIndex = 0;
             // 
             // menuMain
             // 
             this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dataToolStripMenuItem,
             this.adminToolStripMenuItem,
             this.reportingToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
-            this.menuMain.Size = new System.Drawing.Size(620, 24);
+            this.menuMain.Size = new System.Drawing.Size(582, 24);
             this.menuMain.TabIndex = 1;
             this.menuMain.Text = "menuStrip1";
             // 
@@ -94,57 +152,6 @@ namespace RetroCollector {
             this.adminToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.adminToolStripMenuItem.Text = "Admin";
             // 
-            // reportingToolStripMenuItem
-            // 
-            this.reportingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.salesByDateToolStripMenuItem,
-            this.salesByRepToolStripMenuItem,
-            this.productsByCompanyToolStripMenuItem,
-            this.inventoryReportToolStripMenuItem});
-            this.reportingToolStripMenuItem.Name = "reportingToolStripMenuItem";
-            this.reportingToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.reportingToolStripMenuItem.Text = "Reporting";
-            // 
-            // dataToolStripMenuItem
-            // 
-            this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.productToolStripMenuItem,
-            this.userToolStripMenuItem,
-            this.salesToolStripMenuItem});
-            this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
-            this.dataToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.dataToolStripMenuItem.Text = "Data";
-            // 
-            // productToolStripMenuItem
-            // 
-            this.productToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addNewProductToolStripMenuItem,
-            this.editExistingProductToolStripMenuItem});
-            this.productToolStripMenuItem.Name = "productToolStripMenuItem";
-            this.productToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.productToolStripMenuItem.Text = "Product";
-            // 
-            // userToolStripMenuItem
-            // 
-            this.userToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addNewUserToolStripMenuItem,
-            this.editExistingUserToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.addNewUserRoleToolStripMenuItem,
-            this.editExistingUserRoleToolStripMenuItem});
-            this.userToolStripMenuItem.Name = "userToolStripMenuItem";
-            this.userToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.userToolStripMenuItem.Text = "User";
-            // 
-            // salesToolStripMenuItem
-            // 
-            this.salesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewCurrentSalesToolStripMenuItem,
-            this.editExistingTransactionToolStripMenuItem});
-            this.salesToolStripMenuItem.Name = "salesToolStripMenuItem";
-            this.salesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.salesToolStripMenuItem.Text = "Sales";
-            // 
             // databaseSettingsToolStripMenuItem
             // 
             this.databaseSettingsToolStripMenuItem.Name = "databaseSettingsToolStripMenuItem";
@@ -156,6 +163,17 @@ namespace RetroCollector {
             this.programSettingsToolStripMenuItem.Name = "programSettingsToolStripMenuItem";
             this.programSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.programSettingsToolStripMenuItem.Text = "Program Settings";
+            // 
+            // reportingToolStripMenuItem
+            // 
+            this.reportingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.salesByDateToolStripMenuItem,
+            this.salesByRepToolStripMenuItem,
+            this.productsByCompanyToolStripMenuItem,
+            this.inventoryReportToolStripMenuItem});
+            this.reportingToolStripMenuItem.Name = "reportingToolStripMenuItem";
+            this.reportingToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.reportingToolStripMenuItem.Text = "Reporting";
             // 
             // salesByDateToolStripMenuItem
             // 
@@ -181,125 +199,207 @@ namespace RetroCollector {
             this.inventoryReportToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.inventoryReportToolStripMenuItem.Text = "Inventory Report";
             // 
-            // addNewProductToolStripMenuItem
+            // grpStats
             // 
-            this.addNewProductToolStripMenuItem.Name = "addNewProductToolStripMenuItem";
-            this.addNewProductToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.addNewProductToolStripMenuItem.Text = "Add New Product";
+            this.grpStats.Controls.Add(this.label1);
+            this.grpStats.Controls.Add(this.tboxTotalInventoryValue);
+            this.grpStats.Controls.Add(this.lblTotalInventoryValue);
+            this.grpStats.Controls.Add(this.tboxTotalPeripheralValue);
+            this.grpStats.Controls.Add(this.tboxTotalMerchValue);
+            this.grpStats.Controls.Add(this.lblTotalMerchValue);
+            this.grpStats.Controls.Add(this.lblTotalPeripheralValue);
+            this.grpStats.Controls.Add(this.tboxTotalGameValue);
+            this.grpStats.Controls.Add(this.tboxTotalConsoleValue);
+            this.grpStats.Controls.Add(this.lblConsoleValue);
+            this.grpStats.Controls.Add(this.lblGamesTotal);
+            this.grpStats.Location = new System.Drawing.Point(339, 34);
+            this.grpStats.Name = "grpStats";
+            this.grpStats.Size = new System.Drawing.Size(227, 220);
+            this.grpStats.TabIndex = 2;
+            this.grpStats.TabStop = false;
+            this.grpStats.Text = "Inventory Information";
             // 
-            // editExistingProductToolStripMenuItem
+            // cboxProductType
             // 
-            this.editExistingProductToolStripMenuItem.Name = "editExistingProductToolStripMenuItem";
-            this.editExistingProductToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.editExistingProductToolStripMenuItem.Text = "Edit Existing Product";
+            this.cboxProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxProductType.FormattingEnabled = true;
+            this.cboxProductType.Location = new System.Drawing.Point(6, 0);
+            this.cboxProductType.Name = "cboxProductType";
+            this.cboxProductType.Size = new System.Drawing.Size(121, 21);
+            this.cboxProductType.TabIndex = 6;
             // 
-            // addNewUserToolStripMenuItem
+            // lblGamesTotal
             // 
-            this.addNewUserToolStripMenuItem.Name = "addNewUserToolStripMenuItem";
-            this.addNewUserToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.addNewUserToolStripMenuItem.Text = "Add New User";
+            this.lblGamesTotal.AutoSize = true;
+            this.lblGamesTotal.Location = new System.Drawing.Point(6, 72);
+            this.lblGamesTotal.Name = "lblGamesTotal";
+            this.lblGamesTotal.Size = new System.Drawing.Size(106, 13);
+            this.lblGamesTotal.TabIndex = 0;
+            this.lblGamesTotal.Text = "Total Value (Games):";
             // 
-            // editExistingUserToolStripMenuItem
+            // lblConsoleValue
             // 
-            this.editExistingUserToolStripMenuItem.Name = "editExistingUserToolStripMenuItem";
-            this.editExistingUserToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.editExistingUserToolStripMenuItem.Text = "Edit Existing User";
+            this.lblConsoleValue.AutoSize = true;
+            this.lblConsoleValue.Location = new System.Drawing.Point(6, 101);
+            this.lblConsoleValue.Name = "lblConsoleValue";
+            this.lblConsoleValue.Size = new System.Drawing.Size(116, 13);
+            this.lblConsoleValue.TabIndex = 1;
+            this.lblConsoleValue.Text = "Total Value (Consoles):";
             // 
-            // toolStripSeparator1
+            // tboxTotalConsoleValue
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(187, 6);
+            this.tboxTotalConsoleValue.Location = new System.Drawing.Point(128, 98);
+            this.tboxTotalConsoleValue.Name = "tboxTotalConsoleValue";
+            this.tboxTotalConsoleValue.ReadOnly = true;
+            this.tboxTotalConsoleValue.Size = new System.Drawing.Size(89, 20);
+            this.tboxTotalConsoleValue.TabIndex = 2;
             // 
-            // addNewUserRoleToolStripMenuItem
+            // tboxTotalGameValue
             // 
-            this.addNewUserRoleToolStripMenuItem.Name = "addNewUserRoleToolStripMenuItem";
-            this.addNewUserRoleToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.addNewUserRoleToolStripMenuItem.Text = "Add New User Role";
+            this.tboxTotalGameValue.Location = new System.Drawing.Point(128, 69);
+            this.tboxTotalGameValue.Name = "tboxTotalGameValue";
+            this.tboxTotalGameValue.ReadOnly = true;
+            this.tboxTotalGameValue.Size = new System.Drawing.Size(89, 20);
+            this.tboxTotalGameValue.TabIndex = 3;
             // 
-            // editExistingUserRoleToolStripMenuItem
+            // tboxTotalPeripheralValue
             // 
-            this.editExistingUserRoleToolStripMenuItem.Name = "editExistingUserRoleToolStripMenuItem";
-            this.editExistingUserRoleToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.editExistingUserRoleToolStripMenuItem.Text = "Edit Existing User Role";
+            this.tboxTotalPeripheralValue.Location = new System.Drawing.Point(128, 127);
+            this.tboxTotalPeripheralValue.Name = "tboxTotalPeripheralValue";
+            this.tboxTotalPeripheralValue.ReadOnly = true;
+            this.tboxTotalPeripheralValue.Size = new System.Drawing.Size(89, 20);
+            this.tboxTotalPeripheralValue.TabIndex = 7;
             // 
-            // viewCurrentSalesToolStripMenuItem
+            // tboxTotalMerchValue
             // 
-            this.viewCurrentSalesToolStripMenuItem.Name = "viewCurrentSalesToolStripMenuItem";
-            this.viewCurrentSalesToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.viewCurrentSalesToolStripMenuItem.Text = "View Current Sales";
+            this.tboxTotalMerchValue.Location = new System.Drawing.Point(128, 156);
+            this.tboxTotalMerchValue.Name = "tboxTotalMerchValue";
+            this.tboxTotalMerchValue.ReadOnly = true;
+            this.tboxTotalMerchValue.Size = new System.Drawing.Size(89, 20);
+            this.tboxTotalMerchValue.TabIndex = 6;
             // 
-            // editExistingTransactionToolStripMenuItem
+            // lblTotalMerchValue
             // 
-            this.editExistingTransactionToolStripMenuItem.Name = "editExistingTransactionToolStripMenuItem";
-            this.editExistingTransactionToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.editExistingTransactionToolStripMenuItem.Text = "Edit Existing Transaction";
+            this.lblTotalMerchValue.AutoSize = true;
+            this.lblTotalMerchValue.Location = new System.Drawing.Point(6, 159);
+            this.lblTotalMerchValue.Name = "lblTotalMerchValue";
+            this.lblTotalMerchValue.Size = new System.Drawing.Size(103, 13);
+            this.lblTotalMerchValue.TabIndex = 5;
+            this.lblTotalMerchValue.Text = "Total Value (Merch):";
             // 
-            // textBox1
+            // lblTotalPeripheralValue
             // 
-            this.textBox1.Location = new System.Drawing.Point(162, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(153, 20);
-            this.textBox1.TabIndex = 0;
+            this.lblTotalPeripheralValue.AutoSize = true;
+            this.lblTotalPeripheralValue.Location = new System.Drawing.Point(6, 130);
+            this.lblTotalPeripheralValue.Name = "lblTotalPeripheralValue";
+            this.lblTotalPeripheralValue.Size = new System.Drawing.Size(120, 13);
+            this.lblTotalPeripheralValue.TabIndex = 4;
+            this.lblTotalPeripheralValue.Text = "Total Value (Peripheral):";
             // 
-            // lblProductSearch
+            // tboxTotalInventoryValue
             // 
-            this.lblProductSearch.AutoSize = true;
-            this.lblProductSearch.Location = new System.Drawing.Point(112, 22);
-            this.lblProductSearch.Name = "lblProductSearch";
-            this.lblProductSearch.Size = new System.Drawing.Size(44, 13);
-            this.lblProductSearch.TabIndex = 1;
-            this.lblProductSearch.Text = "Search:";
+            this.tboxTotalInventoryValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tboxTotalInventoryValue.Location = new System.Drawing.Point(128, 185);
+            this.tboxTotalInventoryValue.Name = "tboxTotalInventoryValue";
+            this.tboxTotalInventoryValue.ReadOnly = true;
+            this.tboxTotalInventoryValue.Size = new System.Drawing.Size(89, 20);
+            this.tboxTotalInventoryValue.TabIndex = 9;
             // 
-            // listAllProducts
+            // lblTotalInventoryValue
             // 
-            this.listAllProducts.FormattingEnabled = true;
-            this.listAllProducts.Location = new System.Drawing.Point(6, 45);
-            this.listAllProducts.Name = "listAllProducts";
-            this.listAllProducts.Size = new System.Drawing.Size(309, 251);
-            this.listAllProducts.TabIndex = 2;
+            this.lblTotalInventoryValue.AutoSize = true;
+            this.lblTotalInventoryValue.Location = new System.Drawing.Point(6, 188);
+            this.lblTotalInventoryValue.Name = "lblTotalInventoryValue";
+            this.lblTotalInventoryValue.Size = new System.Drawing.Size(103, 13);
+            this.lblTotalInventoryValue.TabIndex = 8;
+            this.lblTotalInventoryValue.Text = "Total Value (Merch):";
             // 
-            // btnProductDelete
+            // label1
             // 
-            this.btnProductDelete.Location = new System.Drawing.Point(240, 302);
-            this.btnProductDelete.Name = "btnProductDelete";
-            this.btnProductDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnProductDelete.TabIndex = 3;
-            this.btnProductDelete.Text = "Delete";
-            this.btnProductDelete.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(45, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(134, 26);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Value refers to net profit on\r\nproducts (Price - Cost)";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // btnProductAdd
+            // grpControls
             // 
-            this.btnProductAdd.Location = new System.Drawing.Point(6, 302);
-            this.btnProductAdd.Name = "btnProductAdd";
-            this.btnProductAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnProductAdd.TabIndex = 4;
-            this.btnProductAdd.Text = "New..";
-            this.btnProductAdd.UseVisualStyleBackColor = true;
+            this.grpControls.Controls.Add(this.btnControlSales);
+            this.grpControls.Controls.Add(this.btnControlConsoles);
+            this.grpControls.Controls.Add(this.btnControlCompanies);
+            this.grpControls.Controls.Add(this.btnControlCustomers);
+            this.grpControls.Controls.Add(this.btnControlUser);
+            this.grpControls.Controls.Add(this.btnControlProduct);
+            this.grpControls.Location = new System.Drawing.Point(339, 259);
+            this.grpControls.Name = "grpControls";
+            this.grpControls.Size = new System.Drawing.Size(227, 106);
+            this.grpControls.TabIndex = 3;
+            this.grpControls.TabStop = false;
+            this.grpControls.Text = "Controls";
             // 
-            // btnProductEdit
+            // btnControlProduct
             // 
-            this.btnProductEdit.Location = new System.Drawing.Point(128, 302);
-            this.btnProductEdit.Name = "btnProductEdit";
-            this.btnProductEdit.Size = new System.Drawing.Size(75, 23);
-            this.btnProductEdit.TabIndex = 5;
-            this.btnProductEdit.Text = "Edit";
-            this.btnProductEdit.UseVisualStyleBackColor = true;
+            this.btnControlProduct.Location = new System.Drawing.Point(9, 19);
+            this.btnControlProduct.Name = "btnControlProduct";
+            this.btnControlProduct.Size = new System.Drawing.Size(75, 23);
+            this.btnControlProduct.TabIndex = 0;
+            this.btnControlProduct.Text = "Products";
+            this.btnControlProduct.UseVisualStyleBackColor = true;
             // 
-            // grpProcessSale
+            // btnControlUser
             // 
-            this.grpProcessSale.Location = new System.Drawing.Point(12, 36);
-            this.grpProcessSale.Name = "grpProcessSale";
-            this.grpProcessSale.Size = new System.Drawing.Size(269, 329);
-            this.grpProcessSale.TabIndex = 2;
-            this.grpProcessSale.TabStop = false;
-            this.grpProcessSale.Text = "Sale";
+            this.btnControlUser.Location = new System.Drawing.Point(9, 48);
+            this.btnControlUser.Name = "btnControlUser";
+            this.btnControlUser.Size = new System.Drawing.Size(75, 23);
+            this.btnControlUser.TabIndex = 1;
+            this.btnControlUser.Text = "Users";
+            this.btnControlUser.UseVisualStyleBackColor = true;
+            // 
+            // btnControlCustomers
+            // 
+            this.btnControlCustomers.Location = new System.Drawing.Point(9, 77);
+            this.btnControlCustomers.Name = "btnControlCustomers";
+            this.btnControlCustomers.Size = new System.Drawing.Size(75, 23);
+            this.btnControlCustomers.TabIndex = 2;
+            this.btnControlCustomers.Text = "Customers";
+            this.btnControlCustomers.UseVisualStyleBackColor = true;
+            // 
+            // btnControlCompanies
+            // 
+            this.btnControlCompanies.Location = new System.Drawing.Point(142, 19);
+            this.btnControlCompanies.Name = "btnControlCompanies";
+            this.btnControlCompanies.Size = new System.Drawing.Size(75, 23);
+            this.btnControlCompanies.TabIndex = 3;
+            this.btnControlCompanies.Text = "Companies";
+            this.btnControlCompanies.UseVisualStyleBackColor = true;
+            // 
+            // btnControlConsoles
+            // 
+            this.btnControlConsoles.Location = new System.Drawing.Point(142, 48);
+            this.btnControlConsoles.Name = "btnControlConsoles";
+            this.btnControlConsoles.Size = new System.Drawing.Size(75, 23);
+            this.btnControlConsoles.TabIndex = 4;
+            this.btnControlConsoles.Text = "Consoles";
+            this.btnControlConsoles.UseVisualStyleBackColor = true;
+            // 
+            // btnControlSales
+            // 
+            this.btnControlSales.Location = new System.Drawing.Point(142, 77);
+            this.btnControlSales.Name = "btnControlSales";
+            this.btnControlSales.Size = new System.Drawing.Size(75, 23);
+            this.btnControlSales.TabIndex = 5;
+            this.btnControlSales.Text = "Sales";
+            this.btnControlSales.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 377);
-            this.Controls.Add(this.grpProcessSale);
+            this.ClientSize = new System.Drawing.Size(582, 375);
+            this.Controls.Add(this.grpControls);
+            this.Controls.Add(this.grpStats);
             this.Controls.Add(this.grpProducts);
             this.Controls.Add(this.menuMain);
             this.MainMenuStrip = this.menuMain;
@@ -309,6 +409,9 @@ namespace RetroCollector {
             this.grpProducts.PerformLayout();
             this.menuMain.ResumeLayout(false);
             this.menuMain.PerformLayout();
+            this.grpStats.ResumeLayout(false);
+            this.grpStats.PerformLayout();
+            this.grpControls.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,23 +423,10 @@ namespace RetroCollector {
         private System.Windows.Forms.Button btnProductEdit;
         private System.Windows.Forms.Button btnProductAdd;
         private System.Windows.Forms.Button btnProductDelete;
-        private System.Windows.Forms.ListBox listAllProducts;
-        private System.Windows.Forms.Label lblProductSearch;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ListBox listProducts;
+        private System.Windows.Forms.Label lblSearchItems;
+        private System.Windows.Forms.TextBox tboxSearchItems;
         private System.Windows.Forms.MenuStrip menuMain;
-        private System.Windows.Forms.ToolStripMenuItem dataToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem productToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addNewProductToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editExistingProductToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem userToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addNewUserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editExistingUserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem addNewUserRoleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editExistingUserRoleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem salesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewCurrentSalesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editExistingTransactionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adminToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem databaseSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem programSettingsToolStripMenuItem;
@@ -345,7 +435,26 @@ namespace RetroCollector {
         private System.Windows.Forms.ToolStripMenuItem salesByRepToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem productsByCompanyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inventoryReportToolStripMenuItem;
-        private System.Windows.Forms.GroupBox grpProcessSale;
+        private System.Windows.Forms.GroupBox grpStats;
+        private System.Windows.Forms.ComboBox cboxProductType;
+        private System.Windows.Forms.TextBox tboxTotalInventoryValue;
+        private System.Windows.Forms.Label lblTotalInventoryValue;
+        private System.Windows.Forms.TextBox tboxTotalPeripheralValue;
+        private System.Windows.Forms.TextBox tboxTotalMerchValue;
+        private System.Windows.Forms.Label lblTotalMerchValue;
+        private System.Windows.Forms.Label lblTotalPeripheralValue;
+        private System.Windows.Forms.TextBox tboxTotalGameValue;
+        private System.Windows.Forms.TextBox tboxTotalConsoleValue;
+        private System.Windows.Forms.Label lblConsoleValue;
+        private System.Windows.Forms.Label lblGamesTotal;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox grpControls;
+        private System.Windows.Forms.Button btnControlSales;
+        private System.Windows.Forms.Button btnControlConsoles;
+        private System.Windows.Forms.Button btnControlCompanies;
+        private System.Windows.Forms.Button btnControlCustomers;
+        private System.Windows.Forms.Button btnControlUser;
+        private System.Windows.Forms.Button btnControlProduct;
     }
 }
 

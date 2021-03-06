@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RetroCollector.Data.Management;
 
 namespace RetroCollector.Models {
     public class Product : IndexItem, IProduct {
@@ -88,6 +89,9 @@ namespace RetroCollector.Models {
             this.lastUpdatedBy = lastUpdatedBy;
         }
 
+        public int GetProductTypeID() {
+            return productTypeId;
+        }
         public void UpdateCost(decimal cost) {
             this.cost = cost;
         }
@@ -116,7 +120,7 @@ namespace RetroCollector.Models {
             return (decimal)((float)price * taxRate);
         }
         public override string ToString() {
-            return ($"{id} PRODUCT DESCRIPTION: {description}");
+            return ($"[{ProductManager.GetProductTypeByID(productTypeId)?.Name ?? "Other"}] {Name} ${Price}");
         }
     }
 }

@@ -11,6 +11,12 @@ using MySql.Data.MySqlClient;
 
 namespace RetroCollector.Data.Management {
     public static class DatabaseManager {
+        private const string ID_TYPE_NAME_GAME = "Video Game";
+        private const string ID_TYPE_NAME_CONSOLE = "Console";
+        private const string ID_TYPE_NAME_PERIPHERAL = "Peripheral";
+        private const string ID_TYPE_NAME_MERCHANDISE = "Merchandise";
+        private const string ID_TYPE_NAME_SERVICE = "Service";
+
         private static string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Night Owl Software\\RetroCollector");
         private static string filename = "db.xml";
         private static string databaseAddress;
@@ -59,6 +65,230 @@ namespace RetroCollector.Data.Management {
             else {
                 InitializeDBSettings();
                 LoadFromDatabase();
+            }
+        }
+        private static void CreateDatabaseSettings() {
+            DBSetupForm newDbSetupForm = new DBSetupForm();
+            newDbSetupForm.FormSaved += OnDbSetupSaved;
+            newDbSetupForm.ShowDialog();
+        }
+        private static void InitializeSchema() {
+            // Create Schema Command
+            string createSchema = $"CREATE SCHEMA `{databaseName}`;";
+
+            // Create Companies Table Command
+            string createCompaniesTable =
+                $"CREATE TABLE `{databaseName}`.`companies` (" +
+                $"`companyId` INT NOT NULL," +
+                $"`name` VARCHAR(45) NOT NULL," +
+                $"`dateCreated` DATETIME NULL," +
+                $"`dateLastUpdated` DATETIME NULL," +
+                $"`createdBy` VARCHAR(45) NULL," +
+                $"`lastUpdatedBy` VARCHAR(45) NULL," +
+                $"  PRIMARY KEY (`companyId`)," +
+                $"  UNIQUE INDEX `companyId_UNIQUE` (`companyId` ASC) VISIBLE);";
+
+            // Create Product Types Table Command
+            string createProductTypesTable =
+                $"CREATE TABLE `{databaseName}`.`producttypes` (" +
+                $"`productTypeId` INT NOT NULL," +
+                $"`name` VARCHAR(45) NOT NULL," +
+                $"`dateCreated` DATETIME NULL," +
+                $"`dateLastUpdated` DATETIME NULL," +
+                $"`createdBy` VARCHAR(45) NULL," +
+                $"`lastUpdatedBy` VARCHAR(45) NULL," +
+                $"  PRIMARY KEY(`productTypeId`)," +
+                $"  UNIQUE INDEX `productTypeId_UNIQUE` (`productTypeId` ASC) VISIBLE," +
+                $"  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE);";
+
+            // Create Products Table Command
+            string createProductsTable =
+                $"CREATE TABLE `{databaseName}`.`products` (" +
+                $"`productId` INT NOT NULL," +
+                $"`name` VARCHAR(45) NOT NULL," +
+                $"`consoleId` INT NULL," +
+                $"`developerId` INT NOT NULL," +
+                $"`dateReleased` DATETIME NULL," +
+                $"`quality` INT NULL," +
+                $"`completion` INT NULL," +
+                $"`region` INT NULL," +
+                $"`productTypeId` INT NOT NULL," +
+                $"`cost` DECIMAL NOT NULL," +
+                $"`price` DECIMAL NOT NULL," +
+                $"`onHand` INT NOT NULL," +
+                $"`dateCreated` DATETIME NULL," +
+                $"`dateLastUpdated` DATETIME NULL," +
+                $"`createdBy` VARCHAR(45) NULL," +
+                $"`lastUpdatedBy` VARCHAR(45) NULL," +
+                $"`description` VARCHAR(100) NULL," +
+                $"  PRIMARY KEY(`productId`)," +
+                $"  UNIQUE INDEX `productId_UNIQUE` (`productId` ASC) VISIBLE," +
+                $"  INDEX `productDeveloperId_idx` (`developerId` ASC) VISIBLE," +
+                $"  INDEX `productTypeId_idx` (`productTypeId` ASC) VISIBLE," +
+                $"  CONSTRAINT `productDeveloperId`" +
+                $"  FOREIGN KEY(`developerId`)" +
+                $"  REFERENCES `{databaseName}`.`companies` (`companyId`)" +
+                $"  ON DELETE NO ACTION" +
+                $"  ON UPDATE NO ACTION," +
+                $"  CONSTRAINT `productTypeId`" +
+                $"  FOREIGN KEY(`productTypeId`)" +
+                $"  REFERENCES `{databaseName}`.`producttypes` (`productTypeId`)" +
+                $"  ON DELETE RESTRICT" +
+                $"  ON UPDATE NO ACTION);";
+
+            // Create Customers Table Command
+            string createCustomersTable =
+                $"CREATE TABLE `{databaseName}`.`customers` (" +
+                $"  `customerId` INT NOT NULL," +
+                $"  `firstName` VARCHAR(45) NULL," +
+                $"  `lastName` VARCHAR(45) NULL," +
+                $"  `address1` VARCHAR(45) NULL," +
+                $"  `address2` VARCHAR(45) NULL," +
+                $"  `city` VARCHAR(45) NULL," +
+                $"  `stateAbbr` VARCHAR(2) NULL," +
+                $"  `zipCode` VARCHAR(5) NULL," +
+                $"  `phoneNumber` VARCHAR(14) NULL," +
+                $"  `email` VARCHAR(45) NOT NULL," +
+                $"  `dateCreated` DATETIME NULL," +
+                $"  `dateLastUpdated` DATETIME NULL," +
+                $"  `createdBy` VARCHAR(45) NULL," +
+                $"  `lastUpdatedBy` VARCHAR(45) NULL," +
+                $"  PRIMARY KEY(`customerId`)," +
+                $"  UNIQUE INDEX `customerId_UNIQUE` (`customerId` ASC) VISIBLE);";
+
+            // Create User Roles Table Command
+            string createRolesTable =
+                $"CREATE TABLE `{databaseName}`.`userroles` (" +
+                $"  `roleId` INT NOT NULL," +
+                $"  `name` VARCHAR(45) NOT NULL," +
+                $"  `description` VARCHAR(45) NULL," +
+                $"  `allowCreateProducts` TINYINT NOT NULL," +
+                $"  `allowEditProducts` TINYINT NOT NULL," +
+                $"  `allowDeleteProducts` TINYINT NOT NULL," +
+                $"  `allowCreateUsers` TINYINT NOT NULL," +
+                $"  `allowEditUsers` TINYINT NOT NULL," +
+                $"  `allowDeleteUsers` TINYINT NOT NULL," +
+                $"  `allowCreateRoles` TINYINT NOT NULL," +
+                $"  `allowEditRoles` TINYINT NOT NULL," +
+                $"  `allowDeleteRoles` TINYINT NOT NULL," +
+                $"  `allowReporting` TINYINT NOT NULL," +
+                $"  `allowProcessSales` TINYINT NOT NULL," +
+                $"  `allowAdminOptions` TINYINT NOT NULL," +
+                $"  `dateCreated` DATETIME NULL," +
+                $"  `dateLastUpdated` DATETIME NULL," +
+                $"  `createdBy` VARCHAR(45) NULL," +
+                $"  `lastUpdatedBy` VARCHAR(45) NULL," +
+                $"  PRIMARY KEY(`roleId`)," +
+                $"  UNIQUE INDEX `roleId_UNIQUE` (`roleId` ASC) VISIBLE);";
+
+            // Create Users Table Command
+            string createUsersTable =
+                $"CREATE TABLE `{databaseName}`.`users` (" +
+                $"  `userId` INT NOT NULL," +
+                $"  `firstName` VARCHAR(45) NOT NULL," +
+                $"  `lastName` VARCHAR(45) NOT NULL," +
+                $"  `userName` VARCHAR(45) NOT NULL," +
+                $"  `passHash` VARCHAR(256) NOT NULL," +
+                $"  `passSalt` VARCHAR(100) NOT NULL," +
+                $"  `dateCreated` DATETIME NULL," +
+                $"  `dateLastUpdated` DATETIME NULL," +
+                $"  `createdBy` VARCHAR(45) NULL," +
+                $"  `lastUpdatedBy` VARCHAR(45) NULL," +
+                $"  `roleId` INT NOT NULL," +
+                $"  PRIMARY KEY(`userId`)," +
+                $"  UNIQUE INDEX `userId_UNIQUE` (`userId` ASC) VISIBLE," +
+                $"  UNIQUE INDEX `userName_UNIQUE` (`userName` ASC) VISIBLE," +
+                $"  CONSTRAINT `userrolekey`" +
+                $"    FOREIGN KEY(`roleId`)" +
+                $"    REFERENCES `{databaseName}`.`userroles` (`roleId`)" +
+                $"    ON DELETE NO ACTION" +
+                $"    ON UPDATE NO ACTION);";
+
+            // Create Transactions Table Command
+            string createTransactionsTable =
+                $"CREATE TABLE `{databaseName}`.`transactions` (" +
+                $"  `transactionId` INT NOT NULL," +
+                $"  `description` VARCHAR(45) NULL," +
+                $"  `dateOfSale` DATETIME NOT NULL," +
+                $"  `salesRepId` INT NOT NULL," +
+                $"  `customerId` INT NOT NULL," +
+                $"  `dateCreated` DATETIME NULL," +
+                $"  `dateLastUpdated` DATETIME NULL," +
+                $"  `createdBy` VARCHAR(45) NULL," +
+                $"  `lastUpdatedBy` VARCHAR(45) NULL," +
+                $"  PRIMARY KEY(`transactionId`)," +
+                $"  UNIQUE INDEX `transactionId_UNIQUE` (`transactionId` ASC) VISIBLE," +
+                $"  INDEX `transactionSalesRepId_idx` (`salesRepId` ASC) VISIBLE," +
+                $"  INDEX `transactionCustomerId_idx` (`customerId` ASC) VISIBLE," +
+                $"  CONSTRAINT `transactionSalesRepId`" +
+                $"    FOREIGN KEY(`salesRepId`)" +
+                $"    REFERENCES `{databaseName}`.`users` (`userId`)" +
+                $"    ON DELETE NO ACTION" +
+                $"    ON UPDATE NO ACTION," +
+                $"  CONSTRAINT `transactionCustomerId`" +
+                $"    FOREIGN KEY(`customerId`)" +
+                $"    REFERENCES `{databaseName}`.`customers` (`customerId`)" +
+                $"    ON DELETE NO ACTION" +
+                $"    ON UPDATE NO ACTION);";
+
+            // Create Transaction Line Items Table Command
+            string createTransactionLineItemsTable =
+                $"CREATE TABLE `{databaseName}`.`transactionlineitems` (" +
+                $"  `transactionId` INT NOT NULL," +
+                $"  `productId` INT NOT NULL," +
+                $"  `quantity` INT NULL," +
+                $"  `pricePerProduct` DECIMAL NULL," +
+                $"  PRIMARY KEY(`transactionId`, `productId`)," +
+                $"  INDEX `lineItemProductId_idx` (`productId` ASC) VISIBLE," +
+                $"  CONSTRAINT `lineItemTransactionId`" +
+                $"    FOREIGN KEY(`transactionId`)" +
+                $"    REFERENCES `{databaseName}`.`transactions` (`transactionId`)" +
+                $"    ON DELETE NO ACTION" +
+                $"    ON UPDATE NO ACTION," +
+                $"  CONSTRAINT `lineItemProductId`" +
+                $"    FOREIGN KEY(`productId`)" +
+                $"    REFERENCES `{databaseName}`.`products` (`productId`)" +
+                $"    ON DELETE NO ACTION" +
+                $"    ON UPDATE NO ACTION);";
+
+            // Create Consoles Table Command
+            string createConsolesTable =
+                $"CREATE TABLE `{databaseName}`.`consoles` (" +
+                $"  `consoleId` INT NOT NULL," +
+                $"  `name` VARCHAR(45) NOT NULL," +
+                $"  `developerName` VARCHAR(45) NULL," +
+                $"  PRIMARY KEY(`consoleId`)," +
+                $"  UNIQUE INDEX `consoleId_UNIQUE` (`consoleId` ASC) VISIBLE);";
+
+            string[] mysqlCommandStrings = new string[] {
+                createSchema,
+                createCompaniesTable,
+                createProductTypesTable,
+                createProductsTable,
+                createCustomersTable,
+                createRolesTable,
+                createUsersTable,
+                createTransactionsTable,
+                createTransactionLineItemsTable,
+                createConsolesTable };
+
+            MySqlConnection dbConn = new MySqlConnection(DBConnectionString);
+
+            try {
+                dbConn.Open();
+
+                for(int i = 0; i < mysqlCommandStrings.Length; i++) {
+                    MySqlCommand command = new MySqlCommand(mysqlCommandStrings[i], dbConn);
+                    command.ExecuteNonQuery();
+                }
+
+                MessageBox.Show($"Schema Initialized with Database Name \"{databaseName}\"");
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
             }
         }
         private static string GetConnectionString() {
@@ -368,7 +598,7 @@ namespace RetroCollector.Data.Management {
                 while(reader.Read()) {
                     int typeId = reader.GetInt32(columnProductType);
 
-                    if(typeId == GetProductTypeIDByName("Video Game")) {
+                    if(typeId == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_GAME)) {
                         VideoGame newVideoGame = new VideoGame(
                             reader.GetInt32(columnID), 
                             reader.GetString(columnName), 
@@ -390,7 +620,7 @@ namespace RetroCollector.Data.Management {
 
                         ProductManager.Products.Add(newVideoGame);
                     }
-                    else if(typeId == GetProductTypeIDByName("Console")) {
+                    else if(typeId == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_CONSOLE)) {
                         VideoGameConsole newConsole = new VideoGameConsole(
                             reader.GetInt32(columnID), 
                             reader.GetString(columnName), 
@@ -411,7 +641,7 @@ namespace RetroCollector.Data.Management {
 
                         ProductManager.Products.Add(newConsole);
                     }
-                    else if(typeId == GetProductTypeIDByName("Merchandise")) {
+                    else if(typeId == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_MERCHANDISE)) {
                         GameMerchandise newMerchandise = new GameMerchandise(
                             reader.GetInt32(columnID),
                             reader.GetString(columnName),
@@ -432,7 +662,7 @@ namespace RetroCollector.Data.Management {
 
                         ProductManager.Products.Add(newMerchandise);
                     }
-                    else if(typeId == GetProductTypeIDByName("Peripheral")) {
+                    else if(typeId == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_PERIPHERAL)) {
                         Peripheral newPeripheral = new Peripheral(
                             reader.GetInt32(columnID),
                             reader.GetString(columnName),
@@ -453,7 +683,7 @@ namespace RetroCollector.Data.Management {
 
                         ProductManager.Products.Add(newPeripheral);
                     }
-                    else if(typeId == GetProductTypeIDByName("Service")) {
+                    else if(typeId == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_SERVICE)) {
                         ServiceProduct newService = new ServiceProduct(
                             reader.GetInt32(columnID),
                             reader.GetString(columnName),
@@ -535,222 +765,61 @@ namespace RetroCollector.Data.Management {
             }
         }
 
-        private static void CreateDatabaseSettings() {
-            DBSetupForm newDbSetupForm = new DBSetupForm();
-            newDbSetupForm.FormSaved += OnDbSetupSaved;
-            newDbSetupForm.ShowDialog();
+        public static void AddNewCustomer(Customer customer) {
+            string customerValues =
+                $"customerId={customer.ID}," +
+                $"firstName='{customer.FirstName}'," +
+                $"lastName='{customer.LastName}'," +
+                $"address1='{customer.Address1}'," +
+                $"address2='{customer.Address2}'," +
+                $"city='{customer.City}'," +
+                $"stateAbbr='{customer.StateAbbr}'," +
+                $"zipCode='{customer.ZipCode}'," +
+                $"phoneNumber='{customer.Phone}'," +
+                $"email='{customer.Email}'," +
+                $"dateCreated='{customer.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"dateLastUpdated='{customer.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"createdBy='{customer.CreatedBy}'," +
+                $"lastUpdatedBy='{customer.LastUpdatedBy}";
+
+            AddNewItemToDatabase("customers", customerValues);
         }
-        private static void InitializeSchema() {
-            // Create Schema Command
-            string createSchema = $"CREATE SCHEMA `{databaseName}`;";
+        public static void AddNewProduct(Product product) {
 
-            // Create Companies Table Command
-            string createCompaniesTable =
-                $"CREATE TABLE `{databaseName}`.`companies` (" +
-                $"`companyId` INT NOT NULL," +
-                $"`name` VARCHAR(45) NOT NULL," +
-                $"`dateCreated` DATETIME NULL," +
-                $"`dateLastUpdated` DATETIME NULL," +
-                $"`createdBy` VARCHAR(45) NULL," +
-                $"`lastUpdatedBy` VARCHAR(45) NULL," +
-                $"  PRIMARY KEY (`companyId`)," +
-                $"  UNIQUE INDEX `companyId_UNIQUE` (`companyId` ASC) VISIBLE);";
+        }
+        public static void AddNewProductType(ProductType type) {
 
-            // Create Product Types Table Command
-            string createProductTypesTable =
-                $"CREATE TABLE `{databaseName}`.`producttypes` (" +
-                $"`productTypeId` INT NOT NULL," +
-                $"`name` VARCHAR(45) NOT NULL," +
-                $"`dateCreated` DATETIME NULL," +
-                $"`dateLastUpdated` DATETIME NULL," +
-                $"`createdBy` VARCHAR(45) NULL," +
-                $"`lastUpdatedBy` VARCHAR(45) NULL," +
-                $"  PRIMARY KEY(`productTypeId`)," +
-                $"  UNIQUE INDEX `productTypeId_UNIQUE` (`productTypeId` ASC) VISIBLE," +
-                $"  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE);";
+        }
+        public static void AddNewUser(UserAccount user) {
 
-            // Create Products Table Command
-            string createProductsTable =
-                $"CREATE TABLE `{databaseName}`.`products` (" +
-                $"`productId` INT NOT NULL," +
-                $"`name` VARCHAR(45) NOT NULL," +
-                $"`consoleId` INT NULL," +
-                $"`developerId` INT NOT NULL," +
-                $"`dateReleased` DATETIME NULL," +
-                $"`quality` INT NULL," +
-                $"`completion` INT NULL," +
-                $"`region` INT NULL," +
-                $"`productTypeId` INT NOT NULL," +
-                $"`cost` DECIMAL NOT NULL," +
-                $"`price` DECIMAL NOT NULL," +
-                $"`onHand` INT NOT NULL," +
-                $"`dateCreated` DATETIME NULL," +
-                $"`dateLastUpdated` DATETIME NULL," +
-                $"`createdBy` VARCHAR(45) NULL," +
-                $"`lastUpdatedBy` VARCHAR(45) NULL," +
-                $"`description` VARCHAR(100) NULL," +
-                $"  PRIMARY KEY(`productId`)," +
-                $"  UNIQUE INDEX `productId_UNIQUE` (`productId` ASC) VISIBLE," +
-                $"  INDEX `productDeveloperId_idx` (`developerId` ASC) VISIBLE," +
-                $"  INDEX `productTypeId_idx` (`productTypeId` ASC) VISIBLE," +
-                $"  CONSTRAINT `productDeveloperId`" +
-                $"  FOREIGN KEY(`developerId`)" +
-                $"  REFERENCES `{databaseName}`.`companies` (`companyId`)" +
-                $"  ON DELETE NO ACTION" +
-                $"  ON UPDATE NO ACTION," +
-                $"  CONSTRAINT `productTypeId`" +
-                $"  FOREIGN KEY(`productTypeId`)" +
-                $"  REFERENCES `{databaseName}`.`producttypes` (`productTypeId`)" +
-                $"  ON DELETE RESTRICT" +
-                $"  ON UPDATE NO ACTION);";
+        }
+        public static void AddNewUserRole(UserRole role) {
 
-            // Create Customers Table Command
-            string createCustomersTable =
-                $"CREATE TABLE `{databaseName}`.`customers` (" +
-                $"  `customerId` INT NOT NULL," +
-                $"  `firstName` VARCHAR(45) NULL," +
-                $"  `lastName` VARCHAR(45) NULL," +
-                $"  `address1` VARCHAR(45) NULL," +
-                $"  `address2` VARCHAR(45) NULL," +
-                $"  `city` VARCHAR(45) NULL," +
-                $"  `stateAbbr` VARCHAR(2) NULL," +
-                $"  `zipCode` VARCHAR(5) NULL," +
-                $"  `phoneNumber` VARCHAR(14) NULL," +
-                $"  `email` VARCHAR(45) NOT NULL," +
-                $"  `dateCreated` DATETIME NULL," +
-                $"  `dateLastUpdated` DATETIME NULL," +
-                $"  `createdBy` VARCHAR(45) NULL," +
-                $"  `lastUpdatedBy` VARCHAR(45) NULL," +
-                $"  PRIMARY KEY(`customerId`)," +
-                $"  UNIQUE INDEX `customerId_UNIQUE` (`customerId` ASC) VISIBLE);";
+        }
+        public static void AddNewCompany(Company company) {
 
-            // Create User Roles Table Command
-            string createRolesTable =
-                $"CREATE TABLE `{databaseName}`.`userroles` (" +
-                $"  `roleId` INT NOT NULL," +
-                $"  `name` VARCHAR(45) NOT NULL," +
-                $"  `description` VARCHAR(45) NULL," +
-                $"  `allowCreateProducts` TINYINT NOT NULL," +
-                $"  `allowEditProducts` TINYINT NOT NULL," +
-                $"  `allowDeleteProducts` TINYINT NOT NULL," +
-                $"  `allowCreateUsers` TINYINT NOT NULL," +
-                $"  `allowEditUsers` TINYINT NOT NULL," +
-                $"  `allowDeleteUsers` TINYINT NOT NULL," +
-                $"  `allowCreateRoles` TINYINT NOT NULL," +
-                $"  `allowEditRoles` TINYINT NOT NULL," +
-                $"  `allowDeleteRoles` TINYINT NOT NULL," +
-                $"  `allowReporting` TINYINT NOT NULL," +
-                $"  `allowProcessSales` TINYINT NOT NULL," +
-                $"  `allowAdminOptions` TINYINT NOT NULL," +
-                $"  `dateCreated` DATETIME NULL," +
-                $"  `dateLastUpdated` DATETIME NULL," +
-                $"  `createdBy` VARCHAR(45) NULL," +
-                $"  `lastUpdatedBy` VARCHAR(45) NULL," +
-                $"  PRIMARY KEY(`roleId`)," +
-                $"  UNIQUE INDEX `roleId_UNIQUE` (`roleId` ASC) VISIBLE);";
+        }
+        public static void AddNewConsoleType(ConsoleCategory console) {
 
-            // Create Users Table Command
-            string createUsersTable =
-                $"CREATE TABLE `{databaseName}`.`users` (" +
-                $"  `userId` INT NOT NULL," +
-                $"  `firstName` VARCHAR(45) NOT NULL," +
-                $"  `lastName` VARCHAR(45) NOT NULL," +
-                $"  `userName` VARCHAR(45) NOT NULL," +
-                $"  `passHash` VARCHAR(256) NOT NULL," +
-                $"  `passSalt` VARCHAR(100) NOT NULL," +
-                $"  `dateCreated` DATETIME NULL," +
-                $"  `dateLastUpdated` DATETIME NULL," +
-                $"  `createdBy` VARCHAR(45) NULL," +
-                $"  `lastUpdatedBy` VARCHAR(45) NULL," +
-                $"  `roleId` INT NOT NULL," +
-                $"  PRIMARY KEY(`userId`)," +
-                $"  UNIQUE INDEX `userId_UNIQUE` (`userId` ASC) VISIBLE," +
-                $"  UNIQUE INDEX `userName_UNIQUE` (`userName` ASC) VISIBLE," +
-                $"  CONSTRAINT `userrolekey`" +
-                $"    FOREIGN KEY(`roleId`)" +
-                $"    REFERENCES `{databaseName}`.`userroles` (`roleId`)" +
-                $"    ON DELETE NO ACTION" +
-                $"    ON UPDATE NO ACTION);";
+        }
+        public static void AddNewTransaction(TransactionSale sale) {
 
-            // Create Transactions Table Command
-            string createTransactionsTable =
-                $"CREATE TABLE `{databaseName}`.`transactions` (" +
-                $"  `transactionId` INT NOT NULL," +
-                $"  `description` VARCHAR(45) NULL," +
-                $"  `dateOfSale` DATETIME NOT NULL," +
-                $"  `salesRepId` INT NOT NULL," +
-                $"  `customerId` INT NOT NULL," +
-                $"  `dateCreated` DATETIME NULL," +
-                $"  `dateLastUpdated` DATETIME NULL," +
-                $"  `createdBy` VARCHAR(45) NULL," +
-                $"  `lastUpdatedBy` VARCHAR(45) NULL," +
-                $"  PRIMARY KEY(`transactionId`)," +
-                $"  UNIQUE INDEX `transactionId_UNIQUE` (`transactionId` ASC) VISIBLE," +
-                $"  INDEX `transactionSalesRepId_idx` (`salesRepId` ASC) VISIBLE," +
-                $"  INDEX `transactionCustomerId_idx` (`customerId` ASC) VISIBLE," +
-                $"  CONSTRAINT `transactionSalesRepId`" +
-                $"    FOREIGN KEY(`salesRepId`)" +
-                $"    REFERENCES `{databaseName}`.`users` (`userId`)" +
-                $"    ON DELETE NO ACTION" +
-                $"    ON UPDATE NO ACTION," +
-                $"  CONSTRAINT `transactionCustomerId`" +
-                $"    FOREIGN KEY(`customerId`)" +
-                $"    REFERENCES `{databaseName}`.`customers` (`customerId`)" +
-                $"    ON DELETE NO ACTION" +
-                $"    ON UPDATE NO ACTION);";
+        }
 
-            // Create Transaction Line Items Table Command
-            string createTransactionLineItemsTable =
-                $"CREATE TABLE `{databaseName}`.`transactionlineitems` (" +
-                $"  `transactionId` INT NOT NULL," +
-                $"  `productId` INT NOT NULL," +
-                $"  `quantity` INT NULL," +
-                $"  `pricePerProduct` DECIMAL NULL," +
-                $"  PRIMARY KEY(`transactionId`, `productId`)," +
-                $"  INDEX `lineItemProductId_idx` (`productId` ASC) VISIBLE," +
-                $"  CONSTRAINT `lineItemTransactionId`" +
-                $"    FOREIGN KEY(`transactionId`)" +
-                $"    REFERENCES `{databaseName}`.`transactions` (`transactionId`)" +
-                $"    ON DELETE NO ACTION" +
-                $"    ON UPDATE NO ACTION," +
-                $"  CONSTRAINT `lineItemProductId`" +
-                $"    FOREIGN KEY(`productId`)" +
-                $"    REFERENCES `{databaseName}`.`products` (`productId`)" +
-                $"    ON DELETE NO ACTION" +
-                $"    ON UPDATE NO ACTION);";
-
-            // Create Consoles Table Command
-            string createConsolesTable =
-                $"CREATE TABLE `{databaseName}`.`consoles` (" +
-                $"  `consoleId` INT NOT NULL," +
-                $"  `name` VARCHAR(45) NOT NULL," +
-                $"  `developerName` VARCHAR(45) NULL," +
-                $"  PRIMARY KEY(`consoleId`)," +
-                $"  UNIQUE INDEX `consoleId_UNIQUE` (`consoleId` ASC) VISIBLE);";
-
-            string[] mysqlCommandStrings = new string[] {
-                createSchema,
-                createCompaniesTable,
-                createProductTypesTable,
-                createProductsTable,
-                createCustomersTable,
-                createRolesTable,
-                createUsersTable,
-                createTransactionsTable,
-                createTransactionLineItemsTable,
-                createConsolesTable };
+        private static void AddNewItemToDatabase(string tableName, string values) {
+            string addString = $"INSERT INTO {databaseName}.{tableName} VALUES ({values});";
 
             MySqlConnection dbConn = new MySqlConnection(DBConnectionString);
 
             try {
                 dbConn.Open();
 
-                for(int i = 0; i < mysqlCommandStrings.Length; i++) {
-                    MySqlCommand command = new MySqlCommand(mysqlCommandStrings[i], dbConn);
-                    command.ExecuteNonQuery();
-                }
+                MySqlCommand insertCommand = new MySqlCommand(addString, dbConn);
+                int count = insertCommand.ExecuteNonQuery();
 
-                MessageBox.Show($"Schema Initialized with Database Name \"{databaseName}\"");
+                if(count > 0) {
+                    MessageBox.Show("Database Update Successful");
+                }
             }
             catch(MySqlException ex) {
                 MessageBox.Show(ex.Message);
@@ -759,16 +828,13 @@ namespace RetroCollector.Data.Management {
                 dbConn.Close();
             }
         }
+        public static void UpdateItemInDatebase(string tableName, string where, string values) {
 
-        public static int GetProductTypeIDByName(string name) {
-            foreach(var type in ProductManager.ProductTypes) {
-                if(type.Name == name) {
-                    return type.ID;
-                }
-            }
-
-            return 9999; // 9999 is a failsafe, it refers to the Default option in Product loading of GetAllProducts
         }
+        public static void DeleteItemsFromDatabase(string tableName, string where) {
+
+        }
+
         public static UserAccount GetUserByUsername(string username) {
             foreach(var user in Users) {
                 if(user.Username == username) {

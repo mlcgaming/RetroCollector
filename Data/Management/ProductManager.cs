@@ -106,5 +106,50 @@ namespace RetroCollector.Data.Management {
 
             return filteredProducts.ToList();
         }
+
+        public static List<IProduct> GetProductListByType(ProductType type) {
+
+            IEnumerable<IProduct> prods =
+                from p in products
+                where p.GetProductTypeID() == type.ID
+                select p;
+
+            return prods.ToList();
+        }
+
+        public static decimal GetTotalValueByProductType(ProductType type) {
+
+            IEnumerable<IProduct> prods =
+                from p in products
+                where p.GetProductTypeID() == type.ID
+                select p;
+
+            decimal totalValue = 0M;
+
+            foreach(Product p in prods) {
+                totalValue += (p.Price - p.Cost);
+            }
+
+            return totalValue;
+        }
+
+        public static int GetProductTypeIDByName(string name) {
+            foreach(var type in ProductTypes) {
+                if(type.Name == name) {
+                    return type.ID;
+                }
+            }
+
+            return 9999; // 9999 is a failsafe, it refers to the Default option in Product loading of GetAllProducts
+        }
+        public static ProductType GetProductTypeByID(int id) {
+            foreach(var type in ProductTypes) {
+                if(type.ID == id) {
+                    return type;
+                }
+            }
+
+            return null;
+        }
     }
 }
