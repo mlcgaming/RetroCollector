@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroCollector", "RetroCollector.csproj", "{8B72E976-E927-47C9-A80F-A79BD8B958A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroCollectorUnitTests", "..\RetroCollectorUnitTests\RetroCollectorUnitTests.csproj", "{8132066D-79F8-4D8D-9FEF-151DC937B9D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroCollectorUnitTest", "..\RetroCollectorUnitTest\RetroCollectorUnitTest.csproj", "{6BE9974A-5439-4BA4-BF39-F9C0D1420634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{8B72E976-E927-47C9-A80F-A79BD8B958A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B72E976-E927-47C9-A80F-A79BD8B958A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B72E976-E927-47C9-A80F-A79BD8B958A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8132066D-79F8-4D8D-9FEF-151DC937B9D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8132066D-79F8-4D8D-9FEF-151DC937B9D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8132066D-79F8-4D8D-9FEF-151DC937B9D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8132066D-79F8-4D8D-9FEF-151DC937B9D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE9974A-5439-4BA4-BF39-F9C0D1420634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE9974A-5439-4BA4-BF39-F9C0D1420634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE9974A-5439-4BA4-BF39-F9C0D1420634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE9974A-5439-4BA4-BF39-F9C0D1420634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -92,25 +92,97 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Standalone Forms\DatabaseSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Standalone Forms\DatabaseSettingsForm.Designer.cs">
+      <DependentUpon>DatabaseSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditCompanyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditCompanyForm.Designer.cs">
+      <DependentUpon>EditCompanyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditConsoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditConsoleForm.Designer.cs">
+      <DependentUpon>EditConsoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditCustomerForm.Designer.cs">
+      <DependentUpon>EditCustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditProductForm.Designer.cs">
+      <DependentUpon>EditProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditProductTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditProductTypeForm.Designer.cs">
+      <DependentUpon>EditProductTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditSaleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditSaleForm.Designer.cs">
+      <DependentUpon>EditSaleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditUserForm.Designer.cs">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditUserRoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditForms\EditUserRoleForm.Designer.cs">
+      <DependentUpon>EditUserRoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ListForms\CompanyListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListForms\CompanyListForm.Designer.cs">
+      <DependentUpon>CompanyListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ListForms\ConsoleListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListForms\ConsoleListForm.Designer.cs">
+      <DependentUpon>ConsoleListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ListForms\CustomerListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListForms\CustomerListForm.Designer.cs">
+      <DependentUpon>CustomerListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\Management\DatabaseManager.cs" />
     <Compile Include="Data\Management\PasswordManager.cs" />
     <Compile Include="Data\Management\ProductManager.cs" />
     <Compile Include="Data\Settings.cs" />
     <Compile Include="Exceptions\InvalidPurchaseReturnAmountException.cs" />
-    <Compile Include="Forms\DBSetupForm.cs">
+    <Compile Include="Forms\Standalone Forms\DBSetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DBSetupForm.Designer.cs">
+    <Compile Include="Forms\Standalone Forms\DBSetupForm.Designer.cs">
       <DependentUpon>DBSetupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Forms\Standalone Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="Forms\Standalone Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoginForm.cs" />
-    <Compile Include="Forms\LoginForm.Designer.cs">
+    <Compile Include="Forms\Standalone Forms\LoginForm.cs" />
+    <Compile Include="Forms\Standalone Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ConsoleCategory.cs" />
@@ -131,15 +203,138 @@
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\VideoGame.cs" />
     <Compile Include="Models\VideoGameConsole.cs" />
+    <Compile Include="Forms\ListForms\ProductListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListForms\ProductListForm.Designer.cs">
+      <DependentUpon>ProductListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ListForms\ProductTypeListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListForms\ProductTypeListForm.Designer.cs">
+      <DependentUpon>ProductTypeListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewCompanyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewCompanyForm.Designer.cs">
+      <DependentUpon>NewCompanyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewConsoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewConsoleForm.Designer.cs">
+      <DependentUpon>NewConsoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewCustomerForm.Designer.cs">
+      <DependentUpon>NewCustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewProductForm.Designer.cs">
+      <DependentUpon>NewProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewProductTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewProductTypeForm.Designer.cs">
+      <DependentUpon>NewProductTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewSaleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewSaleForm.Designer.cs">
+      <DependentUpon>NewSaleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewUserForm.Designer.cs">
+      <DependentUpon>NewUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewUserRoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewForms\NewUserRoleForm.Designer.cs">
+      <DependentUpon>NewUserRoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reporting Forms\ProductByCompanyOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reporting Forms\ProductByCompanyOptionsForm.Designer.cs">
+      <DependentUpon>ProductByCompanyOptionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\DBSetupForm.resx">
+    <Compile Include="Forms\ListForms\UserListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListForms\UserListForm.Designer.cs">
+      <DependentUpon>UserListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ListForms\UserRoleListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListForms\UserRoleListForm.Designer.cs">
+      <DependentUpon>UserRoleListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ListForms\SaleListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListForms\SaleListForm.Designer.cs">
+      <DependentUpon>SaleListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reporting Forms\SalesByDateOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reporting Forms\SalesByDateOptionsForm.Designer.cs">
+      <DependentUpon>SalesByDateOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reporting Forms\SalesByRepOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reporting Forms\SalesByRepOptionsForm.Designer.cs">
+      <DependentUpon>SalesByRepOptionsForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\ListForms\CompanyListForm.resx">
+      <DependentUpon>CompanyListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ListForms\ConsoleListForm.resx">
+      <DependentUpon>ConsoleListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ListForms\CustomerListForm.resx">
+      <DependentUpon>CustomerListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ListForms\ProductListForm.resx">
+      <DependentUpon>ProductListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ListForms\ProductTypeListForm.resx">
+      <DependentUpon>ProductTypeListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ListForms\SaleListForm.resx">
+      <DependentUpon>SaleListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ListForms\UserListForm.resx">
+      <DependentUpon>UserListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ListForms\UserRoleListForm.resx">
+      <DependentUpon>UserRoleListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Standalone Forms\DatabaseSettingsForm.resx">
+      <DependentUpon>DatabaseSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Standalone Forms\DBSetupForm.resx">
       <DependentUpon>DBSetupForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoginForm.resx">
+    <EmbeddedResource Include="Forms\Standalone Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="Forms\Standalone Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -165,5 +360,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

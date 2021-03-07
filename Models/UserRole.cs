@@ -39,12 +39,11 @@ namespace RetroCollector.Models {
             this.id = id;
             this.name = name;
             this.description = description;
+            this.permissions = new Dictionary<Permission, bool>(permissions);
             this.dateCreated = dateCreated;
             this.dateLastUpdated = dateLastUpdated;
             this.createdBy = createdBy;
             this.lastUpdatedBy = lastUpdatedBy;
-
-
         }
 
         public virtual void CreateDefaultPermissions() {

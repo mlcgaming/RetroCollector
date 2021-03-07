@@ -11,11 +11,23 @@ using MySql.Data.MySqlClient;
 
 namespace RetroCollector.Data.Management {
     public static class DatabaseManager {
+        public static event EventHandler DatabaseReinitialized;
+
         private const string ID_TYPE_NAME_GAME = "Video Game";
         private const string ID_TYPE_NAME_CONSOLE = "Console";
         private const string ID_TYPE_NAME_PERIPHERAL = "Peripheral";
         private const string ID_TYPE_NAME_MERCHANDISE = "Merchandise";
         private const string ID_TYPE_NAME_SERVICE = "Service";
+
+        public const string DB_TABLES_COMPANIES = "companies";
+        public const string DB_TABLES_CONSOLES = "consoles";
+        public const string DB_TABLES_CUSTOMERS = "customers";
+        public const string DB_TABLES_PRODUCTS = "products";
+        public const string DB_TABLES_PRODUCTTYPES = "producttypes";
+        public const string DB_TABLES_LINEITEMS = "transactionlineitems";
+        public const string DB_TABLES_TRANSACTIONS = "transactions";
+        public const string DB_TABLES_USERROLES = "userroles";
+        public const string DB_TABLES_USERS = "users";
 
         private static string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Night Owl Software\\RetroCollector");
         private static string filename = "db.xml";
@@ -58,6 +70,7 @@ namespace RetroCollector.Data.Management {
             get => allTransactions;
         }
 
+        // Methods
         public static void Initialize() {
             if(File.Exists(FilePath) == false) {
                 CreateDatabaseSettings();
@@ -66,6 +79,50 @@ namespace RetroCollector.Data.Management {
                 InitializeDBSettings();
                 LoadFromDatabase();
             }
+        }
+        public static void ReinitializeDatabase(DatabaseSettingsForm form) {
+            // Initialize DB Settings
+            InitializeDBSettings();
+
+            // Drop Schema from Database
+            string dropString = $"DROP SCHEMA {databaseName};";
+
+            MySqlConnection dbConn = new MySqlConnection($"Server={databaseAddress};Port={databasePort};Uid={databaseUser};Pwd={databasePassword};");
+            MySqlCommand dropCommand = new MySqlCommand(dropString, dbConn);
+
+            try {
+                dbConn.Open();
+                dropCommand.ExecuteNonQuery();
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
+            }
+
+            // Empty Lists
+            allCompanies.Clear();
+            allConsoleTypes.Clear();
+            allCustomers.Clear();
+            allLineItems.Clear();
+            allTransactions.Clear();
+            allUsers.Clear();
+            allRoles.Clear();
+            ProductManager.ProductTypes.Clear();
+            ProductManager.Products.Clear();
+
+            // Perform Initial Setups
+            InitializeSchema();
+            InsertDefaultData();
+
+            // Force Application Logout
+            MessageBox.Show("Returning to Login");
+            form.Close();
+
+            Initialize();
+
+            DatabaseReinitialized?.Invoke(null, EventArgs.Empty);
         }
         private static void CreateDatabaseSettings() {
             DBSetupForm newDbSetupForm = new DBSetupForm();
@@ -78,7 +135,7 @@ namespace RetroCollector.Data.Management {
 
             // Create Companies Table Command
             string createCompaniesTable =
-                $"CREATE TABLE `{databaseName}`.`companies` (" +
+                $"CREATE TABLE `{databaseName}`.`{DB_TABLES_COMPANIES}` (" +
                 $"`companyId` INT NOT NULL," +
                 $"`name` VARCHAR(45) NOT NULL," +
                 $"`dateCreated` DATETIME NULL," +
@@ -90,7 +147,7 @@ namespace RetroCollector.Data.Management {
 
             // Create Product Types Table Command
             string createProductTypesTable =
-                $"CREATE TABLE `{databaseName}`.`producttypes` (" +
+                $"CREATE TABLE `{databaseName}`.`{DB_TABLES_PRODUCTTYPES}` (" +
                 $"`productTypeId` INT NOT NULL," +
                 $"`name` VARCHAR(45) NOT NULL," +
                 $"`dateCreated` DATETIME NULL," +
@@ -103,7 +160,7 @@ namespace RetroCollector.Data.Management {
 
             // Create Products Table Command
             string createProductsTable =
-                $"CREATE TABLE `{databaseName}`.`products` (" +
+                $"CREATE TABLE `{databaseName}`.`{DB_TABLES_PRODUCTS}` (" +
                 $"`productId` INT NOT NULL," +
                 $"`name` VARCHAR(45) NOT NULL," +
                 $"`consoleId` INT NULL," +
@@ -138,7 +195,7 @@ namespace RetroCollector.Data.Management {
 
             // Create Customers Table Command
             string createCustomersTable =
-                $"CREATE TABLE `{databaseName}`.`customers` (" +
+                $"CREATE TABLE `{databaseName}`.`{DB_TABLES_CUSTOMERS}` (" +
                 $"  `customerId` INT NOT NULL," +
                 $"  `firstName` VARCHAR(45) NULL," +
                 $"  `lastName` VARCHAR(45) NULL," +
@@ -158,7 +215,7 @@ namespace RetroCollector.Data.Management {
 
             // Create User Roles Table Command
             string createRolesTable =
-                $"CREATE TABLE `{databaseName}`.`userroles` (" +
+                $"CREATE TABLE `{databaseName}`.`{DB_TABLES_USERROLES}` (" +
                 $"  `roleId` INT NOT NULL," +
                 $"  `name` VARCHAR(45) NOT NULL," +
                 $"  `description` VARCHAR(45) NULL," +
@@ -183,7 +240,7 @@ namespace RetroCollector.Data.Management {
 
             // Create Users Table Command
             string createUsersTable =
-                $"CREATE TABLE `{databaseName}`.`users` (" +
+                $"CREATE TABLE `{databaseName}`.`{DB_TABLES_USERS}` (" +
                 $"  `userId` INT NOT NULL," +
                 $"  `firstName` VARCHAR(45) NOT NULL," +
                 $"  `lastName` VARCHAR(45) NOT NULL," +
@@ -206,7 +263,7 @@ namespace RetroCollector.Data.Management {
 
             // Create Transactions Table Command
             string createTransactionsTable =
-                $"CREATE TABLE `{databaseName}`.`transactions` (" +
+                $"CREATE TABLE `{databaseName}`.`{DB_TABLES_TRANSACTIONS}` (" +
                 $"  `transactionId` INT NOT NULL," +
                 $"  `description` VARCHAR(45) NULL," +
                 $"  `dateOfSale` DATETIME NOT NULL," +
@@ -233,7 +290,7 @@ namespace RetroCollector.Data.Management {
 
             // Create Transaction Line Items Table Command
             string createTransactionLineItemsTable =
-                $"CREATE TABLE `{databaseName}`.`transactionlineitems` (" +
+                $"CREATE TABLE `{databaseName}`.`{DB_TABLES_LINEITEMS}` (" +
                 $"  `transactionId` INT NOT NULL," +
                 $"  `productId` INT NOT NULL," +
                 $"  `quantity` INT NULL," +
@@ -253,7 +310,7 @@ namespace RetroCollector.Data.Management {
 
             // Create Consoles Table Command
             string createConsolesTable =
-                $"CREATE TABLE `{databaseName}`.`consoles` (" +
+                $"CREATE TABLE `{databaseName}`.`{DB_TABLES_CONSOLES}` (" +
                 $"  `consoleId` INT NOT NULL," +
                 $"  `name` VARCHAR(45) NOT NULL," +
                 $"  `developerName` VARCHAR(45) NULL," +
@@ -337,58 +394,58 @@ namespace RetroCollector.Data.Management {
         private static void InsertDefaultData() {
             // Create Default Companies
             string defaultCompanies =
-                $"INSERT INTO {databaseName}.companies VALUES(0, 'RetroWave Collections', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.companies VALUES(1, 'Nintendo', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.companies VALUES(2, 'Sega', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.companies VALUES(3, 'Sony', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.companies VALUES(4, 'Insomniac Games', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.companies VALUES(5, 'Zener Works', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
+                $"INSERT INTO {databaseName}.{DB_TABLES_COMPANIES} VALUES(0, 'RetroWave Collections', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_COMPANIES} VALUES(1, 'Nintendo', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_COMPANIES} VALUES(2, 'Sega', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_COMPANIES} VALUES(3, 'Sony', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_COMPANIES} VALUES(4, 'Insomniac Games', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_COMPANIES} VALUES(5, 'Zener Works', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
 
             string defaultProductTypes =
-                $"INSERT INTO {databaseName}.producttypes VALUES(0, 'Video Game', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.producttypes VALUES(1, 'Console', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.producttypes VALUES(2, 'Merchandise', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.producttypes VALUES(3, 'Peripheral', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.producttypes VALUES(4, 'Service', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTTYPES} VALUES(0, 'Video Game', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTTYPES} VALUES(1, 'Console', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTTYPES} VALUES(2, 'Merchandise', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTTYPES} VALUES(3, 'Peripheral', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTTYPES} VALUES(4, 'Service', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
 
             string defaultConsoles =
-                $"INSERT INTO {databaseName}.consoles VALUES(0, 'NONE', 'NONE');" +
-                $"INSERT INTO {databaseName}.consoles VALUES(1, 'Nintendo 64', 'Nintendo');" +
-                $"INSERT INTO {databaseName}.consoles VALUES(2, 'Sony Playstation (PSX)', 'Sony');" +
-                $"INSERT INTO {databaseName}.consoles VALUES(3, 'Super Nintendo', 'Nintendo');" +
-                $"INSERT INTO {databaseName}.consoles VALUES(4, 'Original Gameboy', 'Nintendo');" +
-                $"INSERT INTO {databaseName}.consoles VALUES(5, 'Sega Genesis', 'Sega');" +
-                $"INSERT INTO {databaseName}.consoles VALUES(6, 'Playstation 2', 'Sony');";
+                $"INSERT INTO {databaseName}.{DB_TABLES_CONSOLES} VALUES(0, 'NONE', 'NONE');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_CONSOLES} VALUES(1, 'Nintendo 64', 'Nintendo');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_CONSOLES} VALUES(2, 'Sony Playstation (PSX)', 'Sony');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_CONSOLES} VALUES(3, 'Super Nintendo', 'Nintendo');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_CONSOLES} VALUES(4, 'Original Gameboy', 'Nintendo');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_CONSOLES} VALUES(5, 'Sega Genesis', 'Sega');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_CONSOLES} VALUES(6, 'Playstation 2', 'Sony');";
 
             string defaultProducts =
-                $"INSERT INTO {databaseName}.products VALUES(0, 'Super Nintendo Entertainment System [CIB]', 3, 1, '1991-8-23 00:00:00', 0, 2, 1, 1, 35.00, 45.99, 3, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
-                $"INSERT INTO {databaseName}.products VALUES(1, 'Nintendo 64 System [Loose]', 1, 1, '1996-9-29 00:00:00', 0, 1, 1, 1, 45.00, 55.99, 4, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
-                $"INSERT INTO {databaseName}.products VALUES(2, 'Super Mario World', 3, 1, '1991-8-23 00:00:00', 0, 1, 1, 0, 30.79, 49.99, 8, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
-                $"INSERT INTO {databaseName}.products VALUES(3, 'Donkey Kong 64', 1, 1, '1999-11-4 00:00:00', 0, 1, 1, 0, 34.99, 44.95, 5, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
-                $"INSERT INTO {databaseName}.products VALUES(4, 'Spyro the Dragon', 2, 4, '1998-9-9 00:00:00', 0, 1, 1, 0, 12.95, 17.99, 2, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
-                $"INSERT INTO {databaseName}.products VALUES(5, 'Okage Shadow King', 6, 5, '2001-10-1 00:00:00', 0, 1, 1, 0, 19.69, 24.95, 1, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
-                $"INSERT INTO {databaseName}.products VALUES(6, 'Mario Kart 64', 1, 1, '1997-2-10 00:00:00', 0, 1, 1, 0, 24.99, 39.99, 1, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
-                $"INSERT INTO {databaseName}.products VALUES(7, 'Nintendo 64 Controller (Blue)', 1, 1, '1996-9-29 00:00:00', 0, 1, 1, 3, 15.99, 21.95, 3, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
-                $"INSERT INTO {databaseName}.products VALUES(8, 'Pikachu Plush (1998)', NULL, 1, '1998-1-1 00:00:00', 0, 1, 1, 2, 23.95, 34.99, 1, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '1998 Original Plush of Pikachu');" +
-                $"INSERT INTO {databaseName}.products VALUES(9, 'Console Repair Service', NULL, 0, '1998-1-1 00:00:00', 0, 1, 1, 4, 15.00, 75.00, 0, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', 'Diagnostics and Repair of Console -- Parts not included');";
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(0, 'Super Nintendo Entertainment System [CIB]', 3, 1, '1991-8-23 00:00:00', 0, 2, 1, 1, 35.00, 45.99, 3, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(1, 'Nintendo 64 System [Loose]', 1, 1, '1996-9-29 00:00:00', 0, 1, 1, 1, 45.00, 55.99, 4, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(2, 'Super Mario World', 3, 1, '1991-8-23 00:00:00', 0, 1, 1, 0, 30.79, 49.99, 8, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(3, 'Donkey Kong 64', 1, 1, '1999-11-4 00:00:00', 0, 1, 1, 0, 34.99, 44.95, 5, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(4, 'Spyro the Dragon', 2, 4, '1998-9-9 00:00:00', 0, 1, 1, 0, 12.95, 17.99, 2, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(5, 'Okage Shadow King', 6, 5, '2001-10-1 00:00:00', 0, 1, 1, 0, 19.69, 24.95, 1, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(6, 'Mario Kart 64', 1, 1, '1997-2-10 00:00:00', 0, 1, 1, 0, 24.99, 39.99, 1, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(7, 'Nintendo 64 Controller (Blue)', 1, 1, '1996-9-29 00:00:00', 0, 1, 1, 3, 15.99, 21.95, 3, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(8, 'Pikachu Plush (1998)', NULL, 1, '1998-1-1 00:00:00', 0, 1, 1, 2, 23.95, 34.99, 1, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', '1998 Original Plush of Pikachu');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_PRODUCTS} VALUES(9, 'Console Repair Service', NULL, 0, '1998-1-1 00:00:00', 0, 1, 1, 4, 15.00, 75.00, 0, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', 'Diagnostics and Repair of Console -- Parts not included');";
 
             string defaultUserRoles =
-                $"INSERT INTO {databaseName}.userroles VALUES(0, 'Admin', 'Built-In Administrator Account', true, true, true, true, true, true, true, true, true, true, true, true, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.userroles VALUES(1, 'User', 'Built-In Standard User Account', true, true, false, false, false, false, false, false, false, false, true, false, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
+                $"INSERT INTO {databaseName}.{DB_TABLES_USERROLES} VALUES(0, 'Admin', 'Built-In Administrator Account', true, true, true, true, true, true, true, true, true, true, true, true, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_USERROLES} VALUES(1, 'User', 'Built-In Standard User Account', true, true, false, false, false, false, false, false, false, false, true, false, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
 
             string defaultUsers =
-                $"INSERT INTO {databaseName}.users VALUES(0, 'Admin', '', 'Admin', 'Y3NhN68hLclf9oCLY6U89OFat3a+HsVYATg8WjxnydFM2w74m80x5mLfVbR9h8N0wpWECopUesKSyuG2oV+j9w==', 'TNsO+JvNMeZi31W0fYfDdMKVhAqKVHrCksrhtqFfo/c=', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', 0);";
+                $"INSERT INTO {databaseName}.{DB_TABLES_USERS} VALUES(0, 'Admin', '', 'Admin', 'Y3NhN68hLclf9oCLY6U89OFat3a+HsVYATg8WjxnydFM2w74m80x5mLfVbR9h8N0wpWECopUesKSyuG2oV+j9w==', 'TNsO+JvNMeZi31W0fYfDdMKVhAqKVHrCksrhtqFfo/c=', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin', 0);";
 
             string defaultCustomers =
-                $"INSERT INTO {databaseName}.customers VALUES(0, 'Guest', 'Customer', '', '', '', '', '', '', '', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
-                $"INSERT INTO {databaseName}.customers VALUES(1, 'John', 'Smith', '123 N Broadway', 'Suite 103', 'Rochester', 'MN', '55906', '111-222-3333', 'jsmith@everyman.com', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
+                $"INSERT INTO {databaseName}.{DB_TABLES_CUSTOMERS} VALUES(0, 'Guest', 'Customer', '', '', '', '', '', '', '', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_CUSTOMERS} VALUES(1, 'John', 'Smith', '123 N Broadway', 'Suite 103', 'Rochester', 'MN', '55906', '111-222-3333', 'jsmith@everyman.com', '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
 
             string defaultTransactions =
-                $"INSERT INTO {databaseName}.transactions VALUES (0, 'Sample Sale', '2021-1-1 08:00:00', 0, 1, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
+                $"INSERT INTO {databaseName}.{DB_TABLES_TRANSACTIONS} VALUES (0, 'Sample Sale', '2021-1-1 08:00:00', 0, 1, '2021-03-01 00:00:00', '2021-03-01 00:00:00', 'Built-In Admin', 'Built-In Admin');";
 
             string defaultTransactionLineItems =
-                $"INSERT INTO {databaseName}.transactionLineItems VALUES (0, 0, 1, 45.99);" +
-                $"INSERT INTO {databaseName}.transactionLineItems VALUES(0, 1, 1, 60.00);";
+                $"INSERT INTO {databaseName}.{DB_TABLES_LINEITEMS} VALUES (0, 0, 1, 45.99);" +
+                $"INSERT INTO {databaseName}.{DB_TABLES_LINEITEMS} VALUES(0, 1, 1, 60.00);";
 
             string[] defaultCommands = new string[] {
                 defaultCompanies,
@@ -427,7 +484,7 @@ namespace RetroCollector.Data.Management {
             try {
                 dbConn.Open();
 
-                MySqlCommand getUserRolesCommand = new MySqlCommand($"SELECT * FROM {databaseName}.userroles", dbConn);
+                MySqlCommand getUserRolesCommand = new MySqlCommand($"SELECT * FROM {databaseName}.{DB_TABLES_USERROLES}", dbConn);
                 MySqlDataReader reader = getUserRolesCommand.ExecuteReader();
 
                 while(reader.Read()) {
@@ -462,7 +519,7 @@ namespace RetroCollector.Data.Management {
             try {
                 dbConn.Open();
 
-                MySqlCommand getUsersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.users", dbConn);
+                MySqlCommand getUsersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.{DB_TABLES_USERS}", dbConn);
                 MySqlDataReader reader = getUsersCommand.ExecuteReader();
 
                 while(reader.Read()) {
@@ -485,7 +542,7 @@ namespace RetroCollector.Data.Management {
             try {
                 dbConn.Open();
 
-                MySqlCommand getConsolesCommand = new MySqlCommand($"SELECT * FROM {databaseName}.consoles", dbConn);
+                MySqlCommand getConsolesCommand = new MySqlCommand($"SELECT * FROM {databaseName}.{DB_TABLES_CONSOLES}", dbConn);
                 MySqlDataReader reader = getConsolesCommand.ExecuteReader();
 
                 while(reader.Read()) {
@@ -507,7 +564,7 @@ namespace RetroCollector.Data.Management {
             try {
                 dbConn.Open();
 
-                MySqlCommand getCustomersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.customers", dbConn);
+                MySqlCommand getCustomersCommand = new MySqlCommand($"SELECT * FROM {databaseName}.{DB_TABLES_CUSTOMERS}", dbConn);
                 MySqlDataReader reader = getCustomersCommand.ExecuteReader();
 
                 while(reader.Read()) {
@@ -530,7 +587,7 @@ namespace RetroCollector.Data.Management {
             try {
                 dbConn.Open();
 
-                MySqlCommand getCompaniesCommand = new MySqlCommand($"SELECT * FROM {databaseName}.companies", dbConn);
+                MySqlCommand getCompaniesCommand = new MySqlCommand($"SELECT * FROM {databaseName}.{DB_TABLES_COMPANIES}", dbConn);
                 MySqlDataReader reader = getCompaniesCommand.ExecuteReader();
 
                 while(reader.Read()) {
@@ -552,7 +609,7 @@ namespace RetroCollector.Data.Management {
             try {
                 dbConn.Open();
 
-                MySqlCommand getTypesCommand = new MySqlCommand($"SELECT * FROM {databaseName}.producttypes", dbConn);
+                MySqlCommand getTypesCommand = new MySqlCommand($"SELECT * FROM {databaseName}.{DB_TABLES_PRODUCTTYPES}", dbConn);
                 MySqlDataReader reader = getTypesCommand.ExecuteReader();
 
                 while(reader.Read()) {
@@ -592,7 +649,7 @@ namespace RetroCollector.Data.Management {
                 int columnUpdatedBy = 15;
                 int columnDescription = 16;
 
-                MySqlCommand getProductsCommand = new MySqlCommand($"SELECT * FROM {databaseName}.products", dbConn);
+                MySqlCommand getProductsCommand = new MySqlCommand($"SELECT * FROM {databaseName}.{DB_TABLES_PRODUCTS}", dbConn);
                 MySqlDataReader reader = getProductsCommand.ExecuteReader();
 
                 while(reader.Read()) {
@@ -719,7 +776,7 @@ namespace RetroCollector.Data.Management {
             try {
                 dbConn.Open();
 
-                MySqlCommand getItemsCommand = new MySqlCommand($"SELECT * FROM {databaseName}.transactionlineitems", dbConn);
+                MySqlCommand getItemsCommand = new MySqlCommand($"SELECT * FROM {databaseName}.{DB_TABLES_LINEITEMS}", dbConn);
                 MySqlDataReader reader = getItemsCommand.ExecuteReader();
 
                 while(reader.Read()) {
@@ -741,7 +798,7 @@ namespace RetroCollector.Data.Management {
             try {
                 dbConn.Open();
 
-                MySqlCommand getTransactionsCommand = new MySqlCommand($"SELECT * FROM {databaseName}.transactions", dbConn);
+                MySqlCommand getTransactionsCommand = new MySqlCommand($"SELECT * FROM {databaseName}.{DB_TABLES_TRANSACTIONS}", dbConn);
                 MySqlDataReader reader = getTransactionsCommand.ExecuteReader();
 
                 while(reader.Read()) {
@@ -766,6 +823,288 @@ namespace RetroCollector.Data.Management {
         }
 
         public static void AddNewCustomer(Customer customer) {
+            string customerValues = GetNewCustomerValuesString(customer);
+
+            AddNewItemToDatabase(DB_TABLES_CUSTOMERS, customerValues);
+        }
+        public static void AddNewProduct(Product product) {
+            string productValues = GetNewProductValuesString(product);
+
+            AddNewItemToDatabase(DB_TABLES_PRODUCTS, productValues);
+        }
+        public static void AddNewProductType(ProductType type) {
+            string typeValues = GetNewProductTypeValuesString(type);
+
+            AddNewItemToDatabase(DB_TABLES_PRODUCTTYPES, typeValues);
+        }
+        public static void AddNewUser(UserAccount user) {
+            string userValues = GetNewUserValuesString(user);
+
+            AddNewItemToDatabase(DB_TABLES_USERS, userValues);
+        }
+        public static void AddNewUserRole(UserRole role) {
+            string roleValues = GetNewUserRoleValuesString(role);
+
+            AddNewItemToDatabase(DB_TABLES_USERROLES, roleValues);
+        }
+        public static void AddNewCompany(Company company) {
+            string companyValues = GetNewCompanyValuesString(company);
+
+            AddNewItemToDatabase(DB_TABLES_COMPANIES, companyValues);
+        }
+        public static void AddNewConsoleType(ConsoleCategory console) {
+            string consoleValues = GetNewConsoleValuesString(console);
+
+            AddNewItemToDatabase(DB_TABLES_CONSOLES, consoleValues);
+        }
+        public static void AddNewTransaction(TransactionSale sale) {
+            string transactionValuesString = GetNewTransactionValuesString(sale);
+
+            AddNewItemToDatabase(DB_TABLES_TRANSACTIONS, transactionValuesString);
+
+            foreach(var lineItem in sale.Items) {
+                AddNewTransactionLineItem(lineItem);
+            }
+        }
+        public static void AddNewTransactionLineItem(TransactionLineItem item) {
+            string lineItemValues = GetNewTransactionItemValuesString(item);
+
+            AddNewItemToDatabase(DB_TABLES_LINEITEMS, lineItemValues);
+        }
+
+        private static string GetNewCustomerValuesString(Customer customer) {
+            string customerValues =
+                $"{customer.ID}," +
+                $"'{customer.FirstName}'," +
+                $"'{customer.LastName}'," +
+                $"'{customer.Address1}'," +
+                $"'{customer.Address2}'," +
+                $"'{customer.City}'," +
+                $"'{customer.StateAbbr}'," +
+                $"'{customer.ZipCode}'," +
+                $"'{customer.Phone}'," +
+                $"'{customer.Email}'," +
+                $"'{customer.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{customer.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{customer.CreatedBy}'," +
+                $"'{customer.LastUpdatedBy}";
+
+            return customerValues;
+        }
+        private static string GetNewProductValuesString(Product product) {
+            string productValues =
+                $"{product.ID}," +
+                $"'{product.Name}',";
+
+            if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_GAME)) {
+                VideoGame game = product as VideoGame;
+                productValues += $"{game.Console.ID},";
+            }
+            else {
+                productValues += $"0,";
+            }
+
+            productValues = productValues +
+                $"{product.Developer.ID},";
+
+            if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_GAME)) {
+                VideoGame game = product as VideoGame;
+
+                productValues +=
+                    $"'{game.Released.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+            else if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_CONSOLE)) {
+                VideoGameConsole console = product as VideoGameConsole;
+
+                productValues +=
+                    $"'{console.Released.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+            else if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_PERIPHERAL)) {
+                Peripheral peripheral = product as Peripheral;
+
+                productValues +=
+                    $"'{peripheral.Released.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+            else if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_MERCHANDISE)) {
+                GameMerchandise merch = product as GameMerchandise;
+
+                productValues +=
+                    $"'{merch.Released.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+            else {
+                productValues +=
+                    $"'{DateTime.Now.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+
+            productValues = productValues +
+                $"{(int)product.Quality}," +
+                $"{(int)product.Completion}," +
+                $"{(int)product.Region}," +
+                $"{product.ProductTypeID}," +
+                $"{product.Cost}," +
+                $"{product.Price}," +
+                $"{product.OnHand}," +
+                $"'{product.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
+                $"'{product.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
+                $"'{product.CreatedBy}'," +
+                $"'{product.LastUpdatedBy}'," +
+                $"'{product.Description}'";
+
+            return productValues;
+        }
+        private static string GetNewProductTypeValuesString(ProductType type) {
+            string typeValues =
+                $"{type.ID}," +
+                $"{type.Name}," +
+                $"'{type.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{type.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{type.CreatedBy}'," +
+                $"'{type.LastUpdatedBy}";
+
+            return typeValues;
+        }
+        private static string GetNewUserValuesString(UserAccount user) {
+            string userValues =
+                $"{user.ID}," +
+                $"{user.FirstName}," +
+                $"{user.LastName}," +
+                $"{user.Username}," +
+                $"{user.PassHash}," +
+                $"{user.Salt}," +
+                $"'{user.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{user.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{user.CreatedBy}'," +
+                $"'{user.LastUpdatedBy}";
+
+            return userValues;
+        }
+        private static string GetNewUserRoleValuesString(UserRole role) {
+            string roleValues =
+                $"{role.ID}," +
+                $"{role.Name}," +
+                $"{role.Description}," +
+                $"{role.Permissions[UserRole.Permission.AllowCreateProducts]}," +
+                $"{role.Permissions[UserRole.Permission.AllowEditProducts]}," +
+                $"{role.Permissions[UserRole.Permission.AllowDeleteProducts]}," +
+                $"{role.Permissions[UserRole.Permission.AllowCreateUsers]}," +
+                $"{role.Permissions[UserRole.Permission.AllowEditUsers]}," +
+                $"{role.Permissions[UserRole.Permission.AllowDeleteUsers]}," +
+                $"{role.Permissions[UserRole.Permission.AllowCreateRoles]}," +
+                $"{role.Permissions[UserRole.Permission.AllowEditRoles]}," +
+                $"{role.Permissions[UserRole.Permission.AllowDeleteRoles]}," +
+                $"{role.Permissions[UserRole.Permission.AllowReporting]}," +
+                $"{role.Permissions[UserRole.Permission.AllowProcessSales]}," +
+                $"{role.Permissions[UserRole.Permission.AllowAdminControls]}," +
+                $"'{role.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{role.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{role.CreatedBy}'," +
+                $"'{role.LastUpdatedBy}";
+
+            return roleValues;
+        }
+        private static string GetNewCompanyValuesString(Company company) {
+            string companyValues =
+                $"{company.ID}," +
+                $"{company.Name}," +
+                $"'{company.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{company.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{company.CreatedBy}'," +
+                $"'{company.LastUpdatedBy}";
+
+            return companyValues;
+        }
+        private static string GetNewConsoleValuesString(ConsoleCategory console) {
+            string consoleValues =
+                $"{console.ID}," +
+                $"{console.Name}," +
+                $"{console.Developer}";
+
+            return consoleValues;
+        }
+        private static string GetNewTransactionValuesString(TransactionSale sale) {
+            string transactionValues =
+                $"{sale.ID}," +
+                $"{sale.Description}," +
+                $"{sale.DateOfSale.ToUniversalTime():dd-MM-yyyy HH:mm:ss}," +
+                $"{sale.SalesRepID}," +
+                $"{sale.CustomerID}," +
+                $"'{sale.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{sale.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"'{sale.CreatedBy}'," +
+                $"'{sale.LastUpdatedBy}";
+
+            return transactionValues;
+        }
+        private static string GetNewTransactionItemValuesString(TransactionLineItem item) {
+            string lineItemValues =
+                $"{item.TransactionID}," +
+                $"{item.ProductID}," +
+                $"{item.Quantity}," +
+                $"{item.PricePerProduct}";
+
+            return lineItemValues;
+        }
+
+        public static void UpdateCustomer(Customer customer) {
+            string customerValues = GetUpdateCustomerValuesString(customer);
+            string where = $"customerId={customer.ID}";
+
+            UpdateItemInDatebase(DB_TABLES_CUSTOMERS, customerValues, where);
+        }
+        public static void UpdateProduct(Product product) {
+            string productValues = GetUpdateProductValuesString(product);
+            string where = $"productId={product.ID}";
+
+            UpdateItemInDatebase(DB_TABLES_PRODUCTS, productValues, where);
+        }
+        public static void UpdateProductType(ProductType type) {
+            string typeValues = GetUpdateProductTypeValuesString(type);
+            string where = $"productTypeId={type.ID}";
+
+            UpdateItemInDatebase(DB_TABLES_PRODUCTTYPES, typeValues, where);
+        }
+        public static void UpdateUser(UserAccount user) {
+            string userValues = GetUpdateUserValuesString(user);
+            string where = $"userId={user.ID}";
+
+            UpdateItemInDatebase(DB_TABLES_USERS, userValues, where);
+        }
+        public static void UpdateUserRole(UserRole role) {
+            string roleValues = GetUpdateUserRoleValuesString(role);
+            string where = $"roleId={role.ID}";
+
+            UpdateItemInDatebase(DB_TABLES_USERROLES, roleValues, where);
+        }
+        public static void UpdateCompany(Company company) {
+            string companyValues = GetUpdateCompanyValuesString(company);
+            string where = $"companyId={company.ID}";
+
+            UpdateItemInDatebase(DB_TABLES_COMPANIES, companyValues, where);
+        }
+        public static void UpdateConsoleType(ConsoleCategory console) {
+            string consoleValues = GetUpdateConsoleValuesString(console);
+            string where = $"consoleId={console.ID}";
+
+            UpdateItemInDatebase(DB_TABLES_CONSOLES, consoleValues, where);
+        }
+        public static void UpdateTransaction(TransactionSale sale) {
+            string transactionValuesString = GetUpdateTransactionValuesString(sale);
+            string where = $"transactionId={sale.ID}";
+
+            UpdateItemInDatebase(DB_TABLES_TRANSACTIONS, transactionValuesString, where);
+
+            foreach(var lineItem in sale.Items) {
+                UpdateTransactionLineItem(lineItem);
+            }
+        }
+        public static void UpdateTransactionLineItem(TransactionLineItem item) {
+            string lineItemValues = GetUpdateTransactionItemValuesString(item);
+            string where = $"transactionId={item.TransactionID} AND productId={item.ProductID}";
+
+            UpdateItemInDatebase(DB_TABLES_LINEITEMS, lineItemValues, where);
+        }
+
+        private static string GetUpdateCustomerValuesString(Customer customer) {
             string customerValues =
                 $"customerId={customer.ID}," +
                 $"firstName='{customer.FirstName}'," +
@@ -782,32 +1121,166 @@ namespace RetroCollector.Data.Management {
                 $"createdBy='{customer.CreatedBy}'," +
                 $"lastUpdatedBy='{customer.LastUpdatedBy}";
 
-            AddNewItemToDatabase("customers", customerValues);
+            return customerValues;
         }
-        public static void AddNewProduct(Product product) {
+        private static string GetUpdateProductValuesString(Product product) {
+            string productValues =
+                $"productId={product.ID}," +
+                $"name='{product.Name}',";
 
+            if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_GAME)) {
+                VideoGame game = product as VideoGame;
+                productValues += $"consoleId={game.Console.ID},";
+            }
+            else {
+                productValues += $"consoleId=0,";
+            }
+
+            productValues = productValues +
+                $"developerId={product.Developer.ID},";
+
+            if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_GAME)) {
+                VideoGame game = product as VideoGame;
+
+                productValues +=
+                    $"dateReleased='{game.Released.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+            else if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_CONSOLE)) {
+                VideoGameConsole console = product as VideoGameConsole;
+
+                productValues +=
+                    $"dateReleased='{console.Released.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+            else if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_PERIPHERAL)) {
+                Peripheral peripheral = product as Peripheral;
+
+                productValues +=
+                    $"dateReleased='{peripheral.Released.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+            else if(product.ProductTypeID == ProductManager.GetProductTypeIDByName(ID_TYPE_NAME_MERCHANDISE)) {
+                GameMerchandise merch = product as GameMerchandise;
+
+                productValues +=
+                    $"dateReleased='{merch.Released.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+            else {
+                productValues +=
+                    $"dateReleased='{DateTime.Now.ToUniversalTime():yyyy-MM-dd HH:mm:ss}',";
+            }
+
+            productValues = productValues +
+                $"quality={(int)product.Quality}," +
+                $"completion={(int)product.Completion}," +
+                $"region={(int)product.Region}," +
+                $"productTypeId={product.ProductTypeID}," +
+                $"cost={product.Cost}," +
+                $"price={product.Price}," +
+                $"onHand={product.OnHand}," +
+                $"dateCreated='{product.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
+                $"dateLastUpdated='{product.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
+                $"createdBy='{product.CreatedBy}'," +
+                $"lastUpdatedBy='{product.LastUpdatedBy}'," +
+                $"description='{product.Description}'";
+
+            return productValues;
         }
-        public static void AddNewProductType(ProductType type) {
+        private static string GetUpdateProductTypeValuesString(ProductType type) {
+            string typeValues =
+                $"productTypeId={type.ID}," +
+                $"name={type.Name}," +
+                $"dateCreated='{type.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"dateLastUpdated='{type.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"createdBy='{type.CreatedBy}'," +
+                $"lastUpdatedBy='{type.LastUpdatedBy}";
 
+            return typeValues;
         }
-        public static void AddNewUser(UserAccount user) {
+        private static string GetUpdateUserValuesString(UserAccount user) {
+            string userValues = 
+                $"userId={user.ID}," +
+                $"firstName={user.FirstName}," +
+                $"lastName={user.LastName}," +
+                $"username={user.Username}," +
+                $"passHash={user.PassHash}," +
+                $"passSalt={user.Salt}," +
+                $"dateCreated='{user.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"dateLastUpdated='{user.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"createdBy='{user.CreatedBy}'," +
+                $"lastUpdatedBy='{user.LastUpdatedBy}";
 
+            return userValues;
         }
-        public static void AddNewUserRole(UserRole role) {
+        private static string GetUpdateUserRoleValuesString(UserRole role) {
+            string roleValues = 
+                $"roleId={role.ID}," +
+                $"name={role.Name}," +
+                $"description={role.Description}," +
+                $"allowCreateProducts={role.Permissions[UserRole.Permission.AllowCreateProducts]}," +
+                $"allowEditProducts={role.Permissions[UserRole.Permission.AllowEditProducts]}," +
+                $"allowDeleteProducts={role.Permissions[UserRole.Permission.AllowDeleteProducts]}," +
+                $"allowCreateUsers={role.Permissions[UserRole.Permission.AllowCreateUsers]}," +
+                $"allowEditUsers={role.Permissions[UserRole.Permission.AllowEditUsers]}," +
+                $"allowDeleteUsers={role.Permissions[UserRole.Permission.AllowDeleteUsers]}," +
+                $"allowCreateRoles={role.Permissions[UserRole.Permission.AllowCreateRoles]}," +
+                $"allowEditRoles={role.Permissions[UserRole.Permission.AllowEditRoles]}," +
+                $"allowDeleteRoles={role.Permissions[UserRole.Permission.AllowDeleteRoles]}," +
+                $"allowReporting={role.Permissions[UserRole.Permission.AllowReporting]}," +
+                $"allowProcessSales={role.Permissions[UserRole.Permission.AllowProcessSales]}," +
+                $"allowAdminOptions={role.Permissions[UserRole.Permission.AllowAdminControls]}," +
+                $"dateCreated='{role.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"dateLastUpdated='{role.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"createdBy='{role.CreatedBy}'," +
+                $"lastUpdatedBy='{role.LastUpdatedBy}";
 
+            return roleValues;
         }
-        public static void AddNewCompany(Company company) {
+        private static string GetUpdateCompanyValuesString(Company company) {
+            string companyValues = 
+                $"companyId={company.ID}," +
+                $"name={company.Name}," +
+                $"dateCreated='{company.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"dateLastUpdated='{company.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"createdBy='{company.CreatedBy}'," +
+                $"lastUpdatedBy='{company.LastUpdatedBy}";
 
+            return companyValues;
         }
-        public static void AddNewConsoleType(ConsoleCategory console) {
+        private static string GetUpdateConsoleValuesString(ConsoleCategory console) {
+            string consoleValues =
+                $"consoleId={console.ID}," +
+                $"name={console.Name}," +
+                $"developerName={console.Developer}";
 
+            return consoleValues;
         }
-        public static void AddNewTransaction(TransactionSale sale) {
+        private static string GetUpdateTransactionValuesString(TransactionSale sale) {
+            string transactionValues = 
+                $"transactionId={sale.ID}," +
+                $"description={sale.Description}," +
+                $"dateOfSale={sale.DateOfSale.ToUniversalTime():dd-MM-yyyy HH:mm:ss}," +
+                $"salesRepId={sale.SalesRepID}," +
+                $"customerId={sale.CustomerID}," +
+                $"dateCreated='{sale.DateCreated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"dateLastUpdated='{sale.LastUpdated.ToUniversalTime():dd-MM-yyyy HH:mm:ss}'," +
+                $"createdBy='{sale.CreatedBy}'," +
+                $"lastUpdatedBy='{sale.LastUpdatedBy}";
 
+            return transactionValues;
+        }
+        private static string GetUpdateTransactionItemValuesString(TransactionLineItem item) {
+            string lineItemValues =
+                $"transactionId={item.TransactionID}," +
+                $"productId={item.ProductID}," +
+                $"quantity={item.Quantity}," +
+                $"pricePerProduct={item.PricePerProduct}";
+
+            return lineItemValues;
         }
 
         private static void AddNewItemToDatabase(string tableName, string values) {
-            string addString = $"INSERT INTO {databaseName}.{tableName} VALUES ({values});";
+            string addString = $"INSERT INTO {databaseName}.{tableName} VALUES({values});";
+
+            MessageBox.Show($"Running following command: \r\n\r\n{addString}");
 
             MySqlConnection dbConn = new MySqlConnection(DBConnectionString);
 
@@ -818,7 +1291,7 @@ namespace RetroCollector.Data.Management {
                 int count = insertCommand.ExecuteNonQuery();
 
                 if(count > 0) {
-                    MessageBox.Show("Database Update Successful");
+                    MessageBox.Show("Database Updated Successful");
                 }
             }
             catch(MySqlException ex) {
@@ -829,10 +1302,48 @@ namespace RetroCollector.Data.Management {
             }
         }
         public static void UpdateItemInDatebase(string tableName, string where, string values) {
+            string updateString = $"UPDATE {databaseName}.{tableName} SET ({values}) WHERE {where};";
 
+            MySqlConnection dbConn = new MySqlConnection(DBConnectionString);
+
+            try {
+                dbConn.Open();
+
+                MySqlCommand updateCommand = new MySqlCommand(updateString, dbConn);
+                int count = updateCommand.ExecuteNonQuery();
+
+                if(count > 0) {
+                    MessageBox.Show("Database Updated Successful");
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
+            }
         }
         public static void DeleteItemsFromDatabase(string tableName, string where) {
+            string deleteString = $"DELETE FROM {databaseName}.{tableName} WHERE {where};";
 
+            MySqlConnection dbConn = new MySqlConnection(DBConnectionString);
+
+            try {
+                dbConn.Open();
+
+                MySqlCommand deleteCommand = new MySqlCommand(deleteString, dbConn);
+                int count = deleteCommand.ExecuteNonQuery();
+
+                if(count > 0) {
+                    MessageBox.Show("Database Updated Successful");
+                }
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                dbConn.Close();
+            }
         }
 
         public static UserAccount GetUserByUsername(string username) {
@@ -863,6 +1374,26 @@ namespace RetroCollector.Data.Management {
             return null;
         }
 
+        // Test Methods
+        public static int GetRowCount(string tableName) {
+            MySqlConnection dbConn = new MySqlConnection(DBConnectionString);
+            MySqlCommand command = new MySqlCommand($"SELECT COUNT(*) FROM {databaseName}.{tableName};", dbConn);
+
+            try {
+                dbConn.Open();
+
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+                return 0;
+            }
+            finally {
+                dbConn.Close();
+            }
+        }
+
+        // Event Handlers
         private static void OnDbSetupSaved(object sender, EventArgs e) {
             InitializeDBSettings();
             InitializeSchema();

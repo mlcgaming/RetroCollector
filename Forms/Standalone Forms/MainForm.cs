@@ -22,6 +22,7 @@ namespace RetroCollector {
             InitializeComponent();
 
             DatabaseManager.Initialize();
+            DatabaseManager.DatabaseReinitialized += OnDatabaseReinitialized;
 
             LoginForm userLogin = new LoginForm();
             userLogin.UserLoggedIn += OnUserLoggedIn;
@@ -38,6 +39,9 @@ namespace RetroCollector {
             tboxSearchItems.TextChanged -= OnSearchTextChanged;
             cboxProductType.SelectedIndexChanged -= OnGroupDropDownIndexChanged;
             listProducts.SelectedIndexChanged -= OnNewItemSelected;
+
+            // Disable MenuItem Events, if any
+            databaseSettingsToolStripMenuItem.Click -= OnDatabaseSettingsClick;
 
             // Clear Items
             cboxProductType.Items.Clear();
@@ -121,7 +125,13 @@ namespace RetroCollector {
             tboxSearchItems.TextChanged += OnSearchTextChanged;
             cboxProductType.SelectedIndexChanged += OnGroupDropDownIndexChanged;
             listProducts.SelectedIndexChanged += OnNewItemSelected;
+
+            // Enable MenuItem Events
+            databaseSettingsToolStripMenuItem.Click += OnDatabaseSettingsClick;
         }
+
+        
+
         private void CalculateInventoryValue() {
             decimal totalGamesValue = ProductManager.GetTotalValueByProductType(ProductManager.GetProductTypeByID(0));
             decimal totalConsolesValue = ProductManager.GetTotalValueByProductType(ProductManager.GetProductTypeByID(1));
@@ -149,6 +159,16 @@ namespace RetroCollector {
                 ResetForm();
             }
         }
+        private void OnDatabaseReinitialized(object sender, EventArgs e) {
+            ResetForm();
+
+            activeUser = null;
+
+            LoginForm userLogin = new LoginForm();
+            userLogin.UserLoggedIn += OnUserLoggedIn;
+            userLogin.FormClosed += OnLoginFormClosing;
+            userLogin.ShowDialog();
+        }
         private void OnNewProductClick(object sender, EventArgs e) {
 
         }
@@ -175,6 +195,11 @@ namespace RetroCollector {
         }
         private void OnControlConsolesClick(object sender, EventArgs e) {
 
+        }
+
+        private void OnDatabaseSettingsClick(object sender, EventArgs e) {
+            DatabaseSettingsForm dbSettings = new DatabaseSettingsForm();
+            dbSettings.ShowDialog();
         }
 
         private void OnGroupDropDownIndexChanged(object sender, EventArgs e) {

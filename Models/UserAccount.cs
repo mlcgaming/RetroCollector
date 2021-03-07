@@ -14,7 +14,13 @@ namespace RetroCollector.Models {
         private byte[] passSalt;
         private UserRole role;
 
-        public string Name {
+        public string FirstName {
+            get => firstName;
+        }
+        public string LastName {
+            get => lastName;
+        }
+        public string FullName {
             get => $"{firstName} {lastName}";
         }
         public string Username {
