@@ -23,12 +23,90 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
+            this.btnFormCancel = new System.Windows.Forms.Button();
+            this.btnFormSave = new System.Windows.Forms.Button();
+            this.tboxConsoleName = new System.Windows.Forms.TextBox();
+            this.lblConsoleName = new System.Windows.Forms.Label();
+            this.tboxConsoleId = new System.Windows.Forms.TextBox();
+            this.lblConsoleId = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // btnFormCancel
+            // 
+            this.btnFormCancel.Location = new System.Drawing.Point(144, 89);
+            this.btnFormCancel.Name = "btnFormCancel";
+            this.btnFormCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnFormCancel.TabIndex = 20;
+            this.btnFormCancel.Text = "Cancel";
+            this.btnFormCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnFormSave
+            // 
+            this.btnFormSave.Location = new System.Drawing.Point(17, 89);
+            this.btnFormSave.Name = "btnFormSave";
+            this.btnFormSave.Size = new System.Drawing.Size(75, 23);
+            this.btnFormSave.TabIndex = 19;
+            this.btnFormSave.Text = "Save";
+            this.btnFormSave.UseVisualStyleBackColor = true;
+            // 
+            // tboxConsoleName
+            // 
+            this.tboxConsoleName.Location = new System.Drawing.Point(58, 47);
+            this.tboxConsoleName.Name = "tboxConsoleName";
+            this.tboxConsoleName.Size = new System.Drawing.Size(161, 20);
+            this.tboxConsoleName.TabIndex = 17;
+            // 
+            // lblConsoleName
+            // 
+            this.lblConsoleName.AutoSize = true;
+            this.lblConsoleName.Location = new System.Drawing.Point(14, 50);
+            this.lblConsoleName.Name = "lblConsoleName";
+            this.lblConsoleName.Size = new System.Drawing.Size(38, 13);
+            this.lblConsoleName.TabIndex = 16;
+            this.lblConsoleName.Text = "Name:";
+            // 
+            // tboxConsoleId
+            // 
+            this.tboxConsoleId.Location = new System.Drawing.Point(104, 12);
+            this.tboxConsoleId.Name = "tboxConsoleId";
+            this.tboxConsoleId.ReadOnly = true;
+            this.tboxConsoleId.Size = new System.Drawing.Size(40, 20);
+            this.tboxConsoleId.TabIndex = 15;
+            // 
+            // lblConsoleId
+            // 
+            this.lblConsoleId.AutoSize = true;
+            this.lblConsoleId.Location = new System.Drawing.Point(77, 15);
+            this.lblConsoleId.Name = "lblConsoleId";
+            this.lblConsoleId.Size = new System.Drawing.Size(21, 13);
+            this.lblConsoleId.TabIndex = 14;
+            this.lblConsoleId.Text = "ID:";
+            // 
+            // NewConsoleForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "NewConsoleForm";
+            this.ClientSize = new System.Drawing.Size(235, 127);
+            this.Controls.Add(this.btnFormCancel);
+            this.Controls.Add(this.btnFormSave);
+            this.Controls.Add(this.tboxConsoleName);
+            this.Controls.Add(this.lblConsoleName);
+            this.Controls.Add(this.tboxConsoleId);
+            this.Controls.Add(this.lblConsoleId);
+            this.Name = "NewConsoleForm";
+            this.Text = "New Console";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnFormCancel;
+        private System.Windows.Forms.Button btnFormSave;
+        private System.Windows.Forms.TextBox tboxConsoleName;
+        private System.Windows.Forms.Label lblConsoleName;
+        private System.Windows.Forms.TextBox tboxConsoleId;
+        private System.Windows.Forms.Label lblConsoleId;
     }
 }

@@ -92,6 +92,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Standalone Forms\AddNewItemToSaleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Standalone Forms\AddNewItemToSaleForm.Designer.cs">
+      <DependentUpon>AddNewItemToSaleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Events\NewLineItemAddedEventArgs.cs" />
     <Compile Include="Forms\Standalone Forms\DatabaseSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,7 +188,9 @@
     <Compile Include="Forms\Standalone Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Standalone Forms\LoginForm.cs" />
+    <Compile Include="Forms\Standalone Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Standalone Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
@@ -301,6 +310,33 @@
     <Compile Include="Forms\Reporting Forms\SalesByRepOptionsForm.Designer.cs">
       <DependentUpon>SalesByRepOptionsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Standalone Forms\AddNewItemToSaleForm.resx">
+      <DependentUpon>AddNewItemToSaleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditForms\EditCompanyForm.resx">
+      <DependentUpon>EditCompanyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditForms\EditConsoleForm.resx">
+      <DependentUpon>EditConsoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditForms\EditCustomerForm.resx">
+      <DependentUpon>EditCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditForms\EditProductForm.resx">
+      <DependentUpon>EditProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditForms\EditProductTypeForm.resx">
+      <DependentUpon>EditProductTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditForms\EditSaleForm.resx">
+      <DependentUpon>EditSaleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditForms\EditUserForm.resx">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditForms\EditUserRoleForm.resx">
+      <DependentUpon>EditUserRoleForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ListForms\CompanyListForm.resx">
       <DependentUpon>CompanyListForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -324,6 +360,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ListForms\UserRoleListForm.resx">
       <DependentUpon>UserRoleListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewForms\NewCompanyForm.resx">
+      <DependentUpon>NewCompanyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewForms\NewConsoleForm.resx">
+      <DependentUpon>NewConsoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewForms\NewCustomerForm.resx">
+      <DependentUpon>NewCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewForms\NewProductForm.resx">
+      <DependentUpon>NewProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewForms\NewProductTypeForm.resx">
+      <DependentUpon>NewProductTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewForms\NewSaleForm.resx">
+      <DependentUpon>NewSaleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewForms\NewUserForm.resx">
+      <DependentUpon>NewUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewForms\NewUserRoleForm.resx">
+      <DependentUpon>NewUserRoleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Standalone Forms\DatabaseSettingsForm.resx">
       <DependentUpon>DatabaseSettingsForm.cs</DependentUpon>

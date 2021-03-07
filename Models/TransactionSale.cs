@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RetroCollector.Data.Management;
 
 namespace RetroCollector.Models {
     public class TransactionSale : IndexItem {
@@ -51,7 +52,6 @@ namespace RetroCollector.Models {
         public void AddLineItem(TransactionLineItem item) {
             Items.Add(item);
         }
-
         public void RemoveLineItem(TransactionLineItem item) {
             Items.Remove(item);
         }
@@ -69,7 +69,6 @@ namespace RetroCollector.Models {
                 return total;
             }
         }
-
         public decimal GetTotal(float taxRate = 0.0815f) {
             if(Items.Count == 0) {
                 return 0M;
@@ -82,6 +81,10 @@ namespace RetroCollector.Models {
 
                 return (decimal)((float)total * taxRate);
             }
+        }
+
+        public override string ToString() {
+            return $"[{DateOfSale.Date}] Customer:{DatabaseManager.GetCustomerById(customerId)?.FullName ?? "GUEST"} Total Items:{Items.Count}  Total Sale:{GetTotal()}";
         }
     }
 }

@@ -40,6 +40,13 @@ namespace RetroCollector {
             cboxProductType.SelectedIndexChanged -= OnGroupDropDownIndexChanged;
             listProducts.SelectedIndexChanged -= OnNewItemSelected;
 
+            btnControlSales.Click -= OnControlSalesClick;
+            btnControlCompanies.Click -= OnControlCompaniesClick;
+            btnControlConsoles.Click -= OnControlCompaniesClick;
+            btnControlCustomers.Click -= OnControlCustomersClick;
+            btnControlProduct.Click -= OnControlProductsClick;
+            btnControlUser.Click -= OnControlUsersClick;
+
             // Disable MenuItem Events, if any
             databaseSettingsToolStripMenuItem.Click -= OnDatabaseSettingsClick;
 
@@ -126,6 +133,13 @@ namespace RetroCollector {
             cboxProductType.SelectedIndexChanged += OnGroupDropDownIndexChanged;
             listProducts.SelectedIndexChanged += OnNewItemSelected;
 
+            btnControlSales.Click += OnControlSalesClick;
+            btnControlCompanies.Click += OnControlCompaniesClick;
+            btnControlConsoles.Click += OnControlCompaniesClick;
+            btnControlCustomers.Click += OnControlCustomersClick;
+            btnControlProduct.Click += OnControlProductsClick;
+            btnControlUser.Click += OnControlUsersClick;
+
             // Enable MenuItem Events
             databaseSettingsToolStripMenuItem.Click += OnDatabaseSettingsClick;
         }
@@ -191,7 +205,8 @@ namespace RetroCollector {
 
         }
         private void OnControlSalesClick(object sender, EventArgs e) {
-
+            SaleListForm listForm = new SaleListForm(ActiveUser);
+            listForm.ShowDialog();
         }
         private void OnControlConsolesClick(object sender, EventArgs e) {
 

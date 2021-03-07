@@ -51,6 +51,7 @@ namespace RetroCollector.Data.Management {
         public static string DBConnectionString {
             get => GetConnectionString();
         }
+
         public static List<UserRole> Roles {
             get => allRoles;
         }
@@ -822,6 +823,32 @@ namespace RetroCollector.Data.Management {
             }
         }
 
+        public static int GetNewUserID() {
+            return allUsers.ElementAt(allUsers.Count - 1).ID + 1;
+        }
+        public static int GetNewUserRoleID() {
+            return allRoles.ElementAt(allRoles.Count - 1).ID + 1;
+        }
+        public static int GetNewConsoleTypeID() {
+            return allConsoleTypes.ElementAt(allConsoleTypes.Count - 1).ID + 1;
+        }
+        public static int GetNewCustomerID() {
+            return allCustomers.ElementAt(allCustomers.Count - 1).ID + 1;
+        }
+        public static int GetNewCompanyID() {
+            return allCompanies.ElementAt(allCompanies.Count - 1).ID + 1;
+        }
+        public static int GetNewProductTypeID() {
+            return ProductManager.ProductTypes.ElementAt(ProductManager.ProductTypes.Count - 1).ID + 1;
+        }
+        public static int GetNewProductID() {
+            Product lastProduct = ProductManager.Products.ElementAt(ProductManager.Products.Count - 1) as Product;
+            return lastProduct.ID + 1;
+        }
+        public static int GetNewTransactionID() {
+            return allTransactions.ElementAt(allTransactions.Count - 1).ID + 1;
+        }
+
         public static void AddNewCustomer(Customer customer) {
             string customerValues = GetNewCustomerValuesString(customer);
 
@@ -1368,6 +1395,15 @@ namespace RetroCollector.Data.Management {
             foreach(var company in allCompanies) {
                 if(company.ID == id) {
                     return company;
+                }
+            }
+
+            return null;
+        }
+        public static Customer GetCustomerById(int id) {
+            foreach(var c in allCustomers) {
+                if(c.ID == id) {
+                    return c;
                 }
             }
 

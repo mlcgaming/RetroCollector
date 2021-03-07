@@ -151,5 +151,15 @@ namespace RetroCollector.Data.Management {
 
             return null;
         }
+        public static Product GetProductById(int id) {
+            foreach(var p in Products) {
+                Product prod = p as Product;
+                if(prod.ID == id) {
+                    return prod;
+                }
+            }
+
+            return null;
+        }
     }
 }

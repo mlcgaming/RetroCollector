@@ -7,10 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RetroCollector.Models;
+using RetroCollector.Data.Management;
 
 namespace RetroCollector {
     public partial class EditProductForm : Form {
-        public EditProductForm() {
+        private UserAccount activeUser;
+
+        public EditProductForm(UserAccount activeUser, Product selectedProduct) {
             InitializeComponent();
         }
     }

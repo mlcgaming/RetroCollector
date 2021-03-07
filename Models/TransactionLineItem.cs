@@ -1,4 +1,6 @@
-﻿namespace RetroCollector.Models {
+﻿using RetroCollector.Data.Management;
+
+namespace RetroCollector.Models {
     public class TransactionLineItem {
         private int transactionId;
         private int productId;
@@ -26,6 +28,10 @@
             this.productId = productId;
             this.quantity = quantity;
             this.pricePerProduct = pricePerProduct;
+        }
+
+        public override string ToString() {
+            return $"{ProductManager.GetProductById(productId).Name} (x{quantity})  ${quantity * pricePerProduct}";
         }
     }
 }

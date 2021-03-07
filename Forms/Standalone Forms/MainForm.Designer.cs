@@ -163,13 +163,13 @@ namespace RetroCollector {
             // databaseSettingsToolStripMenuItem
             // 
             this.databaseSettingsToolStripMenuItem.Name = "databaseSettingsToolStripMenuItem";
-            this.databaseSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.databaseSettingsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.databaseSettingsToolStripMenuItem.Text = "Database Settings";
             // 
             // programSettingsToolStripMenuItem
             // 
             this.programSettingsToolStripMenuItem.Name = "programSettingsToolStripMenuItem";
-            this.programSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.programSettingsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.programSettingsToolStripMenuItem.Text = "Program Settings";
             // 
             // reportingToolStripMenuItem
@@ -396,7 +396,7 @@ namespace RetroCollector {
             this.Controls.Add(this.menuMain);
             this.MainMenuStrip = this.menuMain;
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Main Form";
             this.grpProducts.ResumeLayout(false);
             this.grpProducts.PerformLayout();
             this.menuMain.ResumeLayout(false);

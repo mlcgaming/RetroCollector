@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RetroCollector.Models;
+using RetroCollector.Data.Management;
 
 namespace RetroCollector {
     public partial class ConsoleListForm : Form {
-        public ConsoleListForm() {
+        public ConsoleListForm(UserAccount activeUser) {
             InitializeComponent();
         }
     }

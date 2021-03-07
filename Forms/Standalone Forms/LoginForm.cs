@@ -11,18 +11,6 @@ using RetroCollector.Models;
 using RetroCollector.Data.Management;
 
 namespace RetroCollector {
-    public class UserLoggedInEventArgs : EventArgs {
-        private UserAccount user;
-
-        public UserAccount User {
-            get => user;
-        }
-
-        public UserLoggedInEventArgs(UserAccount user) {
-            this.user = user;
-        }
-    }
-
     public partial class LoginForm : Form {
         public event EventHandler<UserLoggedInEventArgs> UserLoggedIn;
 
@@ -90,6 +78,18 @@ namespace RetroCollector {
                     MessageBox.Show("Password incorrect");
                 }
             }
+        }
+    }
+
+    public class UserLoggedInEventArgs : EventArgs {
+        private UserAccount user;
+
+        public UserAccount User {
+            get => user;
+        }
+
+        public UserLoggedInEventArgs(UserAccount user) {
+            this.user = user;
         }
     }
 }
