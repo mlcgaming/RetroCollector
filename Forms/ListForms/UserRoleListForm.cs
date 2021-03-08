@@ -65,6 +65,8 @@ namespace RetroCollector {
                 UserRole role = listAllRoles.SelectedItem as UserRole;
 
                 DatabaseManager.DeleteUserRole(role);
+
+                ResetForm();
             }
         }
 

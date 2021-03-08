@@ -932,7 +932,7 @@ namespace RetroCollector.Data.Management {
                 $"'{customer.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{customer.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{customer.CreatedBy}'," +
-                $"'{customer.LastUpdatedBy}";
+                $"'{customer.LastUpdatedBy}'";
 
             return customerValues;
         }
@@ -1000,34 +1000,34 @@ namespace RetroCollector.Data.Management {
         private static string GetNewProductTypeValuesString(ProductType type) {
             string typeValues =
                 $"{type.ID}," +
-                $"{type.Name}," +
+                $"'{type.Name}'," +
                 $"'{type.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{type.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{type.CreatedBy}'," +
-                $"'{type.LastUpdatedBy}";
+                $"'{type.LastUpdatedBy}'";
 
             return typeValues;
         }
         private static string GetNewUserValuesString(UserAccount user) {
             string userValues =
                 $"{user.ID}," +
-                $"{user.FirstName}," +
-                $"{user.LastName}," +
-                $"{user.Username}," +
-                $"{user.PassHash}," +
-                $"{user.Salt}," +
+                $"'{user.FirstName}'," +
+                $"'{user.LastName}'," +
+                $"'{user.Username}'," +
+                $"'{user.PassHash}'," +
+                $"'{user.Salt}'," +
                 $"'{user.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{user.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{user.CreatedBy}'," +
-                $"'{user.LastUpdatedBy}";
+                $"'{user.LastUpdatedBy}'";
 
             return userValues;
         }
         private static string GetNewUserRoleValuesString(UserRole role) {
             string roleValues =
                 $"{role.ID}," +
-                $"{role.Name}," +
-                $"{role.Description}," +
+                $"'{role.Name}'," +
+                $"'{role.Description}'," +
                 $"{role.Permissions[UserRole.Permission.AllowCreateProducts]}," +
                 $"{role.Permissions[UserRole.Permission.AllowEditProducts]}," +
                 $"{role.Permissions[UserRole.Permission.AllowDeleteProducts]}," +
@@ -1043,26 +1043,26 @@ namespace RetroCollector.Data.Management {
                 $"'{role.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{role.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{role.CreatedBy}'," +
-                $"'{role.LastUpdatedBy}";
+                $"'{role.LastUpdatedBy}'";
 
             return roleValues;
         }
         private static string GetNewCompanyValuesString(Company company) {
             string companyValues =
                 $"{company.ID}," +
-                $"{company.Name}," +
+                $"'{company.Name}'," +
                 $"'{company.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{company.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{company.CreatedBy}'," +
-                $"'{company.LastUpdatedBy}";
+                $"'{company.LastUpdatedBy}'";
 
             return companyValues;
         }
         private static string GetNewConsoleValuesString(ConsoleCategory console) {
             string consoleValues =
                 $"{console.ID}," +
-                $"{console.Name}," +
-                $"{console.Developer}";
+                $"'{console.Name}'," +
+                $"'{console.Developer}'";
 
             return consoleValues;
         }
@@ -1164,7 +1164,7 @@ namespace RetroCollector.Data.Management {
                 $"dateCreated='{customer.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"dateLastUpdated='{customer.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"createdBy='{customer.CreatedBy}'," +
-                $"lastUpdatedBy='{customer.LastUpdatedBy}";
+                $"lastUpdatedBy='{customer.LastUpdatedBy}'";
 
             return customerValues;
         }
@@ -1232,34 +1232,34 @@ namespace RetroCollector.Data.Management {
         private static string GetUpdateProductTypeValuesString(ProductType type) {
             string typeValues =
                 $"productTypeId={type.ID}," +
-                $"name={type.Name}," +
+                $"name='{type.Name}'," +
                 $"dateCreated='{type.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"dateLastUpdated='{type.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"createdBy='{type.CreatedBy}'," +
-                $"lastUpdatedBy='{type.LastUpdatedBy}";
+                $"lastUpdatedBy='{type.LastUpdatedBy}'";
 
             return typeValues;
         }
         private static string GetUpdateUserValuesString(UserAccount user) {
             string userValues = 
                 $"userId={user.ID}," +
-                $"firstName={user.FirstName}," +
-                $"lastName={user.LastName}," +
-                $"username={user.Username}," +
-                $"passHash={user.PassHash}," +
-                $"passSalt={user.Salt}," +
+                $"firstName='{user.FirstName}'," +
+                $"lastName='{user.LastName}'," +
+                $"username='{user.Username}'," +
+                $"passHash='{user.PassHash}'," +
+                $"passSalt='{user.Salt}'," +
                 $"dateCreated='{user.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"dateLastUpdated='{user.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"createdBy='{user.CreatedBy}'," +
-                $"lastUpdatedBy='{user.LastUpdatedBy}";
+                $"lastUpdatedBy='{user.LastUpdatedBy}'";
 
             return userValues;
         }
         private static string GetUpdateUserRoleValuesString(UserRole role) {
             string roleValues = 
                 $"roleId={role.ID}," +
-                $"name={role.Name}," +
-                $"description={role.Description}," +
+                $"name='{role.Name}'," +
+                $"description='{role.Description}'," +
                 $"allowCreateProducts={role.Permissions[UserRole.Permission.AllowCreateProducts]}," +
                 $"allowEditProducts={role.Permissions[UserRole.Permission.AllowEditProducts]}," +
                 $"allowDeleteProducts={role.Permissions[UserRole.Permission.AllowDeleteProducts]}," +
@@ -1275,40 +1275,40 @@ namespace RetroCollector.Data.Management {
                 $"dateCreated='{role.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"dateLastUpdated='{role.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"createdBy='{role.CreatedBy}'," +
-                $"lastUpdatedBy='{role.LastUpdatedBy}";
+                $"lastUpdatedBy='{role.LastUpdatedBy}'";
 
             return roleValues;
         }
         private static string GetUpdateCompanyValuesString(Company company) {
             string companyValues = 
                 $"companyId={company.ID}," +
-                $"name={company.Name}," +
+                $"name='{company.Name}'," +
                 $"dateCreated='{company.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"dateLastUpdated='{company.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"createdBy='{company.CreatedBy}'," +
-                $"lastUpdatedBy='{company.LastUpdatedBy}";
+                $"lastUpdatedBy='{company.LastUpdatedBy}'";
 
             return companyValues;
         }
         private static string GetUpdateConsoleValuesString(ConsoleCategory console) {
             string consoleValues =
                 $"consoleId={console.ID}," +
-                $"name={console.Name}," +
-                $"developerName={console.Developer}";
+                $"name='{console.Name}'," +
+                $"developerName='{console.Developer}'";
 
             return consoleValues;
         }
         private static string GetUpdateTransactionValuesString(TransactionSale sale) {
             string transactionValues = 
                 $"transactionId={sale.ID}," +
-                $"description={sale.Description}," +
-                $"dateOfSale={sale.DateOfSale.ToUniversalTime():yyyy-MM-dd HH:mm:ss}," +
+                $"description='{sale.Description}'," +
+                $"dateOfSale='{sale.DateOfSale.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"salesRepId={sale.SalesRepID}," +
                 $"customerId={sale.CustomerID}," +
                 $"dateCreated='{sale.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"dateLastUpdated='{sale.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"createdBy='{sale.CreatedBy}'," +
-                $"lastUpdatedBy='{sale.LastUpdatedBy}";
+                $"lastUpdatedBy='{sale.LastUpdatedBy}'";
 
             return transactionValues;
         }
@@ -1323,17 +1323,29 @@ namespace RetroCollector.Data.Management {
         }
 
         public static void DeleteCustomer(Customer customer) {
+            DeleteItemsFromDatabase(DB_TABLES_CUSTOMERS, $"customerId={customer.ID}");
 
+            allCustomers.Remove(customer);
         }
         public static void DeleteProduct(Product product) {
+            DeleteItemsFromDatabase(DB_TABLES_PRODUCTS, $"productId={product.ID}");
 
+            ProductManager.Products.Remove(product);
         }
         public static void DeleteProductType(ProductType type) {
+            DeleteItemsFromDatabase(DB_TABLES_PRODUCTTYPES, $"productTypeId={type.ID}");
 
+            ProductManager.ProductTypes.Remove(type);
         }
         public static void DeleteUser(UserAccount user) {
+            if(user.ID == 0) {
+                MessageBox.Show("Cannot delete built-in Admin account");
+            }
+            else {
+                DeleteItemsFromDatabase(DB_TABLES_USERS, $"userId={user.ID}");
 
-
+                allUsers.Remove(user);
+            }
         }
         public static void DeleteUserRole(UserRole role) {
             if(role.ID == 0 || role.ID == 1) {
@@ -1344,7 +1356,9 @@ namespace RetroCollector.Data.Management {
 
                 foreach(UserAccount user in allUsers) {
                     // Check for Users with this role and re-assign them to Standard Role
-
+                    if(user.Role == role) {
+                        user.ChangeRole(allRoles[1]);
+                    }
                 }
 
                 allRoles.Remove(role);
@@ -1464,6 +1478,15 @@ namespace RetroCollector.Data.Management {
         public static Company GetCompanyById(int id) {
             foreach(var company in allCompanies) {
                 if(company.ID == id) {
+                    return company;
+                }
+            }
+
+            return null;
+        }
+        public static Company GetCompanyByName(string name) {
+            foreach(var company in allCompanies) {
+                if(company.Name == name) {
                     return company;
                 }
             }

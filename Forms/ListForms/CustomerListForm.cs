@@ -48,10 +48,15 @@ namespace RetroCollector {
 
         // Event Handlers
         private void OnNewButtonClicked(object sender, EventArgs e) {
-
+            NewCustomerForm newForm = new NewCustomerForm(activeUser);
+            newForm.FormSaved += OnFormSaved;
+            newForm.ShowDialog();
         }
         private void OnEditButtonClicked(object sender, EventArgs e) {
-
+            Customer selectedCustomer = listAllCustomers.SelectedItem as Customer;
+            EditCustomerForm editForm = new EditCustomerForm(activeUser, selectedCustomer);
+            editForm.FormSaved += OnFormSaved;
+            editForm.ShowDialog();
         }
         private void OnDeleteButtonClicked(object sender, EventArgs e) {
             DialogResult result = MessageBox.Show("Delete the Customer?", "This is an irreversible action.", MessageBoxButtons.YesNo);
@@ -60,6 +65,8 @@ namespace RetroCollector {
                 Customer customer = listAllCustomers.SelectedItem as Customer;
 
                 DatabaseManager.DeleteCustomer(customer);
+
+                ResetForm();
             }
         }
 

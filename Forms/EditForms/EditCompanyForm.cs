@@ -12,10 +12,67 @@ using RetroCollector.Data.Management;
 
 namespace RetroCollector {
     public partial class EditCompanyForm : Form {
-        private UserAccount activeUser;
+        public event EventHandler FormSaved;
 
-        public EditCompanyForm(UserAccount activeUser, Company selectedConsole) {
+        private UserAccount activeUser;
+        private Company selectedCompany;
+
+        public EditCompanyForm(UserAccount activeUser, Company selectedCompany = null) {
             InitializeComponent();
+        }
+
+        // Methods
+        private void ResetForm(Company selectedCompany = null) {
+            // Disable Events
+            btnFormCancel.Click -= OnCancelButtonClick;
+            btnFormSave.Click -= OnSaveButtonClick;
+            tboxCompanyName.TextChanged -= OnTextChanged;
+
+            // Set Control Defaults
+            tboxCompanyId.Text = $"{selectedCompany?.ID ?? DatabaseManager.GetNewCompanyID()}";
+            tboxCompanyName.Text = $"{selectedCompany?.Name ?? ""}";
+            lblDateCreatedValue.Text = $"{selectedCompany?.DateCreated ?? DateTime.Now}";
+            lblDateLastUpdatedValue.Text = $"{selectedCompany?.LastUpdated ?? DateTime.Now}";
+            lblCreatedByValue.Text = $"{selectedCompany?.CreatedBy ?? activeUser.Username}";
+            lblLastUpdatedByValue.Text = $"{selectedCompany?.LastUpdatedBy ?? activeUser.Username}";
+            btnFormSave.Enabled = false;
+
+            // Enable Events
+            btnFormCancel.Click += OnCancelButtonClick;
+            btnFormSave.Click += OnSaveButtonClick;
+            tboxCompanyName.TextChanged += OnTextChanged;
+        }
+
+        private void ValidateForm() {
+            bool formIsValid = true;
+
+            if(string.IsNullOrWhiteSpace(tboxCompanyName.Text)) {
+                formIsValid = false;
+            }
+
+            if(formIsValid) {
+                btnFormSave.Enabled = true;
+            }
+            else {
+                btnFormSave.Enabled = false;
+            }
+        }
+
+        // Event Handlers
+        private void OnSaveButtonClick(object sender, EventArgs e) {
+            selectedCompany.Update(int.Parse(tboxCompanyId.Text), tboxCompanyName.Text, selectedCompany.DateCreated, DateTime.Now, selectedCompany.CreatedBy, activeUser.Username);
+
+            DatabaseManager.UpdateCompany(selectedCompany);
+
+            FormSaved?.Invoke(null, EventArgs.Empty);
+            Close();
+        }
+        private void OnCancelButtonClick(object sender, EventArgs e) {
+            Close();
+        }
+
+        private void OnTextChanged(object sender, EventArgs e) {
+            ValidateForm();
         }
     }
 }

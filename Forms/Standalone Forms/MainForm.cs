@@ -135,7 +135,7 @@ namespace RetroCollector {
 
             btnControlSales.Click += OnControlSalesClick;
             btnControlCompanies.Click += OnControlCompaniesClick;
-            btnControlConsoles.Click += OnControlCompaniesClick;
+            btnControlConsoles.Click += OnControlConsolesClick;
             btnControlCustomers.Click += OnControlCustomersClick;
             btnControlProduct.Click += OnControlProductsClick;
             btnControlUser.Click += OnControlUsersClick;
@@ -196,20 +196,23 @@ namespace RetroCollector {
 
         }
         private void OnControlCompaniesClick(object sender, EventArgs e) {
-
+            CompanyListForm listForm = new CompanyListForm(ActiveUser);
+            listForm.ShowDialog();
         }
         private void OnControlProductsClick(object sender, EventArgs e) {
 
         }
         private void OnControlCustomersClick(object sender, EventArgs e) {
-
+            CustomerListForm listForm = new CustomerListForm(ActiveUser);
+            listForm.ShowDialog();
         }
         private void OnControlSalesClick(object sender, EventArgs e) {
             SaleListForm listForm = new SaleListForm(ActiveUser);
             listForm.ShowDialog();
         }
         private void OnControlConsolesClick(object sender, EventArgs e) {
-
+            ConsoleListForm listForm = new ConsoleListForm(ActiveUser);
+            listForm.ShowDialog();
         }
 
         private void OnDatabaseSettingsClick(object sender, EventArgs e) {

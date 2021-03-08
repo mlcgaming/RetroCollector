@@ -32,6 +32,9 @@ namespace RetroCollector.Models {
         public byte[] Salt {
             get => passSalt;
         }
+        public UserRole Role {
+            get => role;
+        }
 
         public UserAccount(int id, string firstName, string lastName, string username, string passHash, string passSalt, int roleId, DateTime dateCreated, DateTime dateLastUpdated, string createdBy, string lastUpdatedBy) {
             this.id = id;
@@ -73,6 +76,10 @@ namespace RetroCollector.Models {
             this.dateLastUpdated = dateLastUpdated;
             this.createdBy = createdBy;
             this.lastUpdatedBy = lastUpdatedBy;
+        }
+
+        public void ChangeRole(UserRole role) {
+            this.role = role;
         }
 
         public bool IsAllowed(UserRole.Permission permission) {

@@ -53,18 +53,26 @@ namespace RetroCollector {
 
         // Event Handlers
         private void OnNewButtonClicked(object sender, EventArgs e) {
-
+            NewCompanyForm newForm = new NewCompanyForm(activeUser);
+            newForm.FormSaved += OnFormSaved;
+            newForm.ShowDialog();
         }
         private void OnEditButtonClicked(object sender, EventArgs e) {
+            Company selectedCompany = listAllCompanies.SelectedItem as Company;
 
+            EditCompanyForm editForm = new EditCompanyForm(activeUser, selectedCompany);
+            editForm.FormSaved += OnFormSaved;
+            editForm.ShowDialog();
         }
         private void OnDeleteButtonClicked(object sender, EventArgs e) {
-            DialogResult result = MessageBox.Show("Delete the Console Type?", "This is an irreversible action.", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("Delete the Company?", "This is an irreversible action.", MessageBoxButtons.YesNo);
 
             if(result == DialogResult.Yes) {
                 Company company = listAllCompanies.SelectedItem as Company;
 
                 DatabaseManager.DeleteCompany(company);
+
+                ResetForm();
             }
         }
 

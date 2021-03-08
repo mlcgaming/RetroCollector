@@ -88,6 +88,13 @@ namespace RetroCollector {
         private void OnDeleteSaleClicked(object sender, EventArgs e) {
             TransactionSale selectedSale = listAllSales.SelectedItem as TransactionSale;
 
+            DialogResult result = MessageBox.Show("Permanently Delete Sale?", "This is irreversible.", MessageBoxButtons.YesNo);
+
+            if(result == DialogResult.Yes) {
+                DatabaseManager.DeleteTransaction(selectedSale);
+
+                ResetForm();
+            }
         }
         
         private void OnNewSaleSelected(object sender, EventArgs e) {

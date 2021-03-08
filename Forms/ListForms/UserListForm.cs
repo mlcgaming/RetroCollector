@@ -65,6 +65,8 @@ namespace RetroCollector {
                 UserAccount user = listAllUsers.SelectedItem as UserAccount;
 
                 DatabaseManager.DeleteUser(user);
+
+                ResetForm();
             }
         }
 

@@ -29,11 +29,13 @@
             this.lblConsoleName = new System.Windows.Forms.Label();
             this.tboxConsoleId = new System.Windows.Forms.TextBox();
             this.lblConsoleId = new System.Windows.Forms.Label();
+            this.cboxConsoleDevelopers = new System.Windows.Forms.ComboBox();
+            this.lblConsoleDeveloper = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnFormCancel
             // 
-            this.btnFormCancel.Location = new System.Drawing.Point(144, 89);
+            this.btnFormCancel.Location = new System.Drawing.Point(144, 113);
             this.btnFormCancel.Name = "btnFormCancel";
             this.btnFormCancel.Size = new System.Drawing.Size(75, 23);
             this.btnFormCancel.TabIndex = 20;
@@ -42,7 +44,7 @@
             // 
             // btnFormSave
             // 
-            this.btnFormSave.Location = new System.Drawing.Point(17, 89);
+            this.btnFormSave.Location = new System.Drawing.Point(17, 113);
             this.btnFormSave.Name = "btnFormSave";
             this.btnFormSave.Size = new System.Drawing.Size(75, 23);
             this.btnFormSave.TabIndex = 19;
@@ -82,11 +84,31 @@
             this.lblConsoleId.TabIndex = 14;
             this.lblConsoleId.Text = "ID:";
             // 
+            // cboxConsoleDevelopers
+            // 
+            this.cboxConsoleDevelopers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxConsoleDevelopers.FormattingEnabled = true;
+            this.cboxConsoleDevelopers.Location = new System.Drawing.Point(80, 73);
+            this.cboxConsoleDevelopers.Name = "cboxConsoleDevelopers";
+            this.cboxConsoleDevelopers.Size = new System.Drawing.Size(139, 21);
+            this.cboxConsoleDevelopers.TabIndex = 21;
+            // 
+            // lblConsoleDeveloper
+            // 
+            this.lblConsoleDeveloper.AutoSize = true;
+            this.lblConsoleDeveloper.Location = new System.Drawing.Point(14, 76);
+            this.lblConsoleDeveloper.Name = "lblConsoleDeveloper";
+            this.lblConsoleDeveloper.Size = new System.Drawing.Size(59, 13);
+            this.lblConsoleDeveloper.TabIndex = 22;
+            this.lblConsoleDeveloper.Text = "Developer:";
+            // 
             // NewConsoleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(235, 127);
+            this.ClientSize = new System.Drawing.Size(235, 149);
+            this.Controls.Add(this.lblConsoleDeveloper);
+            this.Controls.Add(this.cboxConsoleDevelopers);
             this.Controls.Add(this.btnFormCancel);
             this.Controls.Add(this.btnFormSave);
             this.Controls.Add(this.tboxConsoleName);
@@ -108,5 +130,7 @@
         private System.Windows.Forms.Label lblConsoleName;
         private System.Windows.Forms.TextBox tboxConsoleId;
         private System.Windows.Forms.Label lblConsoleId;
+        private System.Windows.Forms.ComboBox cboxConsoleDevelopers;
+        private System.Windows.Forms.Label lblConsoleDeveloper;
     }
 }

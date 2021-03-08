@@ -53,10 +53,15 @@ namespace RetroCollector {
 
         // Event Handlers
         private void OnNewButtonClicked(object sender, EventArgs e) {
-
+            NewConsoleForm newForm = new NewConsoleForm(activeUser);
+            newForm.FormSaved += OnFormSaved;
+            newForm.ShowDialog();
         }
         private void OnEditButtonClicked(object sender, EventArgs e) {
-
+            ConsoleCategory selectedConsole = listAllConsoles.SelectedItem as ConsoleCategory;
+            EditConsoleForm editForm = new EditConsoleForm(activeUser, selectedConsole);
+            editForm.FormSaved += OnFormSaved;
+            editForm.ShowDialog();
         }
         private void OnDeleteButtonClicked(object sender, EventArgs e) {
             DialogResult result = MessageBox.Show("Delete the Console Type?", "This is an irreversible action.", MessageBoxButtons.YesNo);
@@ -65,6 +70,8 @@ namespace RetroCollector {
                 ConsoleCategory console = listAllConsoles.SelectedItem as ConsoleCategory;
 
                 DatabaseManager.DeleteConsoleType(console);
+
+                ResetForm();
             }
         }
 

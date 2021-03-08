@@ -65,6 +65,8 @@ namespace RetroCollector {
                 Product product = listAllProducts.SelectedItem as Product;
 
                 DatabaseManager.DeleteProduct(product);
+
+                ResetForm();
             }
         }
 

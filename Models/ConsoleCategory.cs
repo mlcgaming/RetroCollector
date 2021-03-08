@@ -26,6 +26,12 @@ namespace RetroCollector.Models {
             this.developer = developer;
         }
 
+        public void Update(int id, string name, string developer) {
+            this.id = id;
+            this.name = name;
+            this.developer = developer;
+        }
+
         public override string ToString() {
             return $"[{id}] {name} : {developer}";
         }

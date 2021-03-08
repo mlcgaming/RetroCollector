@@ -53,10 +53,15 @@ namespace RetroCollector {
 
         // Event Handlers
         private void OnNewButtonClicked(object sender, EventArgs e) {
-
+            NewProductTypeForm newForm = new NewProductTypeForm(activeUser);
+            newForm.FormSaved += OnFormSaved;
+            newForm.ShowDialog();
         }
         private void OnEditButtonClicked(object sender, EventArgs e) {
-
+            ProductType selectedType = listAllTypes.SelectedItem as ProductType;
+            EditProductTypeForm editForm = new EditProductTypeForm(activeUser, selectedType);
+            editForm.FormSaved += OnFormSaved;
+            editForm.ShowDialog();
         }
         private void OnDeleteButtonClicked(object sender, EventArgs e) {
             DialogResult result = MessageBox.Show("Delete the Product Type?", "This is an irreversible action.", MessageBoxButtons.YesNo);
@@ -65,6 +70,8 @@ namespace RetroCollector {
                 ProductType type = listAllTypes.SelectedItem as ProductType;
 
                 DatabaseManager.DeleteProductType(type);
+
+                ResetForm();
             }
         }
 
