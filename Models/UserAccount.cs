@@ -85,5 +85,9 @@ namespace RetroCollector.Models {
         public bool IsAllowed(UserRole.Permission permission) {
             return role.Permissions[permission];
         }
+
+        public override string ToString() {
+            return $"{FullName} Role:{role.Name}";
+        }
     }
 }

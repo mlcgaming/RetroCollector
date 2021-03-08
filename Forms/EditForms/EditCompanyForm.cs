@@ -19,6 +19,11 @@ namespace RetroCollector {
 
         public EditCompanyForm(UserAccount activeUser, Company selectedCompany = null) {
             InitializeComponent();
+
+            this.activeUser = activeUser;
+            this.selectedCompany = selectedCompany;
+
+            ResetForm(selectedCompany);
         }
 
         // Methods

@@ -28,13 +28,15 @@ namespace RetroCollector {
             btnNew.Click -= OnNewButtonClicked;
             btnEdit.Click -= OnEditButtonClicked;
             btnDelete.Click -= OnDeleteButtonClicked;
+            btnUserRoles.Click -= OnUserRoleButtonClick;
             tboxSearchNames.TextChanged -= OnSearchTextChanged;
             listAllUsers.SelectedIndexChanged -= OnSelectionIndexChanged;
 
             // Set Control Defaults
-            btnDelete.Enabled = false;
-            btnEdit.Enabled = false;
-            btnNew.Enabled = true;
+            btnDelete.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowDeleteUsers);
+            btnEdit.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowEditUsers);
+            btnNew.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowCreateUsers);
+            btnUserRoles.Enabled = true;
 
             // Populate Lists
             listAllUsers.Items.Clear();
@@ -47,16 +49,22 @@ namespace RetroCollector {
             btnNew.Click += OnNewButtonClicked;
             btnEdit.Click += OnEditButtonClicked;
             btnDelete.Click += OnDeleteButtonClicked;
+            btnUserRoles.Click += OnUserRoleButtonClick;
             tboxSearchNames.TextChanged += OnSearchTextChanged;
             listAllUsers.SelectedIndexChanged += OnSelectionIndexChanged;
         }
 
         // Event Handlers
         private void OnNewButtonClicked(object sender, EventArgs e) {
-
+            NewUserForm newForm = new NewUserForm(activeUser);
+            newForm.FormSaved += OnFormSaved;
+            newForm.ShowDialog();
         }
         private void OnEditButtonClicked(object sender, EventArgs e) {
-
+            UserAccount selectedUser = listAllUsers.SelectedItem as UserAccount;
+            EditUserForm editForm = new EditUserForm(activeUser, selectedUser);
+            editForm.FormSaved += OnFormSaved;
+            editForm.ShowDialog();
         }
         private void OnDeleteButtonClicked(object sender, EventArgs e) {
             DialogResult result = MessageBox.Show("Delete the User Account?", "This is an irreversible action.", MessageBoxButtons.YesNo);
@@ -68,6 +76,10 @@ namespace RetroCollector {
 
                 ResetForm();
             }
+        }
+        private void OnUserRoleButtonClick(object sender, EventArgs e) {
+            UserRoleListForm listForm = new UserRoleListForm(activeUser);
+            listForm.ShowDialog();
         }
 
         private void OnSearchTextChanged(object sender, EventArgs e) {

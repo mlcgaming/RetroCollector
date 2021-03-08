@@ -166,7 +166,9 @@ namespace RetroCollector {
             OnLineItemCountChanged();
         }
         private void OnNewCustomerClicked(object sender, EventArgs e) {
-
+            NewCustomerForm newForm = new NewCustomerForm(salesRep);
+            newForm.FormSaved += OnNewCustomerSaved;
+            newForm.ShowDialog();
         }
 
         private void OnSearchTextChanged(object sender, EventArgs e) {
@@ -224,6 +226,14 @@ namespace RetroCollector {
         private void OnFormSaved(object sender, EventArgs e) {
             FormSaved?.Invoke(null, EventArgs.Empty);
             Close();
+        }
+        private void OnNewCustomerSaved(object sender, EventArgs e) {
+            cboxSalesCustomers.Items.Clear();
+            foreach(var c in DatabaseManager.Customers) {
+                cboxSalesCustomers.Items.Add(c);
+            }
+
+            cboxSalesCustomers.SelectedIndex = cboxSalesCustomers.Items.Count - 1;
         }
     }
 }

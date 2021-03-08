@@ -36,7 +36,7 @@ namespace RetroCollector {
             // 
             this.lblFormTitle.AutoSize = true;
             this.lblFormTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFormTitle.Location = new System.Drawing.Point(104, 9);
+            this.lblFormTitle.Location = new System.Drawing.Point(64, 9);
             this.lblFormTitle.Name = "lblFormTitle";
             this.lblFormTitle.Size = new System.Drawing.Size(129, 48);
             this.lblFormTitle.TabIndex = 0;
@@ -46,7 +46,7 @@ namespace RetroCollector {
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(29, 132);
+            this.lblUsername.Location = new System.Drawing.Point(12, 84);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(58, 13);
             this.lblUsername.TabIndex = 1;
@@ -54,23 +54,23 @@ namespace RetroCollector {
             // 
             // tboxUsername
             // 
-            this.tboxUsername.Location = new System.Drawing.Point(108, 129);
+            this.tboxUsername.Location = new System.Drawing.Point(91, 81);
             this.tboxUsername.Name = "tboxUsername";
-            this.tboxUsername.Size = new System.Drawing.Size(208, 20);
+            this.tboxUsername.Size = new System.Drawing.Size(145, 20);
             this.tboxUsername.TabIndex = 2;
             // 
             // tboxPassword
             // 
-            this.tboxPassword.Location = new System.Drawing.Point(108, 163);
+            this.tboxPassword.Location = new System.Drawing.Point(91, 115);
             this.tboxPassword.Name = "tboxPassword";
             this.tboxPassword.PasswordChar = '*';
-            this.tboxPassword.Size = new System.Drawing.Size(208, 20);
+            this.tboxPassword.Size = new System.Drawing.Size(145, 20);
             this.tboxPassword.TabIndex = 4;
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(29, 166);
+            this.lblPassword.Location = new System.Drawing.Point(12, 118);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(56, 13);
             this.lblPassword.TabIndex = 3;
@@ -78,7 +78,7 @@ namespace RetroCollector {
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(131, 239);
+            this.btnLogin.Location = new System.Drawing.Point(91, 164);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 5;
@@ -87,9 +87,10 @@ namespace RetroCollector {
             // 
             // LoginForm
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 293);
+            this.ClientSize = new System.Drawing.Size(256, 206);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.tboxPassword);
             this.Controls.Add(this.lblPassword);
@@ -97,7 +98,7 @@ namespace RetroCollector {
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lblFormTitle);
             this.Name = "LoginForm";
-            this.Text = "LoginForm";
+            this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
 

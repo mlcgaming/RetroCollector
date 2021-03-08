@@ -84,22 +84,9 @@ namespace RetroCollector {
                 reportingToolStripMenuItem.Enabled = true;
             }
 
-            if(activeUser.IsAllowed(UserRole.Permission.AllowCreateProducts) ||
-                activeUser.IsAllowed(UserRole.Permission.AllowEditProducts) ||
-                activeUser.IsAllowed(UserRole.Permission.AllowDeleteProducts)) {
-
-                btnProductAdd.Enabled = true;
-
-                if(activeUser.IsAllowed(UserRole.Permission.AllowCreateProducts)) {
-                    btnProductAdd.Enabled = true;
-                }
-                else {
-                    btnProductAdd.Enabled = false;
-                }
-            }
-            else {
-                btnProductAdd.Enabled = false;
-            }
+            btnProductAdd.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowCreateProducts);
+            btnProductEdit.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowEditProducts);
+            btnProductDelete.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowDeleteProducts);
 
             if(activeUser.IsAllowed(UserRole.Permission.AllowProcessSales)) {
                 btnControlSales.Enabled = true;
@@ -193,14 +180,16 @@ namespace RetroCollector {
 
         }
         private void OnControlUsersClick(object sender, EventArgs e) {
-
+            UserListForm listForm = new UserListForm(ActiveUser);
+            listForm.ShowDialog();
         }
         private void OnControlCompaniesClick(object sender, EventArgs e) {
             CompanyListForm listForm = new CompanyListForm(ActiveUser);
             listForm.ShowDialog();
         }
         private void OnControlProductsClick(object sender, EventArgs e) {
-
+            ProductListForm listForm = new ProductListForm(ActiveUser);
+            listForm.ShowDialog();
         }
         private void OnControlCustomersClick(object sender, EventArgs e) {
             CustomerListForm listForm = new CustomerListForm(ActiveUser);

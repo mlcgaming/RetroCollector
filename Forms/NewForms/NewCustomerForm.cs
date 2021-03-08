@@ -36,6 +36,8 @@ namespace RetroCollector {
             tboxCustomerZipCode.TextChanged -= OnTextChanged;
             tboxCustomerPhone.TextChanged -= OnTextChanged;
             tboxCustomerEmail.TextChanged -= OnTextChanged;
+            btnFormSave.Click -= OnSaveButtonClick;
+            btnFormCancel.Click -= OnCancelButtonClick;
 
             // Set Control Defaults
             tboxCustomerId.Text = $"{DatabaseManager.GetNewCustomerID()}";
@@ -64,6 +66,8 @@ namespace RetroCollector {
             tboxCustomerZipCode.TextChanged += OnTextChanged;
             tboxCustomerPhone.TextChanged += OnTextChanged;
             tboxCustomerEmail.TextChanged += OnTextChanged;
+            btnFormSave.Click += OnSaveButtonClick;
+            btnFormCancel.Click += OnCancelButtonClick;
         }
 
         private void ValidateForm() {

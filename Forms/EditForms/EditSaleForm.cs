@@ -16,11 +16,13 @@ namespace RetroCollector {
 
         private UserAccount activeUser;
         private UserAccount salesRep;
+        private TransactionSale selectedSale;
 
         public EditSaleForm(UserAccount activeUser, TransactionSale selectedSale) {
             InitializeComponent();
 
             this.activeUser = activeUser;
+            this.selectedSale = selectedSale;
 
             ResetForm(selectedSale);
         }
@@ -29,17 +31,19 @@ namespace RetroCollector {
         private void ResetForm(TransactionSale sale) {
             // Disable All Events
             btnSaleCancel.Click -= OnCancelSaleClicked;
-            btnSaleProcess.Click -= OnProcessSaleClicked;
+            btnSaveChanges.Click -= OnProcessSaleClicked;
+            cboxSalesCustomers.SelectedIndexChanged -= OnNewCustomerSelected;
+            tboxSaleDescription.TextChanged -= OnTextChanged;
 
             // Set Default Control States
             btnRemoveSaleItem.Enabled = false;
-            btnSaleProcess.Enabled = false;
+            btnSaveChanges.Enabled = false;
             grpAllProducts.Enabled = false;
             grpSaleItems.Enabled = false;
             grpSaleTotals.Enabled = false;
             grpSalePayment.Enabled = false;
 
-            tboxSalesRep.Text = salesRep?.Username ?? "";
+            tboxSalesRep.Text = $"{DatabaseManager.GetUserById(sale.SalesRepID)?.Username ?? ""}";
             tboxSaleDescription.Text = sale.Description;
             tboxSaleId.Text = $"{sale.ID}";
             tboxSaleDate.Text = $"{sale.DateOfSale.Date:yyyy-MM-dd}";
@@ -74,7 +78,9 @@ namespace RetroCollector {
 
             // Enable All Events
             btnSaleCancel.Click += OnCancelSaleClicked;
-            btnSaleProcess.Click += OnProcessSaleClicked;
+            btnSaveChanges.Click += OnProcessSaleClicked;
+            cboxSalesCustomers.SelectedIndexChanged += OnNewCustomerSelected;
+            tboxSaleDescription.TextChanged += OnTextChanged;
         }
         private void ValidateForm() {
             bool formIsValid = true;
@@ -87,24 +93,11 @@ namespace RetroCollector {
                 formIsValid = false;
             }
 
-            if(decimal.TryParse(tboxSalesTenderedAmount.Text, out decimal amtTendered) == false) {
-                formIsValid = false;
-            }
-            else {
-                if(decimal.Parse(tboxSalesTenderedAmount.Text) < decimal.Parse(tboxSalesTotal.Text)) {
-                    formIsValid = false;
-                }
-            }
-
             if(formIsValid) {
-                btnSaleProcess.Enabled = true;
-
-                decimal changeDue = (decimal.Parse(tboxSalesTenderedAmount.Text) - decimal.Parse(tboxSalesTotal.Text));
-                tboxSalesChangeDue.Text = $"{changeDue}";
+                btnSaveChanges.Enabled = true;
             }
             else {
-                btnSaleProcess.Enabled = false;
-                tboxSalesChangeDue.Text = "";
+                btnSaveChanges.Enabled = false;
             }
         }
         private void CalculateLineItemTotals() {
@@ -128,22 +121,17 @@ namespace RetroCollector {
             int id = int.Parse(tboxSaleId.Text);
             string description = tboxSaleDescription.Text;
             DateTime dateOfSale = DateTime.Now;
-            int salesRepId = salesRep.ID;
+            int salesRepId = selectedSale.SalesRepID;
             Customer selectedCustomer = cboxSalesCustomers.SelectedItem as Customer;
             int customerId = selectedCustomer.ID;
-            DateTime dateCreated = DateTime.Now;
+            DateTime dateCreated = selectedSale.DateCreated;
             DateTime dateLastUpdated = DateTime.Now;
-            string createdBy = salesRep.Username;
-            string lastUpdatedBy = salesRep.Username;
+            string createdBy = selectedSale.CreatedBy;
+            string lastUpdatedBy = activeUser.Username;
 
-            TransactionSale newSale = new TransactionSale(id, description, dateOfSale, salesRepId, customerId, dateCreated, dateLastUpdated, createdBy, lastUpdatedBy);
+            selectedSale.Update(id, description, dateOfSale, salesRepId, customerId, dateCreated, dateLastUpdated, createdBy, lastUpdatedBy);
 
-            foreach(var item in listAllSaleItems.Items) {
-                TransactionLineItem newItem = item as TransactionLineItem;
-                newSale.AddLineItem(newItem);
-            }
-
-            DatabaseManager.AddNewTransaction(newSale);
+            DatabaseManager.UpdateTransaction(selectedSale);
 
             FormSaved?.Invoke(null, EventArgs.Empty);
             Close();
@@ -164,7 +152,16 @@ namespace RetroCollector {
             OnLineItemCountChanged();
         }
         private void OnNewCustomerClicked(object sender, EventArgs e) {
+            NewCustomerForm newForm = new NewCustomerForm(activeUser);
+            newForm.FormSaved += OnNewCustomerSaved;
+            newForm.ShowDialog();
+        }
 
+        private void OnNewCustomerSelected(object sender, EventArgs e) {
+            ValidateForm();
+        }
+        private void OnTextChanged(object sender, EventArgs e) {
+            ValidateForm();
         }
 
         private void OnSearchTextChanged(object sender, EventArgs e) {
@@ -219,8 +216,13 @@ namespace RetroCollector {
             listAllSaleItems.Items.Add(e.LineItem);
             OnLineItemCountChanged();
         }
-        private void OnFormSaved(object sender, EventArgs e) {
+        private void OnNewCustomerSaved(object sender, EventArgs e) {
+            cboxSalesCustomers.Items.Clear();
+            foreach(var c in DatabaseManager.Customers) {
+                cboxSalesCustomers.Items.Add(c);
+            }
 
+            cboxSalesCustomers.SelectedItem = cboxSalesCustomers.Items.Count - 1;
         }
     }
 }

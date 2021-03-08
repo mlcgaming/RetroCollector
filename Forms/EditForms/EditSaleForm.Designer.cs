@@ -28,12 +28,12 @@
             this.lblSalesCustomer = new System.Windows.Forms.Label();
             this.lblSalesRep = new System.Windows.Forms.Label();
             this.grpSalePayment = new System.Windows.Forms.GroupBox();
-            this.btnSaleCancel = new System.Windows.Forms.Button();
-            this.btnSaleProcess = new System.Windows.Forms.Button();
             this.tboxSalesChangeDue = new System.Windows.Forms.TextBox();
             this.lblSalesChangeDue = new System.Windows.Forms.Label();
             this.tboxSalesTenderedAmount = new System.Windows.Forms.TextBox();
             this.lblSalesTenderedAmount = new System.Windows.Forms.Label();
+            this.btnSaleCancel = new System.Windows.Forms.Button();
+            this.btnSaveChanges = new System.Windows.Forms.Button();
             this.grpSaleTotals = new System.Windows.Forms.GroupBox();
             this.lblSalesTotal = new System.Windows.Forms.Label();
             this.tboxSalesTotal = new System.Windows.Forms.TextBox();
@@ -121,24 +121,6 @@
             this.grpSalePayment.TabStop = false;
             this.grpSalePayment.Text = "Payment";
             // 
-            // btnSaleCancel
-            // 
-            this.btnSaleCancel.Location = new System.Drawing.Point(270, 524);
-            this.btnSaleCancel.Name = "btnSaleCancel";
-            this.btnSaleCancel.Size = new System.Drawing.Size(77, 23);
-            this.btnSaleCancel.TabIndex = 5;
-            this.btnSaleCancel.Text = "Cancel";
-            this.btnSaleCancel.UseVisualStyleBackColor = true;
-            // 
-            // btnSaleProcess
-            // 
-            this.btnSaleProcess.Location = new System.Drawing.Point(359, 524);
-            this.btnSaleProcess.Name = "btnSaleProcess";
-            this.btnSaleProcess.Size = new System.Drawing.Size(87, 23);
-            this.btnSaleProcess.TabIndex = 4;
-            this.btnSaleProcess.Text = "Save Changes";
-            this.btnSaleProcess.UseVisualStyleBackColor = true;
-            // 
             // tboxSalesChangeDue
             // 
             this.tboxSalesChangeDue.Location = new System.Drawing.Point(107, 42);
@@ -172,6 +154,24 @@
             this.lblSalesTenderedAmount.Size = new System.Drawing.Size(95, 13);
             this.lblSalesTenderedAmount.TabIndex = 0;
             this.lblSalesTenderedAmount.Text = "Amount Tendered:";
+            // 
+            // btnSaleCancel
+            // 
+            this.btnSaleCancel.Location = new System.Drawing.Point(270, 524);
+            this.btnSaleCancel.Name = "btnSaleCancel";
+            this.btnSaleCancel.Size = new System.Drawing.Size(77, 23);
+            this.btnSaleCancel.TabIndex = 5;
+            this.btnSaleCancel.Text = "Cancel";
+            this.btnSaleCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveChanges
+            // 
+            this.btnSaveChanges.Location = new System.Drawing.Point(359, 524);
+            this.btnSaveChanges.Name = "btnSaveChanges";
+            this.btnSaveChanges.Size = new System.Drawing.Size(87, 23);
+            this.btnSaveChanges.TabIndex = 4;
+            this.btnSaveChanges.Text = "Save Changes";
+            this.btnSaveChanges.UseVisualStyleBackColor = true;
             // 
             // grpSaleTotals
             // 
@@ -466,7 +466,7 @@
             this.ClientSize = new System.Drawing.Size(459, 556);
             this.Controls.Add(this.btnSaleCancel);
             this.Controls.Add(this.tboxSalesRep);
-            this.Controls.Add(this.btnSaleProcess);
+            this.Controls.Add(this.btnSaveChanges);
             this.Controls.Add(this.grpModifyInfo);
             this.Controls.Add(this.btnAddNewCustomer);
             this.Controls.Add(this.cboxSalesCustomers);
@@ -506,7 +506,7 @@
         private System.Windows.Forms.Label lblSalesRep;
         private System.Windows.Forms.GroupBox grpSalePayment;
         private System.Windows.Forms.Button btnSaleCancel;
-        private System.Windows.Forms.Button btnSaleProcess;
+        private System.Windows.Forms.Button btnSaveChanges;
         private System.Windows.Forms.TextBox tboxSalesChangeDue;
         private System.Windows.Forms.Label lblSalesChangeDue;
         private System.Windows.Forms.TextBox tboxSalesTenderedAmount;

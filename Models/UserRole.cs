@@ -73,5 +73,9 @@ namespace RetroCollector.Models {
                 { Permission.AllowProcessSales, true },
             };
         }
+
+        public override string ToString() {
+            return $"{name}";
+        }
     }
 }

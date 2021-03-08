@@ -29,11 +29,12 @@
             this.listAllUsers = new System.Windows.Forms.ListBox();
             this.tboxSearchNames = new System.Windows.Forms.TextBox();
             this.lblSearchNames = new System.Windows.Forms.Label();
+            this.btnUserRoles = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(109, 266);
+            this.btnEdit.Location = new System.Drawing.Point(109, 240);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 11;
@@ -42,7 +43,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(204, 266);
+            this.btnDelete.Location = new System.Drawing.Point(204, 240);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 10;
@@ -51,7 +52,7 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(15, 266);
+            this.btnNew.Location = new System.Drawing.Point(15, 240);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 9;
@@ -63,7 +64,7 @@
             this.listAllUsers.FormattingEnabled = true;
             this.listAllUsers.Location = new System.Drawing.Point(15, 48);
             this.listAllUsers.Name = "listAllUsers";
-            this.listAllUsers.Size = new System.Drawing.Size(264, 212);
+            this.listAllUsers.Size = new System.Drawing.Size(264, 186);
             this.listAllUsers.TabIndex = 8;
             // 
             // tboxSearchNames
@@ -82,11 +83,21 @@
             this.lblSearchNames.TabIndex = 6;
             this.lblSearchNames.Text = "Search Names:";
             // 
+            // btnUserRoles
+            // 
+            this.btnUserRoles.Location = new System.Drawing.Point(227, 269);
+            this.btnUserRoles.Name = "btnUserRoles";
+            this.btnUserRoles.Size = new System.Drawing.Size(51, 23);
+            this.btnUserRoles.TabIndex = 12;
+            this.btnUserRoles.Text = "Roles...";
+            this.btnUserRoles.UseVisualStyleBackColor = true;
+            // 
             // UserListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(290, 302);
+            this.Controls.Add(this.btnUserRoles);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnNew);
@@ -94,7 +105,7 @@
             this.Controls.Add(this.tboxSearchNames);
             this.Controls.Add(this.lblSearchNames);
             this.Name = "UserListForm";
-            this.Text = "UserListForm";
+            this.Text = "Users";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,5 +119,6 @@
         private System.Windows.Forms.ListBox listAllUsers;
         private System.Windows.Forms.TextBox tboxSearchNames;
         private System.Windows.Forms.Label lblSearchNames;
+        private System.Windows.Forms.Button btnUserRoles;
     }
 }

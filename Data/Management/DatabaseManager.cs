@@ -1015,11 +1015,12 @@ namespace RetroCollector.Data.Management {
                 $"'{user.LastName}'," +
                 $"'{user.Username}'," +
                 $"'{user.PassHash}'," +
-                $"'{user.Salt}'," +
+                $"'{Convert.ToBase64String(user.Salt)}'," +
                 $"'{user.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{user.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"'{user.CreatedBy}'," +
-                $"'{user.LastUpdatedBy}'";
+                $"'{user.LastUpdatedBy}'," +
+                $"roleId={user.Role.ID}";
 
             return userValues;
         }
@@ -1247,11 +1248,12 @@ namespace RetroCollector.Data.Management {
                 $"lastName='{user.LastName}'," +
                 $"username='{user.Username}'," +
                 $"passHash='{user.PassHash}'," +
-                $"passSalt='{user.Salt}'," +
+                $"passSalt='{Convert.ToBase64String(user.Salt)}'," +
                 $"dateCreated='{user.DateCreated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"dateLastUpdated='{user.LastUpdated.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $"createdBy='{user.CreatedBy}'," +
-                $"lastUpdatedBy='{user.LastUpdatedBy}'";
+                $"lastUpdatedBy='{user.LastUpdatedBy}'," +
+                $"roleId={user.Role.ID}";
 
             return userValues;
         }
@@ -1375,11 +1377,11 @@ namespace RetroCollector.Data.Management {
             allConsoleTypes.Remove(console);
         }
         public static void DeleteTransaction(TransactionSale transaction) {
-            DeleteItemsFromDatabase(DB_TABLES_TRANSACTIONS, $"transactionId={transaction.ID}");
-
             foreach(var lineItem in transaction.Items) {
                 DeleteTransactionLineItem(lineItem);
             }
+
+            DeleteItemsFromDatabase(DB_TABLES_TRANSACTIONS, $"transactionId={transaction.ID}");
 
             allTransactions.Remove(transaction);
         }
@@ -1412,8 +1414,10 @@ namespace RetroCollector.Data.Management {
                 dbConn.Close();
             }
         }
-        public static void UpdateItemInDatebase(string tableName, string where, string values) {
-            string updateString = $"UPDATE {databaseName}.{tableName} SET ({values}) WHERE {where};";
+        public static void UpdateItemInDatebase(string tableName, string values, string where) {
+            string updateString = $"UPDATE {databaseName}.{tableName} SET {values} WHERE {where};";
+
+            MessageBox.Show($"Running following Command\r\n\r\n{updateString}");
 
             MySqlConnection dbConn = new MySqlConnection(DBConnectionString);
 
@@ -1466,6 +1470,15 @@ namespace RetroCollector.Data.Management {
 
             return null;
         }
+        public static UserAccount GetUserById(int id) {
+            foreach(var user in allUsers) {
+                if(user.ID == id) {
+                    return user;
+                }
+            }
+
+            return null;
+        }
         public static ConsoleCategory GetConsoleByID(int id) {
             foreach(var console in allConsoleTypes) {
                 if(console.ID == id) {
@@ -1488,6 +1501,15 @@ namespace RetroCollector.Data.Management {
             foreach(var company in allCompanies) {
                 if(company.Name == name) {
                     return company;
+                }
+            }
+
+            return null;
+        }
+        public static UserRole GetRoleByID(int id) {
+            foreach(var role in allRoles) {
+                if(role.ID == id) {
+                    return role;
                 }
             }
 

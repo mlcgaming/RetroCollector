@@ -9,7 +9,7 @@ using RetroCollector.Models;
 
 namespace RetroCollector.Data.Management {
     public class PasswordManager {
-        private static byte[] GenerateSaltHash() {
+        public static byte[] GenerateSaltHash() {
             byte[] salt = new byte[32];
             new RNGCryptoServiceProvider().GetBytes(salt);
 

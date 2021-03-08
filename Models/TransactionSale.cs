@@ -49,6 +49,18 @@ namespace RetroCollector.Models {
             items = new List<TransactionLineItem>();
         }
 
+        public void Update(int id, string description, DateTime dateOfSale, int salesRepId, int customerId, DateTime dateCreated, DateTime dateLastUpdated, string createdBy, string lastUpdatedBy) {
+            this.id = id;
+            this.description = description;
+            this.dateOfSale = dateOfSale;
+            this.salesRepId = salesRepId;
+            this.customerId = customerId;
+            this.dateCreated = dateCreated;
+            this.dateLastUpdated = dateLastUpdated;
+            this.createdBy = createdBy;
+            this.lastUpdatedBy = lastUpdatedBy;
+        }
+
         public void AddLineItem(TransactionLineItem item) {
             Items.Add(item);
         }
