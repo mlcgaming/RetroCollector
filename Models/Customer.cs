@@ -66,6 +66,25 @@ namespace RetroCollector.Models {
             this.lastUpdatedBy = lastUpdatedBy;
         }
 
+        public void Update(int id, string firstName, string lastName, string email, string address1, string address2, string city, string stateAbbr,
+            string zipCode, string phone, DateTime dateCreated, DateTime dateLastUpdated, string createdBy, string lastUpdatedBy) {
+
+            this.id = id;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+            this.address1 = address1;
+            this.address2 = address2;
+            this.city = city;
+            this.stateAbbr = stateAbbr;
+            this.zipCode = zipCode;
+            this.phone = phone;
+            this.dateCreated = dateCreated;
+            this.dateLastUpdated = dateLastUpdated;
+            this.createdBy = createdBy;
+            this.lastUpdatedBy = lastUpdatedBy;
+        }
+
         public override string ToString() {
             return $"{FullName}";
         }

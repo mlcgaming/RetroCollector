@@ -69,7 +69,7 @@ namespace RetroCollector.Models {
                 return total;
             }
         }
-        public decimal GetTotal(float taxRate = 0.0815f) {
+        public decimal GetTotal(decimal taxRate = 1.0815M) {
             if(Items.Count == 0) {
                 return 0M;
             }
@@ -79,12 +79,12 @@ namespace RetroCollector.Models {
                     total += item.TotalPrice;
                 }
 
-                return (decimal)((float)total * taxRate);
+                return decimal.Parse(string.Format("{0:.##}",(total * taxRate)));
             }
         }
 
         public override string ToString() {
-            return $"[{DateOfSale.Date}] Customer:{DatabaseManager.GetCustomerById(customerId)?.FullName ?? "GUEST"} Total Items:{Items.Count}  Total Sale:{GetTotal()}";
+            return $"[{DateOfSale.Date:yyyy-MM-dd}] Customer:{DatabaseManager.GetCustomerById(customerId)?.FullName ?? "GUEST"} Total Sale:${string.Format("{0:.##}",GetTotal())}";
         }
     }
 }

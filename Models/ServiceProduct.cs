@@ -11,5 +11,11 @@ namespace RetroCollector.Models {
             DateTime dateCreated = default, DateTime dateLastUpdated = default, string createdBy = null, string lastUpdatedBy = null) :
             base(id, name, description, cost, price, 9999, null, ProductQuality.New, ProductCompleteness.New, ProductRegion.OTHER, productTypeId, dateCreated, dateLastUpdated, createdBy, lastUpdatedBy) {
         }
+
+        public void Update(int id, string name, string description, decimal cost, decimal price, int productTypeId,
+            DateTime dateCreated = default, DateTime dateLastUpdated = default, string createdBy = null, string lastUpdatedBy = null) {
+
+            base.Update(id, name, description, cost, price, 9999, null, ProductQuality.New, ProductCompleteness.New, ProductRegion.OTHER, productTypeId, dateCreated, dateLastUpdated, createdBy, lastUpdatedBy);
+        }
     }
 }

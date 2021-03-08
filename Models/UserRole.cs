@@ -46,6 +46,17 @@ namespace RetroCollector.Models {
             this.lastUpdatedBy = lastUpdatedBy;
         }
 
+        public void Update(int id, string name, string description = "", Dictionary<Permission, bool> permissions = null, DateTime dateCreated = default, DateTime dateLastUpdated = default, string createdBy = "", string lastUpdatedBy = "") {
+            this.id = id;
+            this.name = name;
+            this.description = description;
+            this.permissions = new Dictionary<Permission, bool>(permissions);
+            this.dateCreated = dateCreated;
+            this.dateLastUpdated = dateLastUpdated;
+            this.createdBy = createdBy;
+            this.lastUpdatedBy = lastUpdatedBy;
+        }
+
         public virtual void CreateDefaultPermissions() {
             permissions = new Dictionary<Permission, bool>() {
                 { Permission.AllowAdminControls, false },

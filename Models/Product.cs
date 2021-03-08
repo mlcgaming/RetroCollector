@@ -89,6 +89,24 @@ namespace RetroCollector.Models {
             this.lastUpdatedBy = lastUpdatedBy;
         }
 
+        public virtual void Update(int id, string name, string description, decimal cost, decimal price, int onHand, Company developer, ProductQuality quality, ProductCompleteness completion, ProductRegion region, int productTypeId, DateTime dateCreated, DateTime dateLastUpdated, string createdBy, string lastUpdatedBy) {
+            this.id = id;
+            this.name = name;
+            this.description = description;
+            this.cost = cost;
+            this.price = price;
+            this.onHand = onHand;
+            this.developer = developer;
+            this.quality = quality;
+            this.completion = completion;
+            this.region = region;
+            this.productTypeId = productTypeId;
+            this.dateCreated = dateCreated;
+            this.dateLastUpdated = dateLastUpdated;
+            this.createdBy = createdBy;
+            this.lastUpdatedBy = lastUpdatedBy;
+        }
+
         public int GetProductTypeID() {
             return productTypeId;
         }
@@ -98,20 +116,8 @@ namespace RetroCollector.Models {
         public void UpdatePrice(decimal price) {
             this.price = price;
         }
-        public decimal Purchase(decimal amountPaid) {
-            try {
-                decimal change = (amountPaid - price);
-
-                if(change < 0M) {
-                    throw new InvalidPurchaseReturnAmountException();
-                }
-                else {
-                    return change;
-                }
-            }
-            catch (InvalidPurchaseReturnAmountException) {
-                return default;
-            }
+        public void Purchase(int quantity) {
+            onHand = onHand - quantity;
         }
         public decimal GetTotalWithTax() {
             return (decimal)((float)price * 1.0815f);
@@ -120,7 +126,7 @@ namespace RetroCollector.Models {
             return (decimal)((float)price * taxRate);
         }
         public override string ToString() {
-            return ($"[{ProductManager.GetProductTypeByID(productTypeId)?.Name ?? "Other"}] {Name} ${Price}");
+            return ($"[{onHand} Available] {Name} ${Price}");
         }
     }
 }

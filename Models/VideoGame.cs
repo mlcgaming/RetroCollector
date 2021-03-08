@@ -27,6 +27,16 @@ namespace RetroCollector.Models {
             this.releaseDate = releaseDate;
         }
 
+        public void Update(int id, string title, decimal cost, decimal price, int onHand, ProductQuality quality, ProductCompleteness completion, ProductRegion region, int productTypeId,
+            ConsoleCategory console = null, string description = "", Company developer = null, DateTime releaseDate = default, DateTime dateCreated = default, DateTime dateLastUpdated = default,
+            string createdBy = "", string lastUpdatedBy = "") {
+
+            base.Update(id, title, description, cost, Price, OnHand, developer, quality, completion, region, productTypeId, dateCreated, dateLastUpdated, createdBy, lastUpdatedBy);
+
+            this.console = console;
+            this.releaseDate = releaseDate;
+        }
+
         public override string ToString() {
             return $"[Game] {Title} ({Developer}) ${Price}";
         }

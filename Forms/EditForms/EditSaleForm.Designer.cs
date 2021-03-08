@@ -55,11 +55,21 @@
             this.lblSaleDate = new System.Windows.Forms.Label();
             this.tboxSaleId = new System.Windows.Forms.TextBox();
             this.lblSaleId = new System.Windows.Forms.Label();
-            this.cboxSalesReps = new System.Windows.Forms.ComboBox();
+            this.grpModifyInfo = new System.Windows.Forms.GroupBox();
+            this.lblLastUpdatedByValue = new System.Windows.Forms.Label();
+            this.lblDateLastUpdatedValue = new System.Windows.Forms.Label();
+            this.lblDateCreatedValue = new System.Windows.Forms.Label();
+            this.lblCreatedByValue = new System.Windows.Forms.Label();
+            this.lblDateLastUpdated = new System.Windows.Forms.Label();
+            this.lblLastUpdatedBy = new System.Windows.Forms.Label();
+            this.lblDateCreated = new System.Windows.Forms.Label();
+            this.lblCreatedBy = new System.Windows.Forms.Label();
+            this.tboxSalesRep = new System.Windows.Forms.TextBox();
             this.grpSalePayment.SuspendLayout();
             this.grpSaleTotals.SuspendLayout();
             this.grpAllProducts.SuspendLayout();
             this.grpSaleItems.SuspendLayout();
+            this.grpModifyInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddNewCustomer
@@ -100,22 +110,20 @@
             // 
             // grpSalePayment
             // 
-            this.grpSalePayment.Controls.Add(this.btnSaleCancel);
-            this.grpSalePayment.Controls.Add(this.btnSaleProcess);
             this.grpSalePayment.Controls.Add(this.tboxSalesChangeDue);
             this.grpSalePayment.Controls.Add(this.lblSalesChangeDue);
             this.grpSalePayment.Controls.Add(this.tboxSalesTenderedAmount);
             this.grpSalePayment.Controls.Add(this.lblSalesTenderedAmount);
             this.grpSalePayment.Location = new System.Drawing.Point(246, 341);
             this.grpSalePayment.Name = "grpSalePayment";
-            this.grpSalePayment.Size = new System.Drawing.Size(200, 100);
+            this.grpSalePayment.Size = new System.Drawing.Size(200, 72);
             this.grpSalePayment.TabIndex = 24;
             this.grpSalePayment.TabStop = false;
             this.grpSalePayment.Text = "Payment";
             // 
             // btnSaleCancel
             // 
-            this.btnSaleCancel.Location = new System.Drawing.Point(9, 71);
+            this.btnSaleCancel.Location = new System.Drawing.Point(270, 524);
             this.btnSaleCancel.Name = "btnSaleCancel";
             this.btnSaleCancel.Size = new System.Drawing.Size(77, 23);
             this.btnSaleCancel.TabIndex = 5;
@@ -124,7 +132,7 @@
             // 
             // btnSaleProcess
             // 
-            this.btnSaleProcess.Location = new System.Drawing.Point(107, 71);
+            this.btnSaleProcess.Location = new System.Drawing.Point(359, 524);
             this.btnSaleProcess.Name = "btnSaleProcess";
             this.btnSaleProcess.Size = new System.Drawing.Size(87, 23);
             this.btnSaleProcess.TabIndex = 4;
@@ -144,14 +152,15 @@
             this.lblSalesChangeDue.AutoSize = true;
             this.lblSalesChangeDue.Location = new System.Drawing.Point(6, 45);
             this.lblSalesChangeDue.Name = "lblSalesChangeDue";
-            this.lblSalesChangeDue.Size = new System.Drawing.Size(70, 13);
+            this.lblSalesChangeDue.Size = new System.Drawing.Size(78, 13);
             this.lblSalesChangeDue.TabIndex = 2;
-            this.lblSalesChangeDue.Text = "Change Due:";
+            this.lblSalesChangeDue.Text = "Change Given:";
             // 
             // tboxSalesTenderedAmount
             // 
             this.tboxSalesTenderedAmount.Location = new System.Drawing.Point(107, 16);
             this.tboxSalesTenderedAmount.Name = "tboxSalesTenderedAmount";
+            this.tboxSalesTenderedAmount.ReadOnly = true;
             this.tboxSalesTenderedAmount.Size = new System.Drawing.Size(87, 20);
             this.tboxSalesTenderedAmount.TabIndex = 1;
             // 
@@ -354,21 +363,111 @@
             this.lblSaleId.TabIndex = 15;
             this.lblSaleId.Text = "ID:";
             // 
-            // cboxSalesReps
+            // grpModifyInfo
             // 
-            this.cboxSalesReps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxSalesReps.FormattingEnabled = true;
-            this.cboxSalesReps.Location = new System.Drawing.Point(317, 6);
-            this.cboxSalesReps.Name = "cboxSalesReps";
-            this.cboxSalesReps.Size = new System.Drawing.Size(123, 21);
-            this.cboxSalesReps.TabIndex = 30;
+            this.grpModifyInfo.Controls.Add(this.lblLastUpdatedByValue);
+            this.grpModifyInfo.Controls.Add(this.lblDateLastUpdatedValue);
+            this.grpModifyInfo.Controls.Add(this.lblDateCreatedValue);
+            this.grpModifyInfo.Controls.Add(this.lblCreatedByValue);
+            this.grpModifyInfo.Controls.Add(this.lblDateLastUpdated);
+            this.grpModifyInfo.Controls.Add(this.lblLastUpdatedBy);
+            this.grpModifyInfo.Controls.Add(this.lblDateCreated);
+            this.grpModifyInfo.Controls.Add(this.lblCreatedBy);
+            this.grpModifyInfo.Location = new System.Drawing.Point(15, 447);
+            this.grpModifyInfo.Name = "grpModifyInfo";
+            this.grpModifyInfo.Size = new System.Drawing.Size(202, 100);
+            this.grpModifyInfo.TabIndex = 31;
+            this.grpModifyInfo.TabStop = false;
+            // 
+            // lblLastUpdatedByValue
+            // 
+            this.lblLastUpdatedByValue.AutoSize = true;
+            this.lblLastUpdatedByValue.Location = new System.Drawing.Point(101, 58);
+            this.lblLastUpdatedByValue.Name = "lblLastUpdatedByValue";
+            this.lblLastUpdatedByValue.Size = new System.Drawing.Size(37, 13);
+            this.lblLastUpdatedByValue.TabIndex = 7;
+            this.lblLastUpdatedByValue.Text = "USER";
+            // 
+            // lblDateLastUpdatedValue
+            // 
+            this.lblDateLastUpdatedValue.AutoSize = true;
+            this.lblDateLastUpdatedValue.Location = new System.Drawing.Point(112, 79);
+            this.lblDateLastUpdatedValue.Name = "lblDateLastUpdatedValue";
+            this.lblDateLastUpdatedValue.Size = new System.Drawing.Size(65, 13);
+            this.lblDateLastUpdatedValue.TabIndex = 6;
+            this.lblDateLastUpdatedValue.Text = "12/31/2021";
+            // 
+            // lblDateCreatedValue
+            // 
+            this.lblDateCreatedValue.AutoSize = true;
+            this.lblDateCreatedValue.Location = new System.Drawing.Point(85, 37);
+            this.lblDateCreatedValue.Name = "lblDateCreatedValue";
+            this.lblDateCreatedValue.Size = new System.Drawing.Size(65, 13);
+            this.lblDateCreatedValue.TabIndex = 5;
+            this.lblDateCreatedValue.Text = "12/31/2021";
+            // 
+            // lblCreatedByValue
+            // 
+            this.lblCreatedByValue.AutoSize = true;
+            this.lblCreatedByValue.Location = new System.Drawing.Point(71, 16);
+            this.lblCreatedByValue.Name = "lblCreatedByValue";
+            this.lblCreatedByValue.Size = new System.Drawing.Size(37, 13);
+            this.lblCreatedByValue.TabIndex = 4;
+            this.lblCreatedByValue.Text = "USER";
+            // 
+            // lblDateLastUpdated
+            // 
+            this.lblDateLastUpdated.AutoSize = true;
+            this.lblDateLastUpdated.Location = new System.Drawing.Point(6, 79);
+            this.lblDateLastUpdated.Name = "lblDateLastUpdated";
+            this.lblDateLastUpdated.Size = new System.Drawing.Size(100, 13);
+            this.lblDateLastUpdated.TabIndex = 3;
+            this.lblDateLastUpdated.Text = "Date Last Updated:";
+            // 
+            // lblLastUpdatedBy
+            // 
+            this.lblLastUpdatedBy.AutoSize = true;
+            this.lblLastUpdatedBy.Location = new System.Drawing.Point(6, 58);
+            this.lblLastUpdatedBy.Name = "lblLastUpdatedBy";
+            this.lblLastUpdatedBy.Size = new System.Drawing.Size(89, 13);
+            this.lblLastUpdatedBy.TabIndex = 2;
+            this.lblLastUpdatedBy.Text = "Last Updated By:";
+            // 
+            // lblDateCreated
+            // 
+            this.lblDateCreated.AutoSize = true;
+            this.lblDateCreated.Location = new System.Drawing.Point(6, 37);
+            this.lblDateCreated.Name = "lblDateCreated";
+            this.lblDateCreated.Size = new System.Drawing.Size(73, 13);
+            this.lblDateCreated.TabIndex = 1;
+            this.lblDateCreated.Text = "Date Created:";
+            // 
+            // lblCreatedBy
+            // 
+            this.lblCreatedBy.AutoSize = true;
+            this.lblCreatedBy.Location = new System.Drawing.Point(6, 16);
+            this.lblCreatedBy.Name = "lblCreatedBy";
+            this.lblCreatedBy.Size = new System.Drawing.Size(62, 13);
+            this.lblCreatedBy.TabIndex = 0;
+            this.lblCreatedBy.Text = "Created By:";
+            // 
+            // tboxSalesRep
+            // 
+            this.tboxSalesRep.Location = new System.Drawing.Point(317, 6);
+            this.tboxSalesRep.Name = "tboxSalesRep";
+            this.tboxSalesRep.ReadOnly = true;
+            this.tboxSalesRep.Size = new System.Drawing.Size(123, 20);
+            this.tboxSalesRep.TabIndex = 32;
             // 
             // EditSaleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 450);
-            this.Controls.Add(this.cboxSalesReps);
+            this.ClientSize = new System.Drawing.Size(459, 556);
+            this.Controls.Add(this.btnSaleCancel);
+            this.Controls.Add(this.tboxSalesRep);
+            this.Controls.Add(this.btnSaleProcess);
+            this.Controls.Add(this.grpModifyInfo);
             this.Controls.Add(this.btnAddNewCustomer);
             this.Controls.Add(this.cboxSalesCustomers);
             this.Controls.Add(this.lblSalesCustomer);
@@ -392,6 +491,8 @@
             this.grpAllProducts.ResumeLayout(false);
             this.grpAllProducts.PerformLayout();
             this.grpSaleItems.ResumeLayout(false);
+            this.grpModifyInfo.ResumeLayout(false);
+            this.grpModifyInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -431,6 +532,15 @@
         private System.Windows.Forms.Label lblSaleDate;
         private System.Windows.Forms.TextBox tboxSaleId;
         private System.Windows.Forms.Label lblSaleId;
-        private System.Windows.Forms.ComboBox cboxSalesReps;
+        private System.Windows.Forms.GroupBox grpModifyInfo;
+        private System.Windows.Forms.Label lblLastUpdatedByValue;
+        private System.Windows.Forms.Label lblDateLastUpdatedValue;
+        private System.Windows.Forms.Label lblDateCreatedValue;
+        private System.Windows.Forms.Label lblCreatedByValue;
+        private System.Windows.Forms.Label lblDateLastUpdated;
+        private System.Windows.Forms.Label lblLastUpdatedBy;
+        private System.Windows.Forms.Label lblDateCreated;
+        private System.Windows.Forms.Label lblCreatedBy;
+        private System.Windows.Forms.TextBox tboxSalesRep;
     }
 }

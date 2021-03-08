@@ -81,9 +81,12 @@ namespace RetroCollector {
         }
         private void OnEditSaleClicked(object sender, EventArgs e) {
             TransactionSale selectedSale = listAllSales.SelectedItem as TransactionSale;
-            // TODO: OPEN EDIT SALE FORM
+            EditSaleForm editSaleForm = new EditSaleForm(activeUser, selectedSale);
+            editSaleForm.FormSaved += OnSaleFormSaved;
+            editSaleForm.ShowDialog();
         }
         private void OnDeleteSaleClicked(object sender, EventArgs e) {
+            TransactionSale selectedSale = listAllSales.SelectedItem as TransactionSale;
 
         }
         

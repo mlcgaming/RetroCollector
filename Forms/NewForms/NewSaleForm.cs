@@ -141,12 +141,14 @@ namespace RetroCollector {
             foreach(var item in listAllSaleItems.Items) {
                 TransactionLineItem newItem = item as TransactionLineItem;
                 newSale.AddLineItem(newItem);
+
+                Product soldProduct = ProductManager.GetProductById(newItem.ProductID);
+                soldProduct.Purchase(newItem.Quantity);
             }
 
             DatabaseManager.AddNewTransaction(newSale);
 
-            FormSaved?.Invoke(null, EventArgs.Empty);
-            Close();
+            OnFormSaved(null, EventArgs.Empty);
         }
         private void OnCancelSaleClicked(object sender, EventArgs e) {
             Close();
@@ -183,7 +185,7 @@ namespace RetroCollector {
             List<Product> filteredProducts = new List<Product>();
 
             foreach(var product in unfilteredProducts) {
-                if(product.Name.Contains(tboxProductSearch.Text)) {
+                if(product.Name.ToUpper().Contains(tboxProductSearch.Text.ToUpper())) {
                     filteredProducts.Add(product);
                 }
             }
@@ -220,7 +222,8 @@ namespace RetroCollector {
             OnLineItemCountChanged();
         }
         private void OnFormSaved(object sender, EventArgs e) {
-
+            FormSaved?.Invoke(null, EventArgs.Empty);
+            Close();
         }
     }
 }
