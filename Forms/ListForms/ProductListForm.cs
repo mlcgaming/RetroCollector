@@ -12,6 +12,8 @@ using RetroCollector.Data.Management;
 
 namespace RetroCollector {
     public partial class ProductListForm : Form {
+        public event EventHandler ProductsUpdated;
+
         private UserAccount activeUser;
 
         public ProductListForm(UserAccount activeUser) {
@@ -28,6 +30,7 @@ namespace RetroCollector {
             btnNew.Click -= OnNewButtonClicked;
             btnEdit.Click -= OnEditButtonClicked;
             btnDelete.Click -= OnDeleteButtonClicked;
+            btnProductTypes.Click -= OnProductTypesClicked;
             tboxSearchNames.TextChanged -= OnSearchTextChanged;
             listAllProducts.SelectedIndexChanged -= OnSelectionIndexChanged;
 
@@ -49,14 +52,20 @@ namespace RetroCollector {
             btnDelete.Click += OnDeleteButtonClicked;
             tboxSearchNames.TextChanged += OnSearchTextChanged;
             listAllProducts.SelectedIndexChanged += OnSelectionIndexChanged;
+            btnProductTypes.Click += OnProductTypesClicked;
         }
 
         // Event Handlers
         private void OnNewButtonClicked(object sender, EventArgs e) {
-
+            NewProductForm newForm = new NewProductForm(activeUser);
+            newForm.FormSaved += OnFormSaved;
+            newForm.ShowDialog();
         }
         private void OnEditButtonClicked(object sender, EventArgs e) {
-
+            Product selectedProduct = listAllProducts.SelectedItem as Product;
+            EditProductForm editForm = new EditProductForm(activeUser, selectedProduct);
+            editForm.FormSaved += OnFormSaved;
+            editForm.ShowDialog();
         }
         private void OnDeleteButtonClicked(object sender, EventArgs e) {
             DialogResult result = MessageBox.Show("Delete the Product?", "This is an irreversible action.", MessageBoxButtons.YesNo);
@@ -68,6 +77,10 @@ namespace RetroCollector {
 
                 ResetForm();
             }
+        }
+        private void OnProductTypesClicked(object sender, EventArgs e) {
+            ProductTypeListForm listForm = new ProductTypeListForm(activeUser);
+            listForm.ShowDialog();
         }
 
         private void OnSearchTextChanged(object sender, EventArgs e) {
@@ -109,6 +122,8 @@ namespace RetroCollector {
 
         private void OnFormSaved(object sender, EventArgs e) {
             ResetForm();
+
+            ProductsUpdated?.Invoke(null, EventArgs.Empty);
         }
     }
 }

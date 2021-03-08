@@ -47,6 +47,8 @@ namespace RetroCollector {
             btnControlProduct.Click -= OnControlProductsClick;
             btnControlUser.Click -= OnControlUsersClick;
 
+            productsByCompanyToolStripMenuItem.Click -= OnProductByCompanyMenuItemClick;
+
             // Disable MenuItem Events, if any
             databaseSettingsToolStripMenuItem.Click -= OnDatabaseSettingsClick;
 
@@ -85,8 +87,8 @@ namespace RetroCollector {
             }
 
             btnProductAdd.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowCreateProducts);
-            btnProductEdit.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowEditProducts);
-            btnProductDelete.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowDeleteProducts);
+            btnProductEdit.Enabled = false;
+            btnProductDelete.Enabled = false;
 
             if(activeUser.IsAllowed(UserRole.Permission.AllowProcessSales)) {
                 btnControlSales.Enabled = true;
@@ -129,9 +131,8 @@ namespace RetroCollector {
 
             // Enable MenuItem Events
             databaseSettingsToolStripMenuItem.Click += OnDatabaseSettingsClick;
+            productsByCompanyToolStripMenuItem.Click += OnProductByCompanyMenuItemClick;
         }
-
-        
 
         private void CalculateInventoryValue() {
             decimal totalGamesValue = ProductManager.GetTotalValueByProductType(ProductManager.GetProductTypeByID(0));
@@ -171,13 +172,26 @@ namespace RetroCollector {
             userLogin.ShowDialog();
         }
         private void OnNewProductClick(object sender, EventArgs e) {
-
+            NewProductForm newForm = new NewProductForm(ActiveUser);
+            newForm.FormSaved += OnProductsUpdated;
+            newForm.ShowDialog();
         }
         private void OnEditProductClick(object sender, EventArgs e) {
-
+            Product selectedProduct = listProducts.SelectedItem as Product;
+            EditProductForm editForm = new EditProductForm(ActiveUser, selectedProduct);
+            editForm.FormSaved += OnProductsUpdated;
+            editForm.ShowDialog();
         }
         private void OnDeleteProductClick(object sender, EventArgs e) {
+            DialogResult result = MessageBox.Show("Delete the Product?", "This is an irreversible action.", MessageBoxButtons.YesNo);
 
+            if(result == DialogResult.Yes) {
+                Product product = listProducts.SelectedItem as Product;
+
+                DatabaseManager.DeleteProduct(product);
+
+                ResetForm();
+            }
         }
         private void OnControlUsersClick(object sender, EventArgs e) {
             UserListForm listForm = new UserListForm(ActiveUser);
@@ -189,6 +203,7 @@ namespace RetroCollector {
         }
         private void OnControlProductsClick(object sender, EventArgs e) {
             ProductListForm listForm = new ProductListForm(ActiveUser);
+            listForm.ProductsUpdated += OnProductsUpdated;
             listForm.ShowDialog();
         }
         private void OnControlCustomersClick(object sender, EventArgs e) {
@@ -202,6 +217,11 @@ namespace RetroCollector {
         private void OnControlConsolesClick(object sender, EventArgs e) {
             ConsoleListForm listForm = new ConsoleListForm(ActiveUser);
             listForm.ShowDialog();
+        }
+
+        private void OnProductByCompanyMenuItemClick(object sender, EventArgs e) {
+            ProductByCompanyOptionsForm optionsForm = new ProductByCompanyOptionsForm();
+            optionsForm.ShowDialog();
         }
 
         private void OnDatabaseSettingsClick(object sender, EventArgs e) {
@@ -303,8 +323,12 @@ namespace RetroCollector {
             listProducts.SelectedIndexChanged += OnNewItemSelected;
         }
         private void OnNewItemSelected(object sender, EventArgs e) {
-            btnProductDelete.Enabled = true;
-            btnProductEdit.Enabled = true;
+            btnProductDelete.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowDeleteProducts);
+            btnProductEdit.Enabled = activeUser.IsAllowed(UserRole.Permission.AllowEditProducts);
+        }
+
+        private void OnProductsUpdated(object sender, EventArgs e) {
+            ResetForm();
         }
     }
 }

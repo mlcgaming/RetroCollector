@@ -13,11 +13,11 @@ namespace RetroCollector.Data.Management {
     public static class DatabaseManager {
         public static event EventHandler DatabaseReinitialized;
 
-        private const string ID_TYPE_NAME_GAME = "Video Game";
-        private const string ID_TYPE_NAME_CONSOLE = "Console";
-        private const string ID_TYPE_NAME_PERIPHERAL = "Peripheral";
-        private const string ID_TYPE_NAME_MERCHANDISE = "Merchandise";
-        private const string ID_TYPE_NAME_SERVICE = "Service";
+        public const string ID_TYPE_NAME_GAME = "Video Game";
+        public const string ID_TYPE_NAME_CONSOLE = "Console";
+        public const string ID_TYPE_NAME_PERIPHERAL = "Peripheral";
+        public const string ID_TYPE_NAME_MERCHANDISE = "Merchandise";
+        public const string ID_TYPE_NAME_SERVICE = "Service";
 
         public const string DB_TABLES_COMPANIES = "companies";
         public const string DB_TABLES_CONSOLES = "consoles";

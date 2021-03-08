@@ -35,7 +35,6 @@ namespace RetroCollector {
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.programSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salesByDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salesByRepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +58,11 @@ namespace RetroCollector {
             this.btnControlCustomers = new System.Windows.Forms.Button();
             this.btnControlUser = new System.Windows.Forms.Button();
             this.btnControlProduct = new System.Windows.Forms.Button();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.advancedSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.customReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullInventoryBreakdownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpProducts.SuspendLayout();
             this.menuMain.SuspendLayout();
             this.grpStats.SuspendLayout();
@@ -144,7 +148,8 @@ namespace RetroCollector {
             // 
             this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.adminToolStripMenuItem,
-            this.reportingToolStripMenuItem});
+            this.reportingToolStripMenuItem,
+            this.searchToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Size = new System.Drawing.Size(582, 24);
@@ -154,8 +159,7 @@ namespace RetroCollector {
             // adminToolStripMenuItem
             // 
             this.adminToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.databaseSettingsToolStripMenuItem,
-            this.programSettingsToolStripMenuItem});
+            this.databaseSettingsToolStripMenuItem});
             this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
             this.adminToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.adminToolStripMenuItem.Text = "Admin";
@@ -163,21 +167,18 @@ namespace RetroCollector {
             // databaseSettingsToolStripMenuItem
             // 
             this.databaseSettingsToolStripMenuItem.Name = "databaseSettingsToolStripMenuItem";
-            this.databaseSettingsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.databaseSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.databaseSettingsToolStripMenuItem.Text = "Database Settings";
-            // 
-            // programSettingsToolStripMenuItem
-            // 
-            this.programSettingsToolStripMenuItem.Name = "programSettingsToolStripMenuItem";
-            this.programSettingsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.programSettingsToolStripMenuItem.Text = "Program Settings";
             // 
             // reportingToolStripMenuItem
             // 
             this.reportingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.salesByDateToolStripMenuItem,
             this.salesByRepToolStripMenuItem,
-            this.productsByCompanyToolStripMenuItem});
+            this.productsByCompanyToolStripMenuItem,
+            this.fullInventoryBreakdownToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.customReportToolStripMenuItem});
             this.reportingToolStripMenuItem.Name = "reportingToolStripMenuItem";
             this.reportingToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.reportingToolStripMenuItem.Text = "Reporting";
@@ -185,14 +186,14 @@ namespace RetroCollector {
             // salesByDateToolStripMenuItem
             // 
             this.salesByDateToolStripMenuItem.Name = "salesByDateToolStripMenuItem";
-            this.salesByDateToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.salesByDateToolStripMenuItem.Text = "Sales By Date";
+            this.salesByDateToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.salesByDateToolStripMenuItem.Text = "Sales Report (Date Range)";
             // 
             // salesByRepToolStripMenuItem
             // 
             this.salesByRepToolStripMenuItem.Name = "salesByRepToolStripMenuItem";
-            this.salesByRepToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.salesByRepToolStripMenuItem.Text = "Sales By Rep";
+            this.salesByRepToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.salesByRepToolStripMenuItem.Text = "Sales Report (By Rep)";
             // 
             // productsByCompanyToolStripMenuItem
             // 
@@ -218,7 +219,7 @@ namespace RetroCollector {
             this.grpStats.Size = new System.Drawing.Size(227, 220);
             this.grpStats.TabIndex = 2;
             this.grpStats.TabStop = false;
-            this.grpStats.Text = "Inventory Information";
+            this.grpStats.Text = "On-Hand Inventory";
             // 
             // label1
             // 
@@ -244,9 +245,9 @@ namespace RetroCollector {
             this.lblTotalInventoryValue.AutoSize = true;
             this.lblTotalInventoryValue.Location = new System.Drawing.Point(6, 188);
             this.lblTotalInventoryValue.Name = "lblTotalInventoryValue";
-            this.lblTotalInventoryValue.Size = new System.Drawing.Size(103, 13);
+            this.lblTotalInventoryValue.Size = new System.Drawing.Size(64, 13);
             this.lblTotalInventoryValue.TabIndex = 8;
-            this.lblTotalInventoryValue.Text = "Total Value (Merch):";
+            this.lblTotalInventoryValue.Text = "Total Value:";
             // 
             // tboxTotalPeripheralValue
             // 
@@ -385,6 +386,37 @@ namespace RetroCollector {
             this.btnControlProduct.Text = "Products";
             this.btnControlProduct.UseVisualStyleBackColor = true;
             // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.advancedSearchToolStripMenuItem});
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.searchToolStripMenuItem.Text = "Search";
+            // 
+            // advancedSearchToolStripMenuItem
+            // 
+            this.advancedSearchToolStripMenuItem.Name = "advancedSearchToolStripMenuItem";
+            this.advancedSearchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.advancedSearchToolStripMenuItem.Text = "Advanced Search..";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
+            // 
+            // customReportToolStripMenuItem
+            // 
+            this.customReportToolStripMenuItem.Name = "customReportToolStripMenuItem";
+            this.customReportToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.customReportToolStripMenuItem.Text = "Custom Report";
+            // 
+            // fullInventoryBreakdownToolStripMenuItem
+            // 
+            this.fullInventoryBreakdownToolStripMenuItem.Name = "fullInventoryBreakdownToolStripMenuItem";
+            this.fullInventoryBreakdownToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.fullInventoryBreakdownToolStripMenuItem.Text = "Full Inventory Breakdown";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -421,7 +453,6 @@ namespace RetroCollector {
         private System.Windows.Forms.MenuStrip menuMain;
         private System.Windows.Forms.ToolStripMenuItem adminToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem databaseSettingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem programSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salesByDateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salesByRepToolStripMenuItem;
@@ -446,6 +477,11 @@ namespace RetroCollector {
         private System.Windows.Forms.Button btnControlCustomers;
         private System.Windows.Forms.Button btnControlUser;
         private System.Windows.Forms.Button btnControlProduct;
+        private System.Windows.Forms.ToolStripMenuItem fullInventoryBreakdownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem customReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem advancedSearchToolStripMenuItem;
     }
 }
 

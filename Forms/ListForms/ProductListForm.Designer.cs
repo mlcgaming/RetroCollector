@@ -29,6 +29,7 @@
             this.listAllProducts = new System.Windows.Forms.ListBox();
             this.tboxSearchNames = new System.Windows.Forms.TextBox();
             this.lblSearchNames = new System.Windows.Forms.Label();
+            this.btnProductTypes = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnEdit
@@ -82,11 +83,21 @@
             this.lblSearchNames.TabIndex = 12;
             this.lblSearchNames.Text = "Search Names:";
             // 
+            // btnProductTypes
+            // 
+            this.btnProductTypes.Location = new System.Drawing.Point(204, 295);
+            this.btnProductTypes.Name = "btnProductTypes";
+            this.btnProductTypes.Size = new System.Drawing.Size(75, 23);
+            this.btnProductTypes.TabIndex = 18;
+            this.btnProductTypes.Text = "Types..";
+            this.btnProductTypes.UseVisualStyleBackColor = true;
+            // 
             // ProductListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(289, 300);
+            this.ClientSize = new System.Drawing.Size(289, 327);
+            this.Controls.Add(this.btnProductTypes);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnNew);
@@ -108,5 +119,6 @@
         private System.Windows.Forms.ListBox listAllProducts;
         private System.Windows.Forms.TextBox tboxSearchNames;
         private System.Windows.Forms.Label lblSearchNames;
+        private System.Windows.Forms.Button btnProductTypes;
     }
 }

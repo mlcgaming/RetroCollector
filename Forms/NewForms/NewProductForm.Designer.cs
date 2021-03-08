@@ -28,28 +28,28 @@
             this.lblProductType = new System.Windows.Forms.Label();
             this.cboxProductType = new System.Windows.Forms.ComboBox();
             this.grpProductDetails = new System.Windows.Forms.GroupBox();
-            this.lblProductName = new System.Windows.Forms.Label();
-            this.tboxProductName = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.lblProductDescription = new System.Windows.Forms.Label();
-            this.lblProductConsole = new System.Windows.Forms.Label();
-            this.lblProductDeveloper = new System.Windows.Forms.Label();
-            this.cboxProductDevelopers = new System.Windows.Forms.ComboBox();
-            this.cboxProductConsoles = new System.Windows.Forms.ComboBox();
-            this.lblProductReleaseDate = new System.Windows.Forms.Label();
-            this.dtpProductReleaseDate = new System.Windows.Forms.DateTimePicker();
-            this.lblProductCost = new System.Windows.Forms.Label();
-            this.tboxProductCost = new System.Windows.Forms.TextBox();
-            this.tboxProductPrice = new System.Windows.Forms.TextBox();
-            this.lblProductPrice = new System.Windows.Forms.Label();
-            this.tboxProductOnHand = new System.Windows.Forms.TextBox();
-            this.lblProductOnHand = new System.Windows.Forms.Label();
-            this.lblProductQuality = new System.Windows.Forms.Label();
-            this.cboxProductQuality = new System.Windows.Forms.ComboBox();
-            this.cboxProductCompleteness = new System.Windows.Forms.ComboBox();
-            this.lblProductCompleteness = new System.Windows.Forms.Label();
             this.cboxProductRegion = new System.Windows.Forms.ComboBox();
             this.lblProductRegion = new System.Windows.Forms.Label();
+            this.cboxProductCompleteness = new System.Windows.Forms.ComboBox();
+            this.lblProductCompleteness = new System.Windows.Forms.Label();
+            this.cboxProductQuality = new System.Windows.Forms.ComboBox();
+            this.lblProductQuality = new System.Windows.Forms.Label();
+            this.tboxProductOnHand = new System.Windows.Forms.TextBox();
+            this.lblProductOnHand = new System.Windows.Forms.Label();
+            this.tboxProductPrice = new System.Windows.Forms.TextBox();
+            this.lblProductPrice = new System.Windows.Forms.Label();
+            this.tboxProductCost = new System.Windows.Forms.TextBox();
+            this.lblProductCost = new System.Windows.Forms.Label();
+            this.dtpProductReleaseDate = new System.Windows.Forms.DateTimePicker();
+            this.lblProductReleaseDate = new System.Windows.Forms.Label();
+            this.cboxProductConsoles = new System.Windows.Forms.ComboBox();
+            this.cboxProductDevelopers = new System.Windows.Forms.ComboBox();
+            this.lblProductConsole = new System.Windows.Forms.Label();
+            this.lblProductDeveloper = new System.Windows.Forms.Label();
+            this.tboxProductDescription = new System.Windows.Forms.TextBox();
+            this.lblProductDescription = new System.Windows.Forms.Label();
+            this.tboxProductName = new System.Windows.Forms.TextBox();
+            this.lblProductName = new System.Windows.Forms.Label();
             this.btnFormCancel = new System.Windows.Forms.Button();
             this.btnFormSave = new System.Windows.Forms.Button();
             this.grpModifyInfo = new System.Windows.Forms.GroupBox();
@@ -120,7 +120,7 @@
             this.grpProductDetails.Controls.Add(this.cboxProductDevelopers);
             this.grpProductDetails.Controls.Add(this.lblProductConsole);
             this.grpProductDetails.Controls.Add(this.lblProductDeveloper);
-            this.grpProductDetails.Controls.Add(this.textBox2);
+            this.grpProductDetails.Controls.Add(this.tboxProductDescription);
             this.grpProductDetails.Controls.Add(this.lblProductDescription);
             this.grpProductDetails.Controls.Add(this.tboxProductName);
             this.grpProductDetails.Controls.Add(this.lblProductName);
@@ -131,156 +131,23 @@
             this.grpProductDetails.TabStop = false;
             this.grpProductDetails.Text = "Details";
             // 
-            // lblProductName
+            // cboxProductRegion
             // 
-            this.lblProductName.AutoSize = true;
-            this.lblProductName.Location = new System.Drawing.Point(9, 24);
-            this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(38, 13);
-            this.lblProductName.TabIndex = 0;
-            this.lblProductName.Text = "Name:";
+            this.cboxProductRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxProductRegion.FormattingEnabled = true;
+            this.cboxProductRegion.Location = new System.Drawing.Point(179, 217);
+            this.cboxProductRegion.Name = "cboxProductRegion";
+            this.cboxProductRegion.Size = new System.Drawing.Size(130, 21);
+            this.cboxProductRegion.TabIndex = 23;
             // 
-            // tboxProductName
+            // lblProductRegion
             // 
-            this.tboxProductName.Location = new System.Drawing.Point(12, 40);
-            this.tboxProductName.Name = "tboxProductName";
-            this.tboxProductName.Size = new System.Drawing.Size(147, 20);
-            this.tboxProductName.TabIndex = 1;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(167, 40);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(142, 20);
-            this.textBox2.TabIndex = 3;
-            // 
-            // lblProductDescription
-            // 
-            this.lblProductDescription.AutoSize = true;
-            this.lblProductDescription.Location = new System.Drawing.Point(164, 24);
-            this.lblProductDescription.Name = "lblProductDescription";
-            this.lblProductDescription.Size = new System.Drawing.Size(63, 13);
-            this.lblProductDescription.TabIndex = 2;
-            this.lblProductDescription.Text = "Description:";
-            // 
-            // lblProductConsole
-            // 
-            this.lblProductConsole.AutoSize = true;
-            this.lblProductConsole.Location = new System.Drawing.Point(164, 67);
-            this.lblProductConsole.Name = "lblProductConsole";
-            this.lblProductConsole.Size = new System.Drawing.Size(114, 13);
-            this.lblProductConsole.TabIndex = 6;
-            this.lblProductConsole.Text = "Console (Games Only):";
-            // 
-            // lblProductDeveloper
-            // 
-            this.lblProductDeveloper.AutoSize = true;
-            this.lblProductDeveloper.Location = new System.Drawing.Point(9, 67);
-            this.lblProductDeveloper.Name = "lblProductDeveloper";
-            this.lblProductDeveloper.Size = new System.Drawing.Size(59, 13);
-            this.lblProductDeveloper.TabIndex = 4;
-            this.lblProductDeveloper.Text = "Developer:";
-            // 
-            // cboxProductDevelopers
-            // 
-            this.cboxProductDevelopers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxProductDevelopers.FormattingEnabled = true;
-            this.cboxProductDevelopers.Location = new System.Drawing.Point(12, 83);
-            this.cboxProductDevelopers.Name = "cboxProductDevelopers";
-            this.cboxProductDevelopers.Size = new System.Drawing.Size(147, 21);
-            this.cboxProductDevelopers.TabIndex = 8;
-            // 
-            // cboxProductConsoles
-            // 
-            this.cboxProductConsoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxProductConsoles.FormattingEnabled = true;
-            this.cboxProductConsoles.Location = new System.Drawing.Point(167, 83);
-            this.cboxProductConsoles.Name = "cboxProductConsoles";
-            this.cboxProductConsoles.Size = new System.Drawing.Size(142, 21);
-            this.cboxProductConsoles.TabIndex = 9;
-            // 
-            // lblProductReleaseDate
-            // 
-            this.lblProductReleaseDate.AutoSize = true;
-            this.lblProductReleaseDate.Location = new System.Drawing.Point(9, 114);
-            this.lblProductReleaseDate.Name = "lblProductReleaseDate";
-            this.lblProductReleaseDate.Size = new System.Drawing.Size(81, 13);
-            this.lblProductReleaseDate.TabIndex = 10;
-            this.lblProductReleaseDate.Text = "Date Released:";
-            // 
-            // dtpProductReleaseDate
-            // 
-            this.dtpProductReleaseDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpProductReleaseDate.Location = new System.Drawing.Point(12, 130);
-            this.dtpProductReleaseDate.Name = "dtpProductReleaseDate";
-            this.dtpProductReleaseDate.Size = new System.Drawing.Size(147, 20);
-            this.dtpProductReleaseDate.TabIndex = 11;
-            // 
-            // lblProductCost
-            // 
-            this.lblProductCost.AutoSize = true;
-            this.lblProductCost.Location = new System.Drawing.Point(9, 167);
-            this.lblProductCost.Name = "lblProductCost";
-            this.lblProductCost.Size = new System.Drawing.Size(31, 13);
-            this.lblProductCost.TabIndex = 12;
-            this.lblProductCost.Text = "Cost:";
-            // 
-            // tboxProductCost
-            // 
-            this.tboxProductCost.Location = new System.Drawing.Point(46, 164);
-            this.tboxProductCost.Name = "tboxProductCost";
-            this.tboxProductCost.Size = new System.Drawing.Size(67, 20);
-            this.tboxProductCost.TabIndex = 13;
-            // 
-            // tboxProductPrice
-            // 
-            this.tboxProductPrice.Location = new System.Drawing.Point(46, 190);
-            this.tboxProductPrice.Name = "tboxProductPrice";
-            this.tboxProductPrice.Size = new System.Drawing.Size(67, 20);
-            this.tboxProductPrice.TabIndex = 15;
-            // 
-            // lblProductPrice
-            // 
-            this.lblProductPrice.AutoSize = true;
-            this.lblProductPrice.Location = new System.Drawing.Point(9, 193);
-            this.lblProductPrice.Name = "lblProductPrice";
-            this.lblProductPrice.Size = new System.Drawing.Size(34, 13);
-            this.lblProductPrice.TabIndex = 14;
-            this.lblProductPrice.Text = "Price:";
-            // 
-            // tboxProductOnHand
-            // 
-            this.tboxProductOnHand.Location = new System.Drawing.Point(68, 216);
-            this.tboxProductOnHand.Name = "tboxProductOnHand";
-            this.tboxProductOnHand.Size = new System.Drawing.Size(45, 20);
-            this.tboxProductOnHand.TabIndex = 17;
-            // 
-            // lblProductOnHand
-            // 
-            this.lblProductOnHand.AutoSize = true;
-            this.lblProductOnHand.Location = new System.Drawing.Point(9, 219);
-            this.lblProductOnHand.Name = "lblProductOnHand";
-            this.lblProductOnHand.Size = new System.Drawing.Size(53, 13);
-            this.lblProductOnHand.TabIndex = 16;
-            this.lblProductOnHand.Text = "On Hand:";
-            // 
-            // lblProductQuality
-            // 
-            this.lblProductQuality.AutoSize = true;
-            this.lblProductQuality.Location = new System.Drawing.Point(129, 167);
-            this.lblProductQuality.Name = "lblProductQuality";
-            this.lblProductQuality.Size = new System.Drawing.Size(42, 13);
-            this.lblProductQuality.TabIndex = 18;
-            this.lblProductQuality.Text = "Quality:";
-            // 
-            // cboxProductQuality
-            // 
-            this.cboxProductQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxProductQuality.FormattingEnabled = true;
-            this.cboxProductQuality.Location = new System.Drawing.Point(177, 163);
-            this.cboxProductQuality.Name = "cboxProductQuality";
-            this.cboxProductQuality.Size = new System.Drawing.Size(132, 21);
-            this.cboxProductQuality.TabIndex = 19;
+            this.lblProductRegion.AutoSize = true;
+            this.lblProductRegion.Location = new System.Drawing.Point(129, 221);
+            this.lblProductRegion.Name = "lblProductRegion";
+            this.lblProductRegion.Size = new System.Drawing.Size(44, 13);
+            this.lblProductRegion.TabIndex = 22;
+            this.lblProductRegion.Text = "Region:";
             // 
             // cboxProductCompleteness
             // 
@@ -300,23 +167,156 @@
             this.lblProductCompleteness.TabIndex = 20;
             this.lblProductCompleteness.Text = "Complete:";
             // 
-            // cboxProductRegion
+            // cboxProductQuality
             // 
-            this.cboxProductRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxProductRegion.FormattingEnabled = true;
-            this.cboxProductRegion.Location = new System.Drawing.Point(179, 217);
-            this.cboxProductRegion.Name = "cboxProductRegion";
-            this.cboxProductRegion.Size = new System.Drawing.Size(130, 21);
-            this.cboxProductRegion.TabIndex = 23;
+            this.cboxProductQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxProductQuality.FormattingEnabled = true;
+            this.cboxProductQuality.Location = new System.Drawing.Point(177, 163);
+            this.cboxProductQuality.Name = "cboxProductQuality";
+            this.cboxProductQuality.Size = new System.Drawing.Size(132, 21);
+            this.cboxProductQuality.TabIndex = 19;
             // 
-            // lblProductRegion
+            // lblProductQuality
             // 
-            this.lblProductRegion.AutoSize = true;
-            this.lblProductRegion.Location = new System.Drawing.Point(129, 221);
-            this.lblProductRegion.Name = "lblProductRegion";
-            this.lblProductRegion.Size = new System.Drawing.Size(44, 13);
-            this.lblProductRegion.TabIndex = 22;
-            this.lblProductRegion.Text = "Region:";
+            this.lblProductQuality.AutoSize = true;
+            this.lblProductQuality.Location = new System.Drawing.Point(129, 167);
+            this.lblProductQuality.Name = "lblProductQuality";
+            this.lblProductQuality.Size = new System.Drawing.Size(42, 13);
+            this.lblProductQuality.TabIndex = 18;
+            this.lblProductQuality.Text = "Quality:";
+            // 
+            // tboxProductOnHand
+            // 
+            this.tboxProductOnHand.Location = new System.Drawing.Point(68, 216);
+            this.tboxProductOnHand.Name = "tboxProductOnHand";
+            this.tboxProductOnHand.Size = new System.Drawing.Size(45, 20);
+            this.tboxProductOnHand.TabIndex = 17;
+            // 
+            // lblProductOnHand
+            // 
+            this.lblProductOnHand.AutoSize = true;
+            this.lblProductOnHand.Location = new System.Drawing.Point(9, 219);
+            this.lblProductOnHand.Name = "lblProductOnHand";
+            this.lblProductOnHand.Size = new System.Drawing.Size(53, 13);
+            this.lblProductOnHand.TabIndex = 16;
+            this.lblProductOnHand.Text = "On Hand:";
+            // 
+            // tboxProductPrice
+            // 
+            this.tboxProductPrice.Location = new System.Drawing.Point(46, 190);
+            this.tboxProductPrice.Name = "tboxProductPrice";
+            this.tboxProductPrice.Size = new System.Drawing.Size(67, 20);
+            this.tboxProductPrice.TabIndex = 15;
+            // 
+            // lblProductPrice
+            // 
+            this.lblProductPrice.AutoSize = true;
+            this.lblProductPrice.Location = new System.Drawing.Point(9, 193);
+            this.lblProductPrice.Name = "lblProductPrice";
+            this.lblProductPrice.Size = new System.Drawing.Size(34, 13);
+            this.lblProductPrice.TabIndex = 14;
+            this.lblProductPrice.Text = "Price:";
+            // 
+            // tboxProductCost
+            // 
+            this.tboxProductCost.Location = new System.Drawing.Point(46, 164);
+            this.tboxProductCost.Name = "tboxProductCost";
+            this.tboxProductCost.Size = new System.Drawing.Size(67, 20);
+            this.tboxProductCost.TabIndex = 13;
+            // 
+            // lblProductCost
+            // 
+            this.lblProductCost.AutoSize = true;
+            this.lblProductCost.Location = new System.Drawing.Point(9, 167);
+            this.lblProductCost.Name = "lblProductCost";
+            this.lblProductCost.Size = new System.Drawing.Size(31, 13);
+            this.lblProductCost.TabIndex = 12;
+            this.lblProductCost.Text = "Cost:";
+            // 
+            // dtpProductReleaseDate
+            // 
+            this.dtpProductReleaseDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpProductReleaseDate.Location = new System.Drawing.Point(12, 130);
+            this.dtpProductReleaseDate.Name = "dtpProductReleaseDate";
+            this.dtpProductReleaseDate.Size = new System.Drawing.Size(147, 20);
+            this.dtpProductReleaseDate.TabIndex = 11;
+            // 
+            // lblProductReleaseDate
+            // 
+            this.lblProductReleaseDate.AutoSize = true;
+            this.lblProductReleaseDate.Location = new System.Drawing.Point(9, 114);
+            this.lblProductReleaseDate.Name = "lblProductReleaseDate";
+            this.lblProductReleaseDate.Size = new System.Drawing.Size(81, 13);
+            this.lblProductReleaseDate.TabIndex = 10;
+            this.lblProductReleaseDate.Text = "Date Released:";
+            // 
+            // cboxProductConsoles
+            // 
+            this.cboxProductConsoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxProductConsoles.FormattingEnabled = true;
+            this.cboxProductConsoles.Location = new System.Drawing.Point(167, 83);
+            this.cboxProductConsoles.Name = "cboxProductConsoles";
+            this.cboxProductConsoles.Size = new System.Drawing.Size(142, 21);
+            this.cboxProductConsoles.TabIndex = 9;
+            // 
+            // cboxProductDevelopers
+            // 
+            this.cboxProductDevelopers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxProductDevelopers.FormattingEnabled = true;
+            this.cboxProductDevelopers.Location = new System.Drawing.Point(12, 83);
+            this.cboxProductDevelopers.Name = "cboxProductDevelopers";
+            this.cboxProductDevelopers.Size = new System.Drawing.Size(147, 21);
+            this.cboxProductDevelopers.TabIndex = 8;
+            // 
+            // lblProductConsole
+            // 
+            this.lblProductConsole.AutoSize = true;
+            this.lblProductConsole.Location = new System.Drawing.Point(164, 67);
+            this.lblProductConsole.Name = "lblProductConsole";
+            this.lblProductConsole.Size = new System.Drawing.Size(114, 13);
+            this.lblProductConsole.TabIndex = 6;
+            this.lblProductConsole.Text = "Console (Games Only):";
+            // 
+            // lblProductDeveloper
+            // 
+            this.lblProductDeveloper.AutoSize = true;
+            this.lblProductDeveloper.Location = new System.Drawing.Point(9, 67);
+            this.lblProductDeveloper.Name = "lblProductDeveloper";
+            this.lblProductDeveloper.Size = new System.Drawing.Size(59, 13);
+            this.lblProductDeveloper.TabIndex = 4;
+            this.lblProductDeveloper.Text = "Developer:";
+            // 
+            // tboxProductDescription
+            // 
+            this.tboxProductDescription.Location = new System.Drawing.Point(167, 40);
+            this.tboxProductDescription.Name = "tboxProductDescription";
+            this.tboxProductDescription.Size = new System.Drawing.Size(142, 20);
+            this.tboxProductDescription.TabIndex = 3;
+            // 
+            // lblProductDescription
+            // 
+            this.lblProductDescription.AutoSize = true;
+            this.lblProductDescription.Location = new System.Drawing.Point(164, 24);
+            this.lblProductDescription.Name = "lblProductDescription";
+            this.lblProductDescription.Size = new System.Drawing.Size(63, 13);
+            this.lblProductDescription.TabIndex = 2;
+            this.lblProductDescription.Text = "Description:";
+            // 
+            // tboxProductName
+            // 
+            this.tboxProductName.Location = new System.Drawing.Point(12, 40);
+            this.tboxProductName.Name = "tboxProductName";
+            this.tboxProductName.Size = new System.Drawing.Size(147, 20);
+            this.tboxProductName.TabIndex = 1;
+            // 
+            // lblProductName
+            // 
+            this.lblProductName.AutoSize = true;
+            this.lblProductName.Location = new System.Drawing.Point(9, 24);
+            this.lblProductName.Name = "lblProductName";
+            this.lblProductName.Size = new System.Drawing.Size(38, 13);
+            this.lblProductName.TabIndex = 0;
+            this.lblProductName.Text = "Name:";
             // 
             // btnFormCancel
             // 
@@ -455,7 +455,7 @@
         private System.Windows.Forms.Label lblProductType;
         private System.Windows.Forms.ComboBox cboxProductType;
         private System.Windows.Forms.GroupBox grpProductDetails;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tboxProductDescription;
         private System.Windows.Forms.Label lblProductDescription;
         private System.Windows.Forms.TextBox tboxProductName;
         private System.Windows.Forms.Label lblProductName;

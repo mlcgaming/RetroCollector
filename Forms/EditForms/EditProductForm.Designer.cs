@@ -53,7 +53,7 @@
             this.cboxProductDevelopers = new System.Windows.Forms.ComboBox();
             this.lblProductConsole = new System.Windows.Forms.Label();
             this.lblProductDeveloper = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tboxProductDescription = new System.Windows.Forms.TextBox();
             this.lblProductDescription = new System.Windows.Forms.Label();
             this.tboxProductName = new System.Windows.Forms.TextBox();
             this.lblProductName = new System.Windows.Forms.Label();
@@ -191,7 +191,7 @@
             this.grpProductDetails.Controls.Add(this.cboxProductDevelopers);
             this.grpProductDetails.Controls.Add(this.lblProductConsole);
             this.grpProductDetails.Controls.Add(this.lblProductDeveloper);
-            this.grpProductDetails.Controls.Add(this.textBox2);
+            this.grpProductDetails.Controls.Add(this.tboxProductDescription);
             this.grpProductDetails.Controls.Add(this.lblProductDescription);
             this.grpProductDetails.Controls.Add(this.tboxProductName);
             this.grpProductDetails.Controls.Add(this.lblProductName);
@@ -357,12 +357,12 @@
             this.lblProductDeveloper.TabIndex = 4;
             this.lblProductDeveloper.Text = "Developer:";
             // 
-            // textBox2
+            // tboxProductDescription
             // 
-            this.textBox2.Location = new System.Drawing.Point(167, 40);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(142, 20);
-            this.textBox2.TabIndex = 3;
+            this.tboxProductDescription.Location = new System.Drawing.Point(167, 40);
+            this.tboxProductDescription.Name = "tboxProductDescription";
+            this.tboxProductDescription.Size = new System.Drawing.Size(142, 20);
+            this.tboxProductDescription.TabIndex = 3;
             // 
             // lblProductDescription
             // 
@@ -480,7 +480,7 @@
         private System.Windows.Forms.ComboBox cboxProductDevelopers;
         private System.Windows.Forms.Label lblProductConsole;
         private System.Windows.Forms.Label lblProductDeveloper;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tboxProductDescription;
         private System.Windows.Forms.Label lblProductDescription;
         private System.Windows.Forms.TextBox tboxProductName;
         private System.Windows.Forms.Label lblProductName;

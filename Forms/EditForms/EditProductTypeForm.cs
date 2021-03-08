@@ -35,7 +35,7 @@ namespace RetroCollector {
 
             // Set Control Defaults
             btnFormSave.Enabled = false;
-            tboxTypeId.Text = $"{DatabaseManager.GetNewProductTypeID()}";
+            tboxTypeId.Text = $"{type?.ID ?? DatabaseManager.GetNewProductTypeID()}";
             tboxTypeName.Text = $"{type?.Name ?? ""}";
             lblCreatedByValue.Text = $"{type?.CreatedBy ?? activeUser.Username}";
             lblLastUpdatedByValue.Text = $"{type?.LastUpdatedBy ?? activeUser.Username}";

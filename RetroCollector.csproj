@@ -310,6 +310,9 @@
     <Compile Include="Forms\Reporting Forms\SalesByRepOptionsForm.Designer.cs">
       <DependentUpon>SalesByRepOptionsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Reporting Forms\ProductByCompanyOptionsForm.resx">
+      <DependentUpon>ProductByCompanyOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Standalone Forms\AddNewItemToSaleForm.resx">
       <DependentUpon>AddNewItemToSaleForm.cs</DependentUpon>
     </EmbeddedResource>
