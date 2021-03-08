@@ -92,6 +92,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Reporting Forms\CustomReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reporting Forms\CustomReportForm.Designer.cs">
+      <DependentUpon>CustomReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Standalone Forms\CustomSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Standalone Forms\CustomSearchForm.Designer.cs">
+      <DependentUpon>CustomSearchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Standalone Forms\AddNewItemToSaleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -310,8 +322,17 @@
     <Compile Include="Forms\Reporting Forms\SalesByRepOptionsForm.Designer.cs">
       <DependentUpon>SalesByRepOptionsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Reporting Forms\CustomReportForm.resx">
+      <DependentUpon>CustomReportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reporting Forms\ProductByCompanyOptionsForm.resx">
       <DependentUpon>ProductByCompanyOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reporting Forms\SalesByDateOptionsForm.resx">
+      <DependentUpon>SalesByDateOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reporting Forms\SalesByRepOptionsForm.resx">
+      <DependentUpon>SalesByRepOptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Standalone Forms\AddNewItemToSaleForm.resx">
       <DependentUpon>AddNewItemToSaleForm.cs</DependentUpon>
