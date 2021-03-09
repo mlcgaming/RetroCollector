@@ -40,15 +40,18 @@ namespace RetroCollector {
         }
 
         private void RunReport(Company developer) {
-            listReportedItems.Items.Clear();
+            List<Product> filteredProducts = new List<Product>();
 
             foreach(var p in ProductManager.Products) {
                 Product product = p as Product;
 
                 if(product.Developer == developer) {
-                    listReportedItems.Items.Add(product);
+                    filteredProducts.Add(product);
                 }
             }
+
+            ReportForm viewReportForm = new ReportForm($"Products by {developer.Name}", filteredProducts);
+            viewReportForm.ShowDialog();
         }
 
         // Event Handlers

@@ -98,12 +98,6 @@
     <Compile Include="Forms\Reporting Forms\CustomReportForm.Designer.cs">
       <DependentUpon>CustomReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Standalone Forms\CustomSearchForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Standalone Forms\CustomSearchForm.Designer.cs">
-      <DependentUpon>CustomSearchForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Standalone Forms\AddNewItemToSaleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -322,6 +316,12 @@
     <Compile Include="Forms\Reporting Forms\SalesByRepOptionsForm.Designer.cs">
       <DependentUpon>SalesByRepOptionsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Standalone Forms\ReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Standalone Forms\ReportForm.Designer.cs">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\Reporting Forms\CustomReportForm.resx">
       <DependentUpon>CustomReportForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -430,6 +430,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Standalone Forms\ReportForm.resx">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

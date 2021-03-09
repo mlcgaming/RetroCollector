@@ -48,8 +48,8 @@ namespace RetroCollector {
             btnControlUser.Click -= OnControlUsersClick;
 
             productsByCompanyToolStripMenuItem.Click -= OnProductByCompanyMenuItemClick;
-
-            // Disable MenuItem Events, if any
+            salesByRepToolStripMenuItem.Click -= OnSalesByRepMenuItemClick;
+            salesByDateToolStripMenuItem.Click -= OnSalesByDateMenuItemClick;
             databaseSettingsToolStripMenuItem.Click -= OnDatabaseSettingsClick;
 
             // Clear Items
@@ -132,6 +132,8 @@ namespace RetroCollector {
             // Enable MenuItem Events
             databaseSettingsToolStripMenuItem.Click += OnDatabaseSettingsClick;
             productsByCompanyToolStripMenuItem.Click += OnProductByCompanyMenuItemClick;
+            salesByRepToolStripMenuItem.Click += OnSalesByRepMenuItemClick;
+            salesByDateToolStripMenuItem.Click += OnSalesByDateMenuItemClick;
         }
 
         private void CalculateInventoryValue() {
@@ -221,6 +223,14 @@ namespace RetroCollector {
 
         private void OnProductByCompanyMenuItemClick(object sender, EventArgs e) {
             ProductByCompanyOptionsForm optionsForm = new ProductByCompanyOptionsForm();
+            optionsForm.ShowDialog();
+        }
+        private void OnSalesByRepMenuItemClick(object sender, EventArgs e) {
+            SalesByRepOptionsForm optionsForm = new SalesByRepOptionsForm();
+            optionsForm.ShowDialog();
+        }
+        private void OnSalesByDateMenuItemClick(object sender, EventArgs e) {
+            SalesByDateOptionsForm optionsForm = new SalesByDateOptionsForm();
             optionsForm.ShowDialog();
         }
 

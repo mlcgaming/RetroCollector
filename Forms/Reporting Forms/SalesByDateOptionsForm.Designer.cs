@@ -26,23 +26,16 @@
             this.btnRun = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.grpOptions = new System.Windows.Forms.GroupBox();
-            this.grpItems = new System.Windows.Forms.GroupBox();
-            this.grpBreakdown = new System.Windows.Forms.GroupBox();
-            this.listAllItems = new System.Windows.Forms.ListBox();
-            this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpToDate = new System.Windows.Forms.DateTimePicker();
-            this.lblFromDate = new System.Windows.Forms.Label();
             this.lblToDate = new System.Windows.Forms.Label();
-            this.lblTotalNumberSales = new System.Windows.Forms.Label();
-            this.lblTotalProfit = new System.Windows.Forms.Label();
+            this.lblFromDate = new System.Windows.Forms.Label();
+            this.dtpToDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
             this.grpOptions.SuspendLayout();
-            this.grpItems.SuspendLayout();
-            this.grpBreakdown.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(12, 230);
+            this.btnRun.Location = new System.Drawing.Point(12, 144);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(75, 23);
             this.btnRun.TabIndex = 0;
@@ -51,7 +44,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(12, 259);
+            this.btnClose.Location = new System.Drawing.Point(163, 144);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 1;
@@ -71,48 +64,14 @@
             this.grpOptions.TabStop = false;
             this.grpOptions.Text = "Options";
             // 
-            // grpItems
+            // lblToDate
             // 
-            this.grpItems.Controls.Add(this.listAllItems);
-            this.grpItems.Location = new System.Drawing.Point(244, 12);
-            this.grpItems.Name = "grpItems";
-            this.grpItems.Size = new System.Drawing.Size(318, 275);
-            this.grpItems.TabIndex = 3;
-            this.grpItems.TabStop = false;
-            this.grpItems.Text = "Items";
-            // 
-            // grpBreakdown
-            // 
-            this.grpBreakdown.Controls.Add(this.lblTotalProfit);
-            this.grpBreakdown.Controls.Add(this.lblTotalNumberSales);
-            this.grpBreakdown.Location = new System.Drawing.Point(568, 12);
-            this.grpBreakdown.Name = "grpBreakdown";
-            this.grpBreakdown.Size = new System.Drawing.Size(193, 106);
-            this.grpBreakdown.TabIndex = 3;
-            this.grpBreakdown.TabStop = false;
-            this.grpBreakdown.Text = "Breakdown";
-            // 
-            // listAllItems
-            // 
-            this.listAllItems.FormattingEnabled = true;
-            this.listAllItems.Location = new System.Drawing.Point(6, 19);
-            this.listAllItems.Name = "listAllItems";
-            this.listAllItems.Size = new System.Drawing.Size(301, 251);
-            this.listAllItems.TabIndex = 0;
-            // 
-            // dtpFromDate
-            // 
-            this.dtpFromDate.Location = new System.Drawing.Point(6, 37);
-            this.dtpFromDate.Name = "dtpFromDate";
-            this.dtpFromDate.Size = new System.Drawing.Size(200, 20);
-            this.dtpFromDate.TabIndex = 0;
-            // 
-            // dtpToDate
-            // 
-            this.dtpToDate.Location = new System.Drawing.Point(6, 86);
-            this.dtpToDate.Name = "dtpToDate";
-            this.dtpToDate.Size = new System.Drawing.Size(200, 20);
-            this.dtpToDate.TabIndex = 1;
+            this.lblToDate.AutoSize = true;
+            this.lblToDate.Location = new System.Drawing.Point(6, 70);
+            this.lblToDate.Name = "lblToDate";
+            this.lblToDate.Size = new System.Drawing.Size(23, 13);
+            this.lblToDate.TabIndex = 3;
+            this.lblToDate.Text = "To:";
             // 
             // lblFromDate
             // 
@@ -123,40 +82,25 @@
             this.lblFromDate.TabIndex = 2;
             this.lblFromDate.Text = "From:";
             // 
-            // lblToDate
+            // dtpToDate
             // 
-            this.lblToDate.AutoSize = true;
-            this.lblToDate.Location = new System.Drawing.Point(6, 70);
-            this.lblToDate.Name = "lblToDate";
-            this.lblToDate.Size = new System.Drawing.Size(23, 13);
-            this.lblToDate.TabIndex = 3;
-            this.lblToDate.Text = "To:";
+            this.dtpToDate.Location = new System.Drawing.Point(6, 86);
+            this.dtpToDate.Name = "dtpToDate";
+            this.dtpToDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpToDate.TabIndex = 1;
             // 
-            // lblTotalNumberSales
+            // dtpFromDate
             // 
-            this.lblTotalNumberSales.AutoSize = true;
-            this.lblTotalNumberSales.Location = new System.Drawing.Point(6, 37);
-            this.lblTotalNumberSales.Name = "lblTotalNumberSales";
-            this.lblTotalNumberSales.Size = new System.Drawing.Size(115, 13);
-            this.lblTotalNumberSales.TabIndex = 0;
-            this.lblTotalNumberSales.Text = "Total Number of Sales:";
-            // 
-            // lblTotalProfit
-            // 
-            this.lblTotalProfit.AutoSize = true;
-            this.lblTotalProfit.Location = new System.Drawing.Point(6, 58);
-            this.lblTotalProfit.Name = "lblTotalProfit";
-            this.lblTotalProfit.Size = new System.Drawing.Size(91, 13);
-            this.lblTotalProfit.TabIndex = 1;
-            this.lblTotalProfit.Text = "Total Profit Made:";
+            this.dtpFromDate.Location = new System.Drawing.Point(6, 37);
+            this.dtpFromDate.Name = "dtpFromDate";
+            this.dtpFromDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpFromDate.TabIndex = 0;
             // 
             // SalesByDateOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 293);
-            this.Controls.Add(this.grpBreakdown);
-            this.Controls.Add(this.grpItems);
+            this.ClientSize = new System.Drawing.Size(250, 185);
             this.Controls.Add(this.grpOptions);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnRun);
@@ -164,9 +108,6 @@
             this.Text = "Report Options";
             this.grpOptions.ResumeLayout(false);
             this.grpOptions.PerformLayout();
-            this.grpItems.ResumeLayout(false);
-            this.grpBreakdown.ResumeLayout(false);
-            this.grpBreakdown.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -180,10 +121,5 @@
         private System.Windows.Forms.Label lblFromDate;
         private System.Windows.Forms.DateTimePicker dtpToDate;
         private System.Windows.Forms.DateTimePicker dtpFromDate;
-        private System.Windows.Forms.GroupBox grpItems;
-        private System.Windows.Forms.ListBox listAllItems;
-        private System.Windows.Forms.GroupBox grpBreakdown;
-        private System.Windows.Forms.Label lblTotalProfit;
-        private System.Windows.Forms.Label lblTotalNumberSales;
     }
 }
